@@ -1,5 +1,8 @@
 import { User } from '@/domain/entities/user';
-import { UsersRepository } from '@/domain/repositories/users-repository';
+import {
+  PartialUser,
+  UsersRepository,
+} from '@/domain/repositories/users-repository';
 import { prisma } from '../client';
 export class PrismaUsersRepository implements UsersRepository {
   async findByEmail(email: string): Promise<User | null> {
@@ -10,5 +13,19 @@ export class PrismaUsersRepository implements UsersRepository {
     if (!userData) return null;
 
     return new User(userData);
+  }
+
+  async create(user: User): Promise<PartialUser | null> {
+    const userData = await prisma.user.create({
+      data: {
+        id: user.id ?? crypto.randomUUID(),
+        password: user.password,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt ?? new Date(),
+      },
+    });
+
+    return userData as PartialUser;
   }
 }
