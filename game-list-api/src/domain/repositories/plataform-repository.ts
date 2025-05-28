@@ -8,7 +8,7 @@ export interface ListPlataformParams {
 }
 
 export interface PlataformRepository {
-  create(plataform: Plataform): Promise<void>;
+  create(userId: string, plataform: Plataform): Promise<void>;
   findByTitle(title: string): Promise<Plataform | null>;
   findMany(params: ListPlataformParams): Promise<{
     plataforms: Plataform[];
