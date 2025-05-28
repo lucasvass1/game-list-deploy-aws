@@ -1,6 +1,6 @@
 import { UserProps } from '@/domain/entities/user';
-import { AuthenticateUserUseCase } from '@/domain/use-cases/authenticate-user';
-import { RegisterUserUseCase } from '@/domain/use-cases/register-user';
+import { AuthenticateUserUseCase } from '@/domain/use-cases/users/authenticate-user';
+import { RegisterUserUseCase } from '@/domain/use-cases/users/register-user';
 import { PrismaUsersRepository } from '@/infra/database/prisma/repositories/prisma-users-repository';
 import { generateToken } from '@/utils/jwt';
 

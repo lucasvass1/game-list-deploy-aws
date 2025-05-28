@@ -1,0 +1,72 @@
+import { CategoryProps } from '@/domain/entities/category';
+import { CategoryNotFoundError } from '@/domain/errors/category-not-foud';
+import { ListCategoriesParams } from '@/domain/repositories/category-repository';
+import { CreateCategoryUseCase } from '@/domain/use-cases/category/create-category';
+import { FindCategoryByNameUseCase } from '@/domain/use-cases/category/find-category-by-name';
+import { ListCategoryUseCase } from '@/domain/use-cases/category/list-categorys';
+import { UpdateCategoryUseCase } from '@/domain/use-cases/category/update-category';
+import { PrismaCategoryRepository } from '@/infra/database/prisma/repositories/prisma-category-repository';
+
+export class CategorysController {
+  constructor(private readonly repository: PrismaCategoryRepository) {}
+
+  async create(data: CategoryProps) {
+    const useCase = new CreateCategoryUseCase(this.repository);
+    const { category } = await useCase.execute(data);
+    return {
+      title: category.title,
+      id: category.id,
+      description: category.description,
+      createdAt: category.createdAt ?? new Date(),
+    };
+  }
+
+  async findByName(name: string) {
+    const useCase = new FindCategoryByNameUseCase(this.repository);
+    const category = await useCase.execute({ name });
+    return category;
+  }
+
+  async list({ page = 1, limit = 10, sortBy = 'createdAt', order = 'desc' }) {
+    const params = { page, limit, sortBy, order };
+
+    const useCase = new ListCategoryUseCase(this.repository);
+    const result = await useCase.execute(params as ListCategoriesParams);
+    return {
+      categories: result.categorys,
+      total: result.total,
+      page: result.page,
+      limit: result.limit,
+    };
+  }
+
+  async findById(id: string) {
+    const category = await this.repository.findById(id);
+    return category;
+  }
+
+  async update(data: CategoryProps) {
+    const useCase = new UpdateCategoryUseCase(this.repository);
+
+    const categoryExists = await this.repository.findById(data.id as string);
+    if (!categoryExists) throw new CategoryNotFoundError();
+
+    const { category } = await useCase.execute({
+      categoryId: data.id as string,
+      title: data.title,
+      description: data.description,
+    });
+    return {
+      title: category.title,
+      id: category.id,
+      description: category.description,
+      createdAt: category.createdAt ?? new Date(),
+      updatedAt: category.updatedAt ?? null,
+    };
+  }
+
+  async delete(id: string) {
+    //Implementar validação se a categoria tem jogo vinculado
+    await this.repository.delete(id);
+  }
+}

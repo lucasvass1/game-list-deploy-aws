@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { PrismaUsersRepository } from '@/infra/database/prisma/repositories/prisma-users-repository';
 import { Request, Response } from 'express';
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
-import { UsersController } from '../http/controllers/users-controller';
+import { UsersController } from '../http/controllers/users/users-controller';
 import { UsersAlreadyExistsError } from '@/domain/errors/users-already-exists-error';
 
 const userRoutes = Router();
