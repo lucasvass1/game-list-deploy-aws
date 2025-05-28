@@ -8,6 +8,7 @@ type PlataformRequest = {
   company: string | null;
   imageUrl: string | null;
   acquisitionYear: Date | null;
+  userId: string;
 };
 
 type CreatePlataformResponse = {
@@ -23,8 +24,10 @@ export class CreatePlataformUseCase {
     company,
     imageUrl,
     createdAt,
+    userId,
   }: PlataformRequest): Promise<CreatePlataformResponse> {
     const data: PlataformProps = {
+      userId,
       title,
       id: crypto.randomUUID(),
       acquisitionYear,
@@ -37,7 +40,7 @@ export class CreatePlataformUseCase {
     if (plataformExists) throw new PlataformAlreadyExistsError();
 
     const plataform = new Plataform(data);
-    await this.plataformRepository.create(plataform);
+    await this.plataformRepository.create(userId, plataform);
 
     return { plataform };
   }
