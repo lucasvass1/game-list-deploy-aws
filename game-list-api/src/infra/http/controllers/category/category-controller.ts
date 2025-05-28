@@ -61,7 +61,7 @@ export class CategorysController {
       id: category.id,
       description: category.description,
       createdAt: category.createdAt ?? new Date(),
-      updatedAt: category.updatedAt ?? null,
+      updatedAt: category.updatedAt ?? new Date(),
     };
   }
 

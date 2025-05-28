@@ -1,17 +1,17 @@
 import { Request, Response, Router } from 'express';
-import { PrismaCategoryRepository } from '@/infra/database/prisma/repositories/prisma-category-repository';
-import { CategoryProps } from '@/domain/entities/category';
-import { CategorysController } from '../http/controllers/category/category-controller';
+import { PlataformsController } from '../http/controllers/plataform/plataform-controller';
+import { PrismaPlataformRepository } from '../database/prisma/repositories/prisma-plataform-repository';
 import { ensureAuthenticated } from '../http/middlewares/ensure-authenticated';
-import { CategoryNotFoundError } from '@/domain/errors/category-not-foud';
-import { CategoryAlreadyExistsError } from '@/domain/errors/category-already-exists-error';
+import { PlataformProps } from '@/domain/entities/plataform';
+import { PlataformAlreadyExistsError } from '@/domain/errors/plataform-already-exists-error';
+import { PlataformNotFoundError } from '@/domain/errors/plataform-not-found';
 
-const categoryRoutes = Router();
-const categorysController = new CategorysController(
-  new PrismaCategoryRepository(),
+const plataformRoutes = Router();
+const plataformController = new PlataformsController(
+  new PrismaPlataformRepository(),
 );
 
-categoryRoutes.post(
+plataformRoutes.post(
   '/',
   ensureAuthenticated,
   async (req: Request, res: Response) => {
@@ -20,16 +20,20 @@ categoryRoutes.post(
         res.status(400).json({ message: 'Missing required fields.' });
         return;
       }
-      const { title, description } = req.body;
-      const category = await categorysController.create({
+      const { title, company, imageUrl, acquisitionYear } = req.body;
+      const plataform = await plataformController.create({
         title,
-        description,
-      } as CategoryProps);
-      res.status(201).json(category);
+        acquisitionYear,
+        company,
+        imageUrl,
+        createdAt: new Date(),
+      } as PlataformProps);
+      res.status(201).json(plataform);
       return;
     } catch (error) {
-      if (error instanceof CategoryAlreadyExistsError) {
-        res.status(409).json({ message: 'Category already exists.' });
+      console.log('error register', error);
+      if (error instanceof PlataformAlreadyExistsError) {
+        res.status(409).json({ message: 'Plataform already exists.' });
         return;
       }
       res.status(500).json({ message: 'Internal server error.' });
@@ -38,7 +42,7 @@ categoryRoutes.post(
   },
 );
 
-categoryRoutes.get(
+plataformRoutes.get(
   '/',
   ensureAuthenticated,
   async (req: Request, res: Response) => {
@@ -50,13 +54,17 @@ categoryRoutes.get(
         order = 'desc',
       } = req.query;
 
-      const categorys = await categorysController.list({
+      const plataforms = await plataformController.list({
         page: Number(page),
         limit: Number(limit),
-        sortBy: sortBy as 'tilte' | 'description' | 'createdAt' | 'updatedAt',
+        sortBy: sortBy as
+          | 'tilte'
+          | 'createdAt'
+          | 'updatedAt'
+          | 'acquisitionYear',
         order: order as 'asc' | 'desc',
       });
-      res.status(200).json(categorys);
+      res.status(200).json(plataforms);
       return;
     } catch (error) {
       console.log('error', error);
@@ -66,7 +74,7 @@ categoryRoutes.get(
   },
 );
 
-categoryRoutes.put(
+plataformRoutes.put(
   '/:id',
   ensureAuthenticated,
   async (req: Request, res: Response) => {
@@ -78,18 +86,21 @@ categoryRoutes.put(
         return;
       }
 
-      const { title, description } = req.body;
-      const category = await categorysController.update({
+      const { title, acquisitionYear, company, imageUrl } = req.body;
+      const plataform = await plataformController.update({
         id,
         title,
-        description,
-      } as CategoryProps);
-      res.status(200).json(category);
+        acquisitionYear,
+        company,
+        imageUrl,
+        updatedAt: new Date(),
+      } as PlataformProps);
+      res.status(200).json(plataform);
       return;
     } catch (error) {
       console.log('error', error);
-      if (error instanceof CategoryNotFoundError) {
-        res.status(404).json({ message: 'Category not found.' });
+      if (error instanceof PlataformNotFoundError) {
+        res.status(404).json({ message: 'Plataform not found.' });
         return;
       }
       res.status(500).json({ message: 'Internal server error.' });
@@ -98,7 +109,7 @@ categoryRoutes.put(
   },
 );
 
-categoryRoutes.delete(
+plataformRoutes.delete(
   '/:id',
   ensureAuthenticated,
   async (req: Request, res: Response) => {
@@ -108,11 +119,11 @@ categoryRoutes.delete(
         res.status(400).json({ message: 'Missing required fields.' });
         return;
       }
-      await categorysController.delete(id);
-      res.status(200).json({ message: 'Category deleted.' });
+      await plataformController.delete(id);
+      res.status(200).json({ message: 'Plataform deleted.' });
       return;
     } catch (error) {
-      if (error instanceof CategoryNotFoundError) {
+      if (error instanceof PlataformNotFoundError) {
         res.status(404).json({ message: 'Plataform not found.' });
         return;
       }
@@ -123,4 +134,4 @@ categoryRoutes.delete(
   },
 );
 
-export { categoryRoutes };
+export { plataformRoutes };
