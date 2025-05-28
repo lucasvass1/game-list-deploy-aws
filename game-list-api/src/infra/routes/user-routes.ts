@@ -10,7 +10,23 @@ const usersController = new UsersController(new PrismaUsersRepository());
 
 userRoutes.post('/login', async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Basic ')) {
+      res.status(401).json({ message: 'Missing Authorization header.' });
+      return;
+    }
+    const base64Credentials = authHeader.split(' ')[1];
+    const credentials = Buffer.from(base64Credentials, 'base64').toString(
+      'utf-8',
+    );
+
+    const [email, password] = credentials.split(':');
+
+    if (!email || !password) {
+      res.status(400).json({ message: 'Invalid Authorization format.' });
+      return;
+    }
     const user = await usersController.login(email, password);
     res.status(200).json(user);
     return;
