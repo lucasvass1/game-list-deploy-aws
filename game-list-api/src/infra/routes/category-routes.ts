@@ -16,14 +16,20 @@ categoryRoutes.post(
   ensureAuthenticated,
   async (req: Request, res: Response) => {
     try {
-      if (!req.body.title) {
-        res.status(400).json({ message: 'Missing required fields.' });
+      if (!req.user) {
+        res.status(400).json({ message: 'Bad request.' });
         return;
       }
+      if (!req.body.title) {
+        res.status(400).json({ message: 'Bad request.' });
+        return;
+      }
+      const { id: userId } = req.user;
       const { title, description } = req.body;
       const category = await categorysController.create({
         title,
         description,
+        userId,
       } as CategoryProps);
       res.status(201).json(category);
       return;
@@ -74,7 +80,7 @@ categoryRoutes.put(
       const { id } = req.params;
 
       if (!id) {
-        res.status(400).json({ message: 'Missing required fields.' });
+        res.status(400).json({ message: 'Bad request.' });
         return;
       }
 
@@ -105,7 +111,7 @@ categoryRoutes.delete(
     try {
       const { id } = req.params;
       if (!id) {
-        res.status(400).json({ message: 'Missing required fields.' });
+        res.status(400).json({ message: 'Bad request.' });
         return;
       }
       await categorysController.delete(id);
