@@ -44,6 +44,14 @@ export class PrismaGameRepository {
     });
   }
 
+  async findByName(name: string): Promise<Game | null> {
+    const game = await prisma.game.findUnique({
+      where: { title: name },
+    });
+    if (!game) return null;
+    return new Game(game);
+  }
+
   async findById(id: string) {
     const game = await prisma.game.findUnique({
       where: { id },
