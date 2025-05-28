@@ -1,6 +1,7 @@
 import { User } from '@/domain/entities/user';
 import {
   PartialUser,
+  StatsUserResponse,
   UsersRepository,
 } from '@/domain/repositories/users-repository';
 import { prisma } from '../client';
@@ -27,5 +28,21 @@ export class PrismaUsersRepository implements UsersRepository {
     });
 
     return userData as PartialUser;
+  }
+
+  async stats(userId: string): Promise<StatsUserResponse> {
+    const [games, categories, plataforms, favorites] = await Promise.all([
+      prisma.game.count({ where: { userId } }),
+      prisma.category.count({ where: { userId } }),
+      prisma.plataform.count({ where: { userId } }),
+      prisma.game.count({ where: { userId, isFavorite: true } }),
+    ]);
+
+    return {
+      games,
+      categories,
+      plataforms,
+      favorites,
+    };
   }
 }
