@@ -1,8 +1,8 @@
 import { GameNotFoundError } from '@/domain/errors/game-not-found';
-import { GameRepository } from '../../../domain/repositories/game-repository';
+import { PrismaGameRepository } from '@/infra/database/prisma/repositories/prisma-games-repository';
 
 export class DeleteGameUseCase {
-  constructor(private gameRepository: GameRepository) {}
+  constructor(private gameRepository: PrismaGameRepository) {}
 
   async execute(id: string) {
     const game = await this.gameRepository.findById(id);
