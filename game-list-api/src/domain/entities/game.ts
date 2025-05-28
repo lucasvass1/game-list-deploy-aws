@@ -9,6 +9,8 @@ export interface GameProps {
   endDate?: Date | null;
   createdAt?: Date;
   updatedAt?: Date;
+  isFavorite?: boolean | null;
+  userId?: string;
 }
 
 export class Game {
@@ -68,5 +70,13 @@ export class Game {
 
   get endDate() {
     return this.props.endDate;
+  }
+
+  get isFavorite() {
+    return this.props.isFavorite;
+  }
+
+  get userId() {
+    return this.props.userId;
   }
 }
