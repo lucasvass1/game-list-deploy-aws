@@ -1,6 +1,7 @@
 import { UserProps } from '@/domain/entities/user';
 import { AuthenticateUserUseCase } from '@/domain/use-cases/users/authenticate-user';
 import { RegisterUserUseCase } from '@/domain/use-cases/users/register-user';
+import { StatsUserUseCase } from '@/domain/use-cases/users/stats-user';
 import { PrismaUsersRepository } from '@/infra/database/prisma/repositories/prisma-users-repository';
 import { generateToken } from '@/utils/jwt';
 
@@ -38,5 +39,11 @@ export class UsersController {
       id: user.id,
       createdAt: user.createdAt,
     };
+  }
+
+  async stats(userId: string) {
+    const statsUseCase = new StatsUserUseCase(this.repository);
+    const stats = await statsUseCase.execute({ userId });
+    return stats;
   }
 }
