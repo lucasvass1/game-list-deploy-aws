@@ -14,6 +14,11 @@ gamesRoutes.post(
   ensureAuthenticated,
   async (req: Request, res: Response) => {
     try {
+      if (!req.user) {
+        res.status(400).json({ message: 'Bad request.' });
+        return;
+      }
+      const { id } = req.user;
       const {
         title,
         description,
@@ -22,14 +27,15 @@ gamesRoutes.post(
         imageUrl,
         endDate,
         status,
+        isFavorite,
       } = req.body;
 
       if (!title || !status || !categoryId) {
-        res.status(400).json({ message: 'Missing required fields.' });
+        res.status(400).json({ message: 'Bad request.' });
         return;
       }
 
-      const game = await gamesController.create({
+      const game = await gamesController.create(id, {
         title,
         description,
         categoryId,
@@ -37,6 +43,7 @@ gamesRoutes.post(
         imageUrl,
         endDate,
         status,
+        isFavorite,
       });
       res.status(201).json(game);
       return;
@@ -65,7 +72,7 @@ gamesRoutes.put(
       const { id } = req.params;
 
       if (!id) {
-        res.status(400).json({ message: 'Missing required fields.' });
+        res.status(400).json({ message: 'Bad request.' });
         return;
       }
 
@@ -120,7 +127,7 @@ gamesRoutes.delete(
     try {
       const { id } = req.params;
       if (!id) {
-        res.status(400).json({ message: 'Missing required fields.' });
+        res.status(400).json({ message: 'Bad request.' });
         return;
       }
       await gamesController.delete(id);
@@ -155,5 +162,48 @@ gamesRoutes.get(
     }
   },
 );
+
+gamesRoutes.post(
+  '/:gameId/favorite',
+  ensureAuthenticated,
+  async (req: Request, res: Response) => {
+    try {
+      if (!req.user) {
+        res.status(400).json({ message: 'Bad request.' });
+        return;
+      }
+      const { gameId } = req.params;
+      const { id: userId } = req.user;
+      await gamesController.toggleFavorite(gameId, userId);
+      res.status(200).json({ message: 'Game favorite updated.' });
+      return;
+    } catch (error) {
+      console.log('error', error);
+      if (error instanceof GameNotFoundError) {
+        res.status(404).json({ message: 'Game not found.' });
+        return;
+      }
+      res.status(500).json({ message: 'Internal server error.' });
+      return;
+    }
+  },
+);
+
+gamesRoutes.get('/games/favorite', ensureAuthenticated, async (req, res) => {
+  try {
+    if (!req.user) {
+      res.status(400).json({ message: 'Bad request.' });
+      return;
+    }
+    const { id: userId } = req.user;
+    const games = await gamesController.listFavoriteGamesController(userId);
+    res.status(200).json(games);
+    return;
+  } catch (error) {
+    console.log('error', error);
+    res.status(500).json({ message: 'Internal server error.' });
+    return;
+  }
+});
 
 export { gamesRoutes };

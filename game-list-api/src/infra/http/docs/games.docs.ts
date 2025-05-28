@@ -43,7 +43,7 @@
  *       201:
  *         description: Game created successfully.
  *       400:
- *         description: Missing required fields. Or Invalid status. Or End date is required when status is DONE or ABANDONED.
+ *         description: Bad request. Or Invalid status. Or End date is required when status is DONE or ABANDONED.
  *       500:
  *         description: Internal server error.
  *
@@ -104,7 +104,7 @@
  *       200:
  *         description: Game updated successfully.
  *       400:
- *         description: Missing required fields. Or Invalid status. Or End date is required when status is DONE or ABANDONED.
+ *         description: Bad request. Or Invalid status. Or End date is required when status is DONE or ABANDONED.
  *       404:
  *         description: Game not found.
  *       500:
@@ -125,7 +125,7 @@
  *       200:
  *         description: Game deleted.
  *       400:
- *         description: Missing required fields.
+ *         description: Bad request
  *       404:
  *         description: Game not found.
  *       500:

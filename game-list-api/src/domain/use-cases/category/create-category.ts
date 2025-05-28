@@ -5,6 +5,7 @@ import { CategoryRepository } from '@/domain/repositories/category-repository';
 type CategoryRequest = {
   title: string;
   description: string | null;
+  userId: string;
 };
 
 type CreateCategoryResponse = {
@@ -17,8 +18,10 @@ export class CreateCategoryUseCase {
   async execute({
     title,
     description,
+    userId,
   }: CategoryRequest): Promise<CreateCategoryResponse> {
     const data: CategoryProps = {
+      userId,
       title,
       description: description ?? null,
       id: crypto.randomUUID(),
@@ -28,7 +31,7 @@ export class CreateCategoryUseCase {
     if (categoryExists) throw new CategoryAlreadyExistsError();
 
     const category = new Category(data);
-    await this.categoryRepository.create(category);
+    await this.categoryRepository.create(userId, category);
 
     return { category };
   }

@@ -32,7 +32,7 @@
  *       201:
  *         description: Category created successfully.
  *       400:
- *         description: Missing required fields.
+ *         description: Bad request
  *       409:
  *         description: Category already exists.
  *       500:
@@ -108,7 +108,7 @@
  *       200:
  *         description: Category updated successfully.
  *       400:
- *         description: Missing required fields.
+ *         description: Bad request.
  *       404:
  *         description: Category not found.
  *       500:
@@ -133,7 +133,7 @@
  *       200:
  *         description: Category deleted.
  *       400:
- *         description: Missing required fields.
+ *         description: Bad request.
  *       404:
  *         description: Category not found.
  *       500:

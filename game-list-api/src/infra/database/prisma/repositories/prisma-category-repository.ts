@@ -3,9 +3,10 @@ import { prisma } from '../client';
 import { ListCategoriesParams } from '@/domain/repositories/category-repository';
 
 export class PrismaCategoryRepository {
-  async create(category: Category): Promise<void> {
+  async create(userId: string, category: Category): Promise<void> {
     await prisma.category.create({
       data: {
+        userId,
         id: category.id,
         title: category.title,
         description: category.description,

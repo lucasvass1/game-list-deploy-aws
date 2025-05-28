@@ -4,6 +4,7 @@ export interface CategoryProps {
   description: string | null;
   createdAt?: Date;
   updatedAt?: Date;
+  userId: string;
 }
 
 export class Category {
@@ -32,5 +33,9 @@ export class Category {
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  get userId() {
+    return this.props.userId;
   }
 }

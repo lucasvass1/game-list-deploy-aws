@@ -1,7 +1,7 @@
 import { EndDateGameRequiredError } from '@/domain/errors/end-date-game-required';
 import { Game } from '../../../domain/entities/game';
-import { GameRepository } from '../../../domain/repositories/game-repository';
 import { InvalidStatusGameError } from '@/domain/errors/invalid-status-game';
+import { PrismaGameRepository } from '@/infra/database/prisma/repositories/prisma-games-repository';
 
 interface CreateGameRequest {
   id?: string;
@@ -12,10 +12,12 @@ interface CreateGameRequest {
   imageUrl?: string | null;
   description?: string | null;
   endDate?: Date | null;
+  isFavorite?: boolean | null;
+  userId: string;
 }
 
 export class CreateGameUseCase {
-  constructor(private gameRepository: GameRepository) {}
+  constructor(private gameRepository: PrismaGameRepository) {}
 
   async execute(request: CreateGameRequest) {
     const {
@@ -26,6 +28,8 @@ export class CreateGameUseCase {
       imageUrl,
       description,
       endDate,
+      isFavorite,
+      userId,
     } = request;
 
     if (!title) throw new Error('Title is required');
@@ -49,9 +53,10 @@ export class CreateGameUseCase {
       imageUrl,
       description,
       endDate,
+      isFavorite,
     });
 
-    await this.gameRepository.create(game);
+    await this.gameRepository.create(userId, game);
 
     return { game };
   }

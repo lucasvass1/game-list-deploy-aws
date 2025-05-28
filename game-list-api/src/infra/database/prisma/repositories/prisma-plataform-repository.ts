@@ -3,9 +3,10 @@ import { Plataform } from '@/domain/entities/plataform';
 import { ListPlataformParams } from '@/domain/repositories/plataform-repository';
 
 export class PrismaPlataformRepository {
-  async create(plataform: Plataform): Promise<void> {
+  async create(userId: string, plataform: Plataform): Promise<void> {
     await prisma.plataform.create({
       data: {
+        userId,
         id: plataform.id,
         title: plataform.title,
         acquisitionYear: plataform.acquisitionYear,
@@ -21,6 +22,7 @@ export class PrismaPlataformRepository {
     });
     if (!plataform) return null;
     return new Plataform({
+      userId: plataform.userId,
       id: plataform.id,
       title: plataform.title,
       acquisitionYear: plataform.acquisitionYear ?? null,

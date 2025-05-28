@@ -6,6 +6,7 @@ export interface PlataformProps {
   company: string | null;
   imageUrl: string | null;
   acquisitionYear: Date | null;
+  userId: string;
 }
 
 export class Plataform {
@@ -60,5 +61,9 @@ export class Plataform {
 
   get acquisitionYear() {
     return this.props.acquisitionYear;
+  }
+
+  get userId() {
+    return this.props.userId;
   }
 }

@@ -1,10 +1,12 @@
 import { Game } from '@/domain/entities/game';
 import { prisma } from '../client';
+import { GameNotFoundError } from '@/domain/errors/game-not-found';
 
 export class PrismaGameRepository {
-  async create(game: Game) {
+  async create(userId: string, game: Game) {
     await prisma.game.create({
       data: {
+        userId,
         id: game.id,
         title: game.title,
         status: game.status,
@@ -15,6 +17,7 @@ export class PrismaGameRepository {
         endDate: game.endDate,
         createdAt: game.createdAt,
         updatedAt: game.updatedAt,
+        isFavorite: game.isFavorite ?? false,
       },
     });
   }
@@ -46,8 +49,6 @@ export class PrismaGameRepository {
       where: { id },
     });
 
-    console.log('game', game);
-
     if (!game) return null;
 
     return new Game({
@@ -61,6 +62,7 @@ export class PrismaGameRepository {
       createdAt: game.createdAt,
       updatedAt: game.updatedAt,
       id: game.id,
+      isFavorite: game.isFavorite,
     });
   }
 
@@ -92,7 +94,40 @@ export class PrismaGameRepository {
           createdAt: game.createdAt,
           updatedAt: game.updatedAt,
           id: game.id,
+          isFavorite: game.isFavorite,
         }),
     );
+  }
+
+  async toggleFavorite(gameId: string, userId: string): Promise<void> {
+    const game = await prisma.game.findUnique({
+      where: {
+        id: gameId,
+        userId,
+      },
+    });
+
+    if (!game) throw new GameNotFoundError();
+
+    await prisma.game.update({
+      where: { id: gameId },
+      data: {
+        isFavorite: !game.isFavorite,
+      },
+    });
+  }
+  async findAllFavoritesByUser(userId: string) {
+    const games = await prisma.game.findMany({
+      where: {
+        userId,
+        isFavorite: true,
+      },
+      include: {
+        category: true,
+        plataform: true,
+      },
+    });
+
+    return games;
   }
 }

@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
 import { UsersController } from '../http/controllers/users/users-controller';
 import { UsersAlreadyExistsError } from '@/domain/errors/users-already-exists-error';
+import { ensureAuthenticated } from '../http/middlewares/ensure-authenticated';
 
 const userRoutes = Router();
 const usersController = new UsersController(new PrismaUsersRepository());
@@ -64,5 +65,32 @@ userRoutes.post('/register', async (req: Request, res: Response) => {
     return;
   }
 });
+
+userRoutes.get(
+  '/stats',
+  ensureAuthenticated,
+  async (req: Request, res: Response) => {
+    try {
+      if (req.user) {
+        const { id } = req.user;
+
+        if (!id) {
+          res.status(400).json({ message: 'Bad request' });
+          return;
+        }
+
+        const stats = await usersController.stats(id);
+        res.status(200).json(stats);
+        return;
+      }
+      res.status(400).json({ message: 'Bad request.' });
+      return;
+    } catch (error) {
+      console.log('error', error);
+      res.status(500).json({ message: 'Internal server error.' });
+      return;
+    }
+  },
+);
 
 export { userRoutes };
