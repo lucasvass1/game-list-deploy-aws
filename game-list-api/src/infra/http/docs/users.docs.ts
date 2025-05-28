@@ -87,3 +87,44 @@
  *       500:
  *         description: Internal server error
  */
+
+/**
+ * @swagger
+ * /users/stats:
+ *   get:
+ *     summary: Get user statistics
+ *     tags: [Users]
+ *     description: Returns the total number of games, categories, platforms, and favorite games for the authenticated user.
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         description: "Bearer token for authentication"
+ *         schema:
+ *           type: string
+ *           example: Bearer jwt_token
+ *     responses:
+ *       200:
+ *         description: Statistics retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalGames:
+ *                   type: integer
+ *                   example: 10
+ *                 totalCategories:
+ *                   type: integer
+ *                   example: 5
+ *                 totalPlatforms:
+ *                   type: integer
+ *                   example: 3
+ *                 totalFavorites:
+ *                   type: integer
+ *                   example: 4
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
