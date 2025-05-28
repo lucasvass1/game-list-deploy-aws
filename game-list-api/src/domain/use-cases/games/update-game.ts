@@ -1,7 +1,7 @@
 import { EndDateGameRequiredError } from '@/domain/errors/end-date-game-required';
 import { GameNotFoundError } from '@/domain/errors/game-not-found';
 import { InvalidStatusGameError } from '@/domain/errors/invalid-status-game';
-import { GameRepository } from '@/domain/repositories/game-repository';
+import { PrismaGameRepository } from '@/infra/database/prisma/repositories/prisma-games-repository';
 
 interface UpdateGameRequest {
   id: string;
@@ -15,7 +15,7 @@ interface UpdateGameRequest {
 }
 
 export class UpdateGameUseCase {
-  constructor(private gameRepository: GameRepository) {}
+  constructor(private gameRepository: PrismaGameRepository) {}
 
   async execute(request: UpdateGameRequest) {
     const { id, ...data } = request;
