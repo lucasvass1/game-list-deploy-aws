@@ -48,12 +48,12 @@
  *   post:
  *     summary: Authenticate user (login) using Basic Auth
  *     tags: [Users]
- *     description: Send the credentials using Basic Auth in the Authorization header. The format is 'Basic base64(email:password)'. Returns a JWT token on success.
+ *     description: Send the credentials using Basic Auth in the Authorization header. The format is "Basic base64(email:password)". Returns a JWT token on success.
  *     parameters:
  *       - in: header
  *         name: Authorization
  *         required: true
- *         description: Basic authentication header. Format: Basic base64(email:password)
+ *         description: "Basic authentication header. Format: Basic base64(email:password)"
  *         schema:
  *           type: string
  *           example: Basic am9obmRvZUBleGFtcGxlLmNvbToxMjM0NTY=
