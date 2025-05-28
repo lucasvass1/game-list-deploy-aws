@@ -3,7 +3,6 @@ import Card from "../../components/Card/Card.tsx";
 
 
 //TODO: fazer o card receber a quantidade de jogos
-//TODO: fazer o botao redirecionar como dito no pdf
  
 const Login = () => {
     return (
