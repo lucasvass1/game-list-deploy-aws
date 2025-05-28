@@ -8,7 +8,7 @@ export interface ListCategoriesParams {
 }
 
 export interface CategoryRepository {
-  create(category: Category): Promise<void>;
+  create(userId: string, category: Category): Promise<void>;
   findByName(name: string): Promise<Category | null>;
   findMany(params: ListCategoriesParams): Promise<{
     categories: Category[];
