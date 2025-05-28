@@ -1,10 +1,10 @@
 import { Request, Response, Router } from 'express';
 import { PrismaCategoryRepository } from '@/infra/database/prisma/repositories/prisma-category-repository';
 import { CategoryProps } from '@/domain/entities/category';
-import { z } from 'zod';
 import { CategorysController } from '../http/controllers/category/category-controller';
 import { ensureAuthenticated } from '../http/middlewares/ensure-authenticated';
 import { CategoryNotFoundError } from '@/domain/errors/category-not-foud';
+import { CategoryAlreadyExistsError } from '@/domain/errors/category-already-exists-error';
 
 const categoryRoutes = Router();
 const categorysController = new CategorysController(
@@ -28,8 +28,8 @@ categoryRoutes.post(
       res.status(201).json(category);
       return;
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        res.status(400).json({ errors: error.errors });
+      if (error instanceof CategoryAlreadyExistsError) {
+        res.status(409).json({ message: 'Category already exists.' });
         return;
       }
       res.status(500).json({ message: 'Internal server error.' });
@@ -112,6 +112,10 @@ categoryRoutes.delete(
       res.status(200).json({ message: 'Category deleted.' });
       return;
     } catch (error) {
+      if (error instanceof CategoryNotFoundError) {
+        res.status(404).json({ message: 'Plataform not found.' });
+        return;
+      }
       console.log('error', error);
       res.status(500).json({ message: 'Internal server error.' });
       return;
