@@ -2,15 +2,17 @@ import { GameProps } from '@/domain/entities/game';
 import { GameNotFoundError } from '@/domain/errors/game-not-found';
 import { CreateGameUseCase } from '@/domain/use-cases/games/create-games';
 import { DeleteGameUseCase } from '@/domain/use-cases/games/delete-games';
+import { ListFavoriteGamesUseCase } from '@/domain/use-cases/games/list-favorite-games';
 import { ListGamesUseCase } from '@/domain/use-cases/games/list-games';
+import { ToggleFavoriteGameUseCase } from '@/domain/use-cases/games/toggle-favorite-game';
 import { UpdateGameUseCase } from '@/domain/use-cases/games/update-game';
 import { PrismaGameRepository } from '@/infra/database/prisma/repositories/prisma-games-repository';
 
 export class GamesController {
   constructor(private readonly repository: PrismaGameRepository) {}
-  async create(data: GameProps) {
+  async create(userId: string, data: GameProps) {
     const useCase = new CreateGameUseCase(this.repository);
-    const { game } = await useCase.execute(data);
+    const { game } = await useCase.execute({ userId, ...data });
     return {
       title: game.title,
       id: game.id,
@@ -22,6 +24,7 @@ export class GamesController {
       imageUrl: game.imageUrl,
       description: game.description,
       endDate: game.endDate,
+      isFavorite: game.isFavorite,
     };
   }
 
@@ -63,5 +66,20 @@ export class GamesController {
   async delete(id: string) {
     const useCase = new DeleteGameUseCase(this.repository);
     await useCase.execute(id);
+  }
+
+  async toggleFavorite(gameId: string, userId: string) {
+    const gamesRepository = new PrismaGameRepository();
+    const useCase = new ToggleFavoriteGameUseCase(gamesRepository);
+
+    await useCase.execute({ gameId, userId });
+  }
+
+  async listFavoriteGamesController(userId: string) {
+    const gamesRepository = new PrismaGameRepository();
+    const useCase = new ListFavoriteGamesUseCase(gamesRepository);
+
+    const { games } = await useCase.execute({ userId });
+    return games;
   }
 }
