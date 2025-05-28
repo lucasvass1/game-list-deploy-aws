@@ -16,12 +16,18 @@ plataformRoutes.post(
   ensureAuthenticated,
   async (req: Request, res: Response) => {
     try {
+      if (!req.user) {
+        res.status(400).json({ message: 'Bad request.' });
+        return;
+      }
       if (!req.body.title) {
         res.status(400).json({ message: 'Missing required fields.' });
         return;
       }
+      const { id } = req.user;
       const { title, company, imageUrl, acquisitionYear } = req.body;
       const plataform = await plataformController.create({
+        userId: id,
         title,
         acquisitionYear,
         company,
