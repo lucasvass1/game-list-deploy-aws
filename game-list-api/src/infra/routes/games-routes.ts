@@ -5,6 +5,8 @@ import { ensureAuthenticated } from '../http/middlewares/ensure-authenticated';
 import { InvalidStatusGameError } from '@/domain/errors/invalid-status-game';
 import { EndDateGameRequiredError } from '@/domain/errors/end-date-game-required';
 import { GameNotFoundError } from '@/domain/errors/game-not-found';
+import { CategoryNotFoundError } from '@/domain/errors/category-not-foud';
+import { GameAlreadyExistsError } from '@/domain/errors/game-already-exists-error';
 
 const gamesRoutes = Router();
 const gamesController = new GamesController(new PrismaGameRepository());
@@ -49,6 +51,14 @@ gamesRoutes.post(
       return;
     } catch (error) {
       console.log('error', error);
+      if (error instanceof GameAlreadyExistsError) {
+        res.status(409).json({ message: 'Game already exists.' });
+        return;
+      }
+      if (error instanceof CategoryNotFoundError) {
+        res.status(404).json({ message: 'Category not found.' });
+        return;
+      }
       if (error instanceof InvalidStatusGameError) {
         res.status(400).json({ message: 'Invalid status game.' });
         return;
@@ -189,7 +199,7 @@ gamesRoutes.post(
   },
 );
 
-gamesRoutes.get('/games/favorite', ensureAuthenticated, async (req, res) => {
+gamesRoutes.get('/favorite', ensureAuthenticated, async (req, res) => {
   try {
     if (!req.user) {
       res.status(400).json({ message: 'Bad request.' });
