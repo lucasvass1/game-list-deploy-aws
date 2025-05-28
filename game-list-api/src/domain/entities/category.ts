@@ -7,7 +7,7 @@ export interface CategoryProps {
 }
 
 export class Category {
-  constructor(public props: CategoryProps) {}
+  constructor(private props: CategoryProps) {}
 
   updateCategory(data: Partial<Pick<Category, 'title' | 'description'>>) {
     if (data.title) this.props.title = data.title;
