@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { ButtonLogin } from "../btn_login/BtnLogin";
+import { ButtonLogin } from "../btn_login/BtnLogin.tsx";
 import { useMutation } from "@tanstack/react-query";
 import {
   register,
   RegisterUserResponse,
-} from "../../services/users/register/iindex";
+} from "../../services/users/register/iindex.ts";
 import React from "react";
 import {
   Container,
@@ -12,10 +12,9 @@ import {
   ContainerText,
   TextLink,
   TextLogin,
-} from "./styles";
-
-import Logo from "../form/img/logoft.png";
-import { Input } from "../input/Input";
+} from "./styles.ts";
+import Logo from "./img/logoft.png";
+import { Input } from "../input/index.tsx";
 
 interface FormRegisterProps {
   title: string;

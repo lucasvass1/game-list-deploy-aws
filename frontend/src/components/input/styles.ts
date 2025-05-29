@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS } from "../../config/colors";
+import { COLORS } from "../../config/colors/index.ts";
 
 export const Label = styled.label`
   display: block;

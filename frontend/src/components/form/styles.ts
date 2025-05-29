@@ -4,8 +4,8 @@ import { COLORS } from "../../config/colors/index.ts";
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 30rem;
-  height: auto;
-  background-color: #18181be3;
+  height: 34rem;
+  background-color: ${COLORS.background};
   border: 0.225rem solid ${COLORS.buttonPrimary};
   border-radius: 1.25rem;
   padding: 1.5rem;
@@ -21,7 +21,7 @@ export const ContainerText = styled.div`
   align-items: center;
   gap: 0.75rem;
 
-  img {
+  .img {
     width: 150px;
     height: 68px;
   }
@@ -37,20 +37,16 @@ export const ContainerText = styled.div`
   }
 `;
 
-export const ContainerForm = styled.form`
+export const ContainerForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-
-  .errorMessage {
-    color: ${COLORS.red};
-  }
 `;
 
 export const TextLogin = styled.h2`
   font-size: 1rem;
-  color: ${COLORS.gray};
+  color: #6c6c6c;
 `;
 
 export const TextLink = styled.a`
