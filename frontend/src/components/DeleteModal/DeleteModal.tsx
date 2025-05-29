@@ -77,22 +77,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
     <S.ModalOverlay>
       <S.ModalContainer ref={modalRef}>
         <S.IconContainer>
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M16 6.5C16.8284 6.5 17.5 7.17157 17.5 8V18C17.5 18.8284 16.8284 19.5 16 19.5C15.1716 19.5 14.5 18.8284 14.5 18V8C14.5 7.17157 15.1716 6.5 16 6.5Z"
-              fill="white"
-            />
-            <path
-              d="M16 25.5C17.1046 25.5 18 24.6046 18 23.5C18 22.3954 17.1046 21.5 16 21.5C14.8954 21.5 14 22.3954 14 23.5C14 24.6046 14.8954 25.5 16 25.5Z"
-              fill="white"
-            />
-          </svg>
+          <img src="modal-alert.svg" alt="modal-alert" />
         </S.IconContainer>
         <S.Title>{title}</S.Title>
         <S.Message>{message}</S.Message>

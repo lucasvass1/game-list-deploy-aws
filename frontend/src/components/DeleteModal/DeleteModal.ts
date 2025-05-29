@@ -14,58 +14,62 @@ export const ModalOverlay = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  background-color: #1e1e1e;
+  background-color: #ffff;
   border-radius: 8px;
-  width: 400px;
+  width: 750px;
+  height: 516px;
   max-width: 90%;
   padding: 24px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 `;
 
 export const IconContainer = styled.div`
-  width: 70px;
-  height: 70px;
-  background-color: #ff4757;
-  border-radius: 50%;
+  width: 176px;
+  height: 176px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 `;
 
 export const Title = styled.h2`
-  color: white;
-  font-size: 24px;
-  margin-bottom: 16px;
-  text-align: center;
+  color: black;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
 `;
 
 export const Message = styled.p`
-  color: white;
-  font-size: 16px;
+  color: black;
+  font-size: 20px;
+  font-weight: 400;
+  max-width: 550px;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 45px;
   line-height: 1.4;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 40px;
   width: 100%;
 `;
 
 export const CancelButton = styled.button`
+  width: 138px;
+  height: 33px;
   padding: 10px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: transparent;
-  color: white;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  color: #575757;
   transition: all 0.2s;
 
   &:hover {
@@ -74,13 +78,15 @@ export const CancelButton = styled.button`
 `;
 
 export const DeleteButton = styled.button`
+  width: 138px;
+  height: 33px;
   padding: 10px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: #ff4757;
   color: white;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   transition: all 0.2s;
 
   &:hover {
