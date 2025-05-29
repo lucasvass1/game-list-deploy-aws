@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { COLORS } from "../../config/colors";
+import { COLORS } from "../../config/colors/index.ts";
 
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 30rem;
   height: auto;
   background-color: #18181be3;
-  border: 0.225rem solid #42d9c8;
+  border: 0.225rem solid ${COLORS.buttonPrimary};
   border-radius: 1.25rem;
   padding: 1.5rem;
   display: flex;
