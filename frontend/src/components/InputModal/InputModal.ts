@@ -1,8 +1,4 @@
 import styled from "styled-components";
-import {
-  modalButtonColor,
-  modalButtonHoverColor,
-} from "../../styles/globals.ts";
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -42,40 +38,6 @@ export const ButtonContainer = styled.div`
   gap: 1rem;
   width: 100%;
   margin: 0 1.6rem 1rem 0;
-`;
-
-export const ModalButton1 = styled.button`
-  width: 138px;
-  height: 33px;
-  padding: 10px 16px;
-  border-radius: 8px;
-  background-color: ${modalButtonColor};
-  cursor: pointer;
-  font-size: 13px;
-  color: white;
-  transition: all 0.2s;
-  border: none;
-
-  &:hover {
-    background-color: ${modalButtonHoverColor};
-  }
-`;
-
-export const ModalButton2 = styled.button`
-  width: 138px;
-  height: 33px;
-  padding: 10px 16px;
-  border-radius: 8px;
-  background-color: ${modalButtonColor};
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s;
-
-  &:hover {
-    background-color: ${modalButtonHoverColor};
-  }
 `;
 export const TitleLabel = styled.label`
   font-size: 14px;

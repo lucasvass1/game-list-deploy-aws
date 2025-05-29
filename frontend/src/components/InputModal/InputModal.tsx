@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as S from "./InputModal.ts";
+import { ModalButton } from "../ModalButton/ModalButton.ts";
+import { DescriptionTextarea } from "./InputModal.ts";
 
 // EXEMPLO DE COMO USAR O MODAL
 
@@ -84,24 +86,12 @@ const InputModal: React.FC<InputModalProps> = ({
         <S.InputContainer>
           <S.TitleLabel>
             Description<span>*</span>
-          </S.TitleLabel>
-          <S.DescriptionTextarea placeholder="Amazing game" />
+          </S.TitleLabel>   
+          <DescriptionTextarea placeholder="Amazing game" />
         </S.InputContainer>
         <S.ButtonContainer>
-          {buttonText1 && (
-            <S.ModalButton1
-              onClick={() => (onClickButton1 ? onClickButton1() : onClose())}
-            >
-              {buttonText1}
-            </S.ModalButton1>
-          )}
-          {buttonText2 && (
-            <S.ModalButton2
-              onClick={() => (onClickButton2 ? onClickButton2() : onClose())}
-            >
-              {buttonText2}
-            </S.ModalButton2>
-          )}
+          <ModalButton onClick={() => onClose()}>Cancel</ModalButton>
+          <ModalButton onClick={() => alert("works")}>Save</ModalButton>
         </S.ButtonContainer>
       </S.ModalContainer>
     </S.ModalOverlay>
