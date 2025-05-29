@@ -81,6 +81,12 @@ const InputModal: React.FC<InputModalProps> = ({
           </S.TitleLabel>
           <S.TitleInput placeholder="Mario Kart 8" />
         </S.InputContainer>
+        <S.InputContainer>
+          <S.TitleLabel>
+            Description<span>*</span>
+          </S.TitleLabel>
+          <S.DescriptionTextarea placeholder="Amazing game" />
+        </S.InputContainer>
         <S.ButtonContainer>
           {buttonText1 && (
             <S.ModalButton1
