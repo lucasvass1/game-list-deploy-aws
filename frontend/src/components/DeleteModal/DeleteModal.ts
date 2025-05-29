@@ -40,8 +40,7 @@ export const Title = styled.h2`
   color: black;
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 20px;
-  text-align: center;
+  margin: 0;
 `;
 
 export const Message = styled.p`
@@ -57,18 +56,20 @@ export const Message = styled.p`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 40px;
   width: 100%;
 `;
 
 export const CancelButton = styled.button`
+  width: 138px;
+  height: 33px;
   padding: 10px 16px;
   border-radius: 8px;
   background-color: transparent;
-  color: black;
   border: 1px solid black;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  color: #575757;
   transition: all 0.2s;
 
   &:hover {
@@ -77,13 +78,15 @@ export const CancelButton = styled.button`
 `;
 
 export const DeleteButton = styled.button`
+  width: 138px;
+  height: 33px;
   padding: 10px 16px;
   border-radius: 8px;
   background-color: #ff4757;
   color: white;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   transition: all 0.2s;
 
   &:hover {
