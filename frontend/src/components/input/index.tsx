@@ -1,5 +1,5 @@
 import React from "react";
-import { InputStyles, Label } from "./styles";
+import { InputStyles, Label } from "./styles.ts";
 
 interface InputProps {
   label: string;
