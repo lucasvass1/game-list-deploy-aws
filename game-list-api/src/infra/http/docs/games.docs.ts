@@ -135,7 +135,7 @@
 /**
  * @swagger
  * /games/{gameId}/favorite:
- *   post:
+ *   patch:
  *     summary: Toggle game as favorite
  *     tags: [Games]
  *     description: Marks or unmarks a game as favorite for the authenticated user.
