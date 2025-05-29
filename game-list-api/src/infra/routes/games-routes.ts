@@ -173,7 +173,7 @@ gamesRoutes.get(
   },
 );
 
-gamesRoutes.post(
+gamesRoutes.patch(
   '/:gameId/favorite',
   ensureAuthenticated,
   async (req: Request, res: Response) => {
