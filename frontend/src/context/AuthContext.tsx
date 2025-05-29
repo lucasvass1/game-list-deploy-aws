@@ -35,6 +35,7 @@ export function AuthProvider({ children }) {
     onSuccess: (data) => {
       storageUserAndTokenSave(data.user, data.token);
       setUser(data.user);
+      window.location.replace("/dashboard");
     },
     onError: (error) => {
       console.log("auth error", error);
@@ -43,9 +44,9 @@ export function AuthProvider({ children }) {
 
   async function signOut() {
     setUser({} as User);
-
     removeUser();
     storageAuthTokenRemove();
+    window.location.replace("/login");
   }
 
   async function storageUserAndTokenSave(userData: any, token: string) {
