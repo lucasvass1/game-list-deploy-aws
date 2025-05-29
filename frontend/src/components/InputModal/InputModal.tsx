@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import * as S from "./DeleteModal.ts";
+import * as S from "./InputModal.ts";
 
 // EXEMPLO DE COMO USAR O MODAL
 
@@ -9,35 +9,34 @@ import * as S from "./DeleteModal.ts";
         setShowModal(false);
     };
 
-<DeleteModal 
+<InputModal 
     isOpen={showModal}
     onClose={() => setShowModal(false)}
     onDelete={handleDelete}
     title="Custom title"
-    message="Custom message"
-    cancelText="Cancel"
-    deleteText="Delete"
+    buttonText1="Cancel"
+    buttonText2="Delete"
 />
 */
 
-interface DeleteModalProps {
+interface InputModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onDelete: () => void;
+  onClickButton1?: () => void;
+  onClickButton2?: () => void;
   title?: string;
-  message?: string;
-  cancelText?: string;
-  deleteText?: string;
+  buttonText1?: string;
+  buttonText2?: string;
 }
 
-const DeleteModal: React.FC<DeleteModalProps> = ({
+const InputModal: React.FC<InputModalProps> = ({
   isOpen,
   onClose,
-  onDelete,
+  onClickButton1,
+  onClickButton2,
   title = "Are you sure?",
-  message = "Deleting this category will remove all game associated. This action is not reversible.",
-  cancelText = "No, cancel action",
-  deleteText = "Yes, delete this",
+  buttonText1,
+  buttonText2,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -75,18 +74,32 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   return (
     <S.ModalOverlay>
       <S.ModalContainer ref={modalRef}>
-        <S.IconContainer>
-          <img src="modal-alert.svg" alt="modal-alert" />
-        </S.IconContainer>
         <S.Title>{title}</S.Title>
-        <S.Message>{message}</S.Message>
+        <S.InputContainer>
+          <S.TitleLabel>
+            Title<span>*</span>
+          </S.TitleLabel>
+          <S.TitleInput placeholder="Mario Kart 8" />
+        </S.InputContainer>
         <S.ButtonContainer>
-          <S.CancelButton onClick={onClose}>{cancelText}</S.CancelButton>
-          <S.DeleteButton onClick={onDelete}>{deleteText}</S.DeleteButton>
+          {buttonText1 && (
+            <S.ModalButton1
+              onClick={() => (onClickButton1 ? onClickButton1() : onClose())}
+            >
+              {buttonText1}
+            </S.ModalButton1>
+          )}
+          {buttonText2 && (
+            <S.ModalButton2
+              onClick={() => (onClickButton2 ? onClickButton2() : onClose())}
+            >
+              {buttonText2}
+            </S.ModalButton2>
+          )}
         </S.ButtonContainer>
       </S.ModalContainer>
     </S.ModalOverlay>
   );
 };
 
-export default DeleteModal;
+export default InputModal;
