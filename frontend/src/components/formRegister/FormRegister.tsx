@@ -1,0 +1,168 @@
+import { useState } from "react";
+import { ButtonLogin } from "../btn_login/BtnLogin";
+import { useMutation } from "@tanstack/react-query";
+import {
+  register,
+  RegisterUserResponse,
+} from "../../services/users/register/iindex";
+import React from "react";
+import {
+  Container,
+  ContainerForm,
+  ContainerText,
+  TextLink,
+  TextLogin,
+} from "./styles";
+
+import Logo from "../form/img/logoft.png";
+import { Input } from "../input/Input";
+
+interface FormRegisterProps {
+  title: string;
+  instruction: string;
+  login: string;
+  linkLogin: string;
+  textLink: string;
+}
+
+export function FormRegister({
+  title,
+  instruction,
+  login,
+  linkLogin = "#",
+  textLink,
+}: FormRegisterProps) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [errors, setErrors] = useState<string[]>([]);
+
+  const { mutate: mutateRegisterUser } = useMutation({
+    mutationFn: register,
+    onSuccess: (data: RegisterUserResponse) => {
+      console.log("User registered", data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  function validateEmail(email: string) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
+  function validatePassword(password: string) {
+    const regex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?/{}~])[A-Za-z\d!@#$%^&*()_\-+=<>?/{}~]{8,}$/;
+    return regex.test(password);
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const validationErrors: string[] = [];
+
+    if (!name.trim()) validationErrors.push("Name is required.");
+    else if (name.trim().length < 3)
+      validationErrors.push("Name must be at least 3 characters.");
+
+    if (!email.trim()) validationErrors.push("Email is required.");
+    else if (!validateEmail(email.trim()))
+      validationErrors.push("Email is not valid.");
+
+    if (!password) validationErrors.push("Password is required.");
+    else if (!validatePassword(password))
+      validationErrors.push(
+        "Password must be at least 8 characters and include letters, numbers, and special characters."
+      );
+
+    if (password !== confirmPassword)
+      validationErrors.push("Passwords do not match.");
+
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setErrors([]);
+
+    // const authString = btoa(`${email}:${password}`);
+
+    mutateRegisterUser({
+      name,
+      email,
+      password,
+      // headers: {
+      //   Authorization: `Basic ${authString}`,
+      // },
+    });
+
+    console.log({ name, email, password });
+  }
+
+  return (
+    <Container>
+      <ContainerText>
+        <img src={Logo} alt="logo" />
+        <h1 className={"textTitle"}>{title}</h1>
+        <p className={"textP"}>{instruction}</p>
+      </ContainerText>
+
+      <ContainerForm onSubmit={handleSubmit}>
+        <Input
+          label="Full Name"
+          placeholder="Your name"
+          name="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <Input
+          label="Email"
+          placeholder="Your email"
+          name="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <Input
+          label="Password"
+          placeholder="Enter your password"
+          name="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <Input
+          label="Confirm Password"
+          placeholder="Repeat your password"
+          name="confirmPassword"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+
+        {errors.length > 0 && (
+          <div style={{ color: "red" }}>
+            {errors.map((error, idx) => (
+              <p key={idx}>{error}</p>
+            ))}
+          </div>
+        )}
+
+        <ButtonLogin type="submit" name="SIGN UP" />
+      </ContainerForm>
+
+      <div>
+        <TextLogin>
+          {login} <TextLink href={linkLogin}>{textLink}</TextLink>
+        </TextLogin>
+      </div>
+    </Container>
+  );
+}
