@@ -16,29 +16,19 @@ import { DescriptionTextarea } from "./InputModal.ts";
     onClose={() => setShowModal(false)}
     onDelete={handleDelete}
     title="Custom title"
-    buttonText1="Cancel"
-    buttonText2="Delete"
 />
 */
 
 interface InputModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onClickButton1?: () => void;
-  onClickButton2?: () => void;
   title?: string;
-  buttonText1?: string;
-  buttonText2?: string;
 }
 
 const InputModal: React.FC<InputModalProps> = ({
   isOpen,
   onClose,
-  onClickButton1,
-  onClickButton2,
   title = "Are you sure?",
-  buttonText1,
-  buttonText2,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -85,7 +75,7 @@ const InputModal: React.FC<InputModalProps> = ({
         </S.InputContainer>
         <S.InputContainer>
           <S.TitleLabel>
-            Description<span>*</span>
+            Description
           </S.TitleLabel>   
           <DescriptionTextarea placeholder="Amazing game" />
         </S.InputContainer>
