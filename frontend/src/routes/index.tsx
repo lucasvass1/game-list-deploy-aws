@@ -6,7 +6,7 @@ import { Games } from "../pages/Games/index.tsx";
 import Categories from "../pages/Categories/index.tsx";
 import Plataforms from "../pages/Plataforms/index.tsx";
 import { Register } from "../pages/Register/Register.tsx";
-import { Login } from "../pages/Login/index.tsx";
+import { Login } from "../pages/login/index.tsx";
 
 export function AppRoutes() {
   return (
