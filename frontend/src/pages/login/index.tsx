@@ -1,6 +1,6 @@
-import React from "react";
-import { Form } from "../../components/form/Form.tsx";
-import { Container } from "./styles.ts";
+import React from 'react';
+import { Form } from '../../components/form/Form.tsx';
+import { Container } from './styles.ts';
 
 export function Login() {
   return (
@@ -10,7 +10,7 @@ export function Login() {
         instruction="Enter your credentials to access your account"
         login="Don’t have an account?"
         linkLogin="/register"
-        textLink="Login now"
+        textLink="Register now"
       />
     </Container>
   );
