@@ -12,6 +12,8 @@ export function Login() {
         linkLogin="/register"
         textLink="Register now"
       />
+
+      test
     </Container>
   );
 }
