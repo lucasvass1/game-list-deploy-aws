@@ -1,14 +1,15 @@
-import React, { useCallback, useEffect } from "react";
-import { createContext, useContext, useState } from "react";
-import { getUser, removeUser, saveUser } from "../storage/storageUser.ts";
+import React, { useCallback, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
+import { getUser, removeUser, saveUser } from '../storage/storageUser.ts';
 import {
   storageAuthTokenGet,
   storageAuthTokenRemove,
   storageAuthTokenSave,
-} from "../storage/storageAuthToken.ts";
-import { api } from "../services/api.ts";
-import { useMutation } from "@tanstack/react-query";
-import { login } from "../services/users/login/index.tsx";
+} from '../storage/storageAuthToken.ts';
+import { api } from '../services/api.ts';
+import { useMutation } from '@tanstack/react-query';
+import { login } from '../services/users/login/index.tsx';
+import { toast } from 'react-toastify';
 
 type User = {
   id: string;
@@ -26,19 +27,28 @@ type AuthContextType = {
 
 const AuthContext = createContext({} as AuthContextType);
 
-export function AuthProvider({ children }) {
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>({} as User);
   const [isLoadingUserStorageData, setIsLoadingUserStorageData] =
     useState(true);
   const { mutate: mutateUserLogin } = useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
+    onSuccess: data => {
+      toast.success('Login successful!');
       storageUserAndTokenSave(data.user, data.token);
       setUser(data.user);
-      window.location.replace("/dashboard");
+      window.location.replace('/dashboard');
     },
-    onError: (error) => {
-      console.log("auth error", error);
+    onError: error => {
+      if (error.message) {
+        toast.error(error.message);
+        return;
+      }
+      toast.error('Bad Request');
     },
   });
 
@@ -46,13 +56,13 @@ export function AuthProvider({ children }) {
     setUser({} as User);
     removeUser();
     storageAuthTokenRemove();
-    window.location.replace("/login");
+    window.location.replace('/login');
   }
 
   async function storageUserAndTokenSave(userData: any, token: string) {
     try {
       setIsLoadingUserStorageData(true);
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       saveUser(userData);
       storageAuthTokenSave({ token });
       setUser(userData);
@@ -64,7 +74,7 @@ export function AuthProvider({ children }) {
   }
 
   async function userAndTokenUpdate(userData: any, token: string) {
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     setUser(userData);
   }

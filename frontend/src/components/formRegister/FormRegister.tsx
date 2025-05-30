@@ -1,20 +1,23 @@
-import { useState } from "react";
-import { ButtonLogin } from "../btn_login/BtnLogin.tsx";
-import { useMutation } from "@tanstack/react-query";
+import { useState } from 'react';
+import { ButtonLogin } from '../btn_login/BtnLogin.tsx';
+import { useMutation } from '@tanstack/react-query';
 import {
   register,
   RegisterUserResponse,
-} from "../../services/users/register/iindex.ts";
-import React from "react";
+} from '../../services/users/register/iindex.ts';
+import React from 'react';
 import {
   Container,
   ContainerForm,
   ContainerText,
   TextLink,
   TextLogin,
-} from "./styles.ts";
-import Logo from "./img/logoft.png";
-import { Input } from "../input/index.tsx";
+} from './styles.ts';
+import Logo from './img/logoft.png';
+import { Input } from '../input/index.tsx';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useAuth } from '../../context/AuthContext.tsx';
 
 interface FormRegisterProps {
   title: string;
@@ -28,23 +31,31 @@ export function FormRegister({
   title,
   instruction,
   login,
-  linkLogin = "#",
+  linkLogin = '#',
   textLink,
 }: FormRegisterProps) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
+  const { signIn } = useAuth();
 
   const [errors, setErrors] = useState<string[]>([]);
 
   const { mutate: mutateRegisterUser } = useMutation({
     mutationFn: register,
     onSuccess: (data: RegisterUserResponse) => {
-      console.log("User registered", data);
+      toast.success('User registered successfully!');
+      signIn(email, password);
+      navigate('/');
     },
-    onError: (error) => {
-      console.log(error);
+    onError: error => {
+      if (error.message) {
+        toast.error(error.message);
+        return;
+      }
+      toast.error('Bad Request');
     },
   });
 
@@ -63,22 +74,22 @@ export function FormRegister({
     e.preventDefault();
     const validationErrors: string[] = [];
 
-    if (!name.trim()) validationErrors.push("Name is required.");
+    if (!name.trim()) validationErrors.push('Name is required.');
     else if (name.trim().length < 3)
-      validationErrors.push("Name must be at least 3 characters.");
+      validationErrors.push('Name must be at least 3 characters.');
 
-    if (!email.trim()) validationErrors.push("Email is required.");
+    if (!email.trim()) validationErrors.push('Email is required.');
     else if (!validateEmail(email.trim()))
-      validationErrors.push("Email is not valid.");
+      validationErrors.push('Email is not valid.');
 
-    if (!password) validationErrors.push("Password is required.");
+    if (!password) validationErrors.push('Password is required.');
     else if (!validatePassword(password))
       validationErrors.push(
-        "Password must be at least 8 characters and include letters, numbers, and special characters."
+        'Password must be at least 8 characters and include letters, numbers, and special characters.',
       );
 
     if (password !== confirmPassword)
-      validationErrors.push("Passwords do not match.");
+      validationErrors.push('Passwords do not match.');
 
     if (validationErrors.length > 0) {
       setErrors(validationErrors);
@@ -87,26 +98,19 @@ export function FormRegister({
 
     setErrors([]);
 
-    // const authString = btoa(`${email}:${password}`);
-
     mutateRegisterUser({
       name,
       email,
       password,
-      // headers: {
-      //   Authorization: `Basic ${authString}`,
-      // },
     });
-
-    console.log({ name, email, password });
   }
 
   return (
     <Container>
       <ContainerText>
         <img src={Logo} alt="logo" />
-        <h1 className={"textTitle"}>{title}</h1>
-        <p className={"textP"}>{instruction}</p>
+        <h1 className={'textTitle'}>{title}</h1>
+        <p className={'textP'}>{instruction}</p>
       </ContainerText>
 
       <ContainerForm onSubmit={handleSubmit}>
@@ -116,7 +120,7 @@ export function FormRegister({
           name="name"
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
         />
 
         <Input
@@ -125,7 +129,7 @@ export function FormRegister({
           name="email"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
         />
 
         <Input
@@ -134,7 +138,7 @@ export function FormRegister({
           name="password"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
         />
 
         <Input
@@ -143,11 +147,11 @@ export function FormRegister({
           name="confirmPassword"
           type="password"
           value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={e => setConfirmPassword(e.target.value)}
         />
 
         {errors.length > 0 && (
-          <div style={{ color: "red" }}>
+          <div style={{ color: 'red' }}>
             {errors.map((error, idx) => (
               <p key={idx}>{error}</p>
             ))}
