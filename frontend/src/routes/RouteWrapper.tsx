@@ -1,7 +1,8 @@
-import { JSX } from "react";
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.tsx";
-import React from "react";
+import { JSX } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.tsx';
+import React from 'react';
+import { Spinner } from '../components/Spinner/index.tsx';
 
 interface RouteWrapperProps {
   children: JSX.Element;
@@ -12,8 +13,12 @@ export function RouteWrapper({
   children,
   isPrivate = false,
 }: RouteWrapperProps) {
-  const { user } = useAuth();
+  const { user, isLoadingUserStorageData } = useAuth();
   const isAuthenticated = !!user?.id;
+
+  if (isLoadingUserStorageData) {
+    return <Spinner />;
+  }
 
   if (!isPrivate && isAuthenticated) {
     return <Navigate to="/dashboard" replace />;

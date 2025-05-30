@@ -1,12 +1,12 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { RouteWrapper } from "./RouteWrapper.tsx";
-import { Home } from "../pages/Home/index.tsx";
-import { Games } from "../pages/Games/index.tsx";
-import Categories from "../pages/Categories/index.tsx";
-import Plataforms from "../pages/Plataforms/index.tsx";
-import { Register } from "../pages/Register/Register.tsx";
-import { Login } from "../pages/Login/index.tsx";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { RouteWrapper } from './RouteWrapper.tsx';
+import { Home } from '../pages/Home/index.tsx';
+import { Games } from '../pages/Games/index.tsx';
+import Categories from '../pages/Categories/index.tsx';
+import Plataforms from '../pages/Plataforms/index.tsx';
+import { Register } from '../pages/Register/Register.tsx';
+import { Login } from '../pages/Login/index.tsx';
 
 export function AppRoutes() {
   return (
