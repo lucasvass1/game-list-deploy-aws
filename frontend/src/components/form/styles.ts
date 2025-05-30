@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { COLORS } from "../../config/colors/index.ts";
+import styled from 'styled-components';
+import { COLORS } from '../../config/colors/index.ts';
 
 export const Container = styled.div`
   margin: 0 auto;
@@ -37,7 +37,7 @@ export const ContainerText = styled.div`
   }
 `;
 
-export const ContainerForm = styled.div`
+export const ContainerForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
