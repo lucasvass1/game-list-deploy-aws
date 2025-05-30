@@ -4,7 +4,7 @@ import { COLORS } from "../../config/colors/index.ts";
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 30rem;
-  height: 34rem;
+  height: auto;
   background-color: ${COLORS.background};
   border: 0.225rem solid ${COLORS.buttonPrimary};
   border-radius: 1.25rem;

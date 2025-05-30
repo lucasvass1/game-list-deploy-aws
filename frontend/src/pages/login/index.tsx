@@ -1,6 +1,6 @@
 import React from "react";
-import { Container } from "./styles.ts";
 import { Form } from "../../components/form/Form.tsx";
+import { Container } from "./styles.ts";
 
 export function Login() {
   return (
