@@ -1,5 +1,10 @@
-import React from "react";
+import React from 'react';
+import ContainerPage from '../../components/ContainerPage';
 
 export function Home() {
-  return <h1>Home</h1>;
+  return (
+    <ContainerPage>
+      <div></div>
+    </ContainerPage>
+  );
 }
