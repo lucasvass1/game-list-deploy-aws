@@ -1,4 +1,4 @@
-import { api } from "../../api.ts";
+import { api } from '../../api.ts';
 
 type UserProps = {
   email: string;
@@ -22,16 +22,13 @@ export async function login({
   const authString = btoa(`${email}:${password}`);
 
   const response = await api.post(
-    "/users/login",
-    {
-      email,
-      password,
-    },
+    '/users/login',
+    {},
     {
       headers: {
         Authorization: `Basic ${authString}`,
       },
-    }
+    },
   );
 
   return response.data;
