@@ -17,9 +17,10 @@ export const ModalOverlay = styled.div`
 export const ModalContainer = styled.div`
   background-color: #ffffff;
   border-radius: 8px;
+  padding: 20px;
   width: 750px;
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 100%;
+  max-height: 100%;
   overflow-y: auto;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -58,6 +59,7 @@ export const FormContainer = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 16px;
 `;
 
@@ -77,8 +79,7 @@ export const FormGroup = styled.div`
 export const FormRow = styled.div`
   display: flex;
   gap: 16px;
-  width: 100%;
-
+  max-width: 100%;
   @media (max-width: 600px) {
     flex-direction: column;
   }
@@ -96,7 +97,7 @@ export const Required = styled.span`
 `;
 
 export const Input = styled.input`
-  width: 100%;
+  width: auto;
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -142,7 +143,7 @@ export const Textarea = styled.textarea`
 `;
 
 export const Select = styled.select`
-  max-width: 212px;
+  max-width: auto;
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #ddd;
