@@ -71,8 +71,9 @@ export const FormGroup = styled.div`
 
   &.checkbox-group {
     flex-direction: row;
-    align-items: center;
+    align-items: end;
     justify-content: flex-start;
+    margin-bottom: 8px;
   }
 `;
 
@@ -123,7 +124,7 @@ export const Input = styled.input`
 `;
 
 export const Textarea = styled.textarea`
-  width: 100%;
+  width: auto;
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
