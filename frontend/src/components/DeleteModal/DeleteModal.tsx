@@ -60,7 +60,6 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
       document.addEventListener("mousedown", handleClickOutside);
-      // Prevent scrolling when modal is open
       document.body.style.overflow = "hidden";
     }
 
