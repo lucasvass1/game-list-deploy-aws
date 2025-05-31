@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from './img/logoft.png';
 import { ButtonLogin } from '../btn_login/BtnLogin.tsx';
 import {
   Container,
@@ -11,7 +10,7 @@ import {
 import { Input } from '../input/index.tsx';
 import { useAuth } from '../../context/AuthContext.tsx';
 import { toast } from 'react-toastify';
-
+import { LoginImage } from '../ImageTest/LoginImage.tsx';
 interface FormProps {
   title: string;
   instruction: string;
@@ -44,7 +43,7 @@ export function Form({
   return (
     <Container>
       <ContainerText>
-        <img src={logo} alt="logo" />
+        <LoginImage />
         <h1 className={'textTitle'}>{title}</h1>
         <p className={'textP'}>{instruction}</p>
       </ContainerText>

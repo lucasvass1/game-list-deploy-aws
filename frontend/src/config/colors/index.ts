@@ -1,6 +1,6 @@
 export const COLORS = {
   white: "#FFFFFF",
-  background: "#18181B",
+  background: "#18181be3",
   buttonPrimary: "#42D9C8",
   text: "#F8FAFC",
   darkGray: "#2C2C2C",
