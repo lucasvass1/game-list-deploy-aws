@@ -14,13 +14,10 @@ export const Thead = styled.thead`
   width: 100%;
   border-top: 1px solid ${COLORS.gray};
   background-color: ${COLORS.background};
-  padding: 10px;
 `;
 
 export const TR = styled.tr<{ backgroundColor?: string; marginTop?: string }>`
-  padding: 5px;
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor ?? "transparent"};
+  background-color: ${({ backgroundColor }) => backgroundColor ?? "transparent"};
   margin-top: ${({ marginTop }) => marginTop ?? "0"};
 `;
 

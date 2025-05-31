@@ -3,15 +3,12 @@ import { TBody, TD, TR } from "../styles.ts";
 import { FaEye } from "react-icons/fa";
 import { VscEdit } from "react-icons/vsc";
 import { COLORS } from "../../../config/colors/index.ts";
-import { BsFillStarFill } from "react-icons/bs";
 import { FiTrash } from "react-icons/fi";
 
 interface TableBodyProps {
-  dataBody: string[][];
+  dataBody: string[][]; 
   includeImage?: boolean;
   indexPositionImage?: number;
-  hasIconFavorite?: boolean;
-  indexPositionFavorite?: number;
   handleViewItem: () => void;
   handleEditItem: () => void;
   handleDeleteItem: () => void;
@@ -20,31 +17,30 @@ interface TableBodyProps {
 const TableBody: React.FC<TableBodyProps> = ({
   dataBody,
   includeImage,
-  hasIconFavorite,
-  indexPositionFavorite,
-  indexPositionImage,
+  indexPositionImage = 0,
   handleViewItem,
   handleEditItem,
   handleDeleteItem,
 }) => {
   return (
     <TBody>
-      {dataBody?.map((row, index) => (
-        <TR key={index} backgroundColor={COLORS?.white} marginTop="10px">
-          {row.map((item, index) =>
-            includeImage && index === indexPositionImage ? (
-              <TD key={index}>
-                <img src={item} alt="game image" />
-              </TD>
-            ) : hasIconFavorite && index === indexPositionFavorite ? (
-              <TD>
-                <BsFillStarFill />
+      {dataBody?.map((row, rowIndex) => (
+        <TR key={rowIndex} backgroundColor={COLORS.white} marginTop="10px">
+          {row.map((cell, cellIndex) =>
+            includeImage && cellIndex === indexPositionImage ? (
+              <TD key={cellIndex}>
+                <img
+                  src={cell}
+                  alt="game image"
+                  style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                />
               </TD>
             ) : (
-              <TD key={index}>{item}</TD>
+              <TD key={cellIndex}>{cell}</TD>
             )
           )}
 
+          {}
           <TD>
             <div
               style={{
