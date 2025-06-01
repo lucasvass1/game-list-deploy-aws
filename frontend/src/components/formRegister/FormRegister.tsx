@@ -18,6 +18,10 @@ import { Input } from '../input/index.tsx';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext.tsx';
+import {
+  REGEX_VALIDATE_EMAIL,
+  REGEX_VALIDATE_PASSWORD_REGISTER,
+} from '../../const/index.ts';
 
 interface FormRegisterProps {
   title: string;
@@ -60,14 +64,11 @@ export function FormRegister({
   });
 
   function validateEmail(email: string) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    return REGEX_VALIDATE_EMAIL.test(email);
   }
 
   function validatePassword(password: string) {
-    const regex =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?/{}~])[A-Za-z\d!@#$%^&*()_\-+=<>?/{}~]{8,}$/;
-    return regex.test(password);
+    return REGEX_VALIDATE_PASSWORD_REGISTER.test(password);
   }
 
   function handleSubmit(e: React.FormEvent) {
