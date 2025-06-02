@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Content, Sidebar, Header, Main } from './styles';
+import { Container, Content, Header, Main } from './styles';
 import { IoIosArrowDropleft } from 'react-icons/io';
 import { IoIosArrowDropright } from 'react-icons/io';
+import { Sidebar } from '../Sidebar';
 
 interface ContainerPageProps {
   children: React.ReactNode;
@@ -16,13 +17,7 @@ const ContainerPage = ({ children }: ContainerPageProps) => {
 
   return (
     <Container>
-      {isSidebarOpen && (
-        <Sidebar>
-          <p>Menu Item 1</p>
-          <p>Menu Item 2</p>
-          <p>Menu Item 3</p>
-        </Sidebar>
-      )}
+      {isSidebarOpen && <Sidebar />}
 
       <Content isSidebarOpen={isSidebarOpen}>
         <Header>
