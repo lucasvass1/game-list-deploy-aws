@@ -1,11 +1,11 @@
-import React from "react";
-import { TableContainer } from "./styles.ts";
-import TableHeader from "./TableHeader/index.tsx";
-import TableBody from "./TableBody/index.tsx";
+import React from 'react';
+import { TableContainer } from './styles.ts';
+import TableHeader from './TableHeader/index.tsx';
+import TableBody from './TableBody/index.tsx';
 
 interface TableProps {
   dataHead: string[];
-  dataBody: string[][];
+  dataBody: (string | boolean | null | undefined)[][];
   includeImage?: boolean;
   indexPositionImage?: number;
   hasIconFavorite?: boolean;

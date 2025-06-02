@@ -1,12 +1,12 @@
-import React from "react";
-import { TBody, TD, TR } from "../styles.ts";
-import { FaEye } from "react-icons/fa";
-import { VscEdit } from "react-icons/vsc";
-import { COLORS } from "../../../config/colors/index.ts";
-import { FiTrash } from "react-icons/fi";
+import React from 'react';
+import { TBody, TD, TR } from '../styles.ts';
+import { FaEye } from 'react-icons/fa';
+import { VscEdit } from 'react-icons/vsc';
+import { COLORS } from '../../../config/colors/index.ts';
+import { FiTrash } from 'react-icons/fi';
 
 interface TableBodyProps {
-  dataBody: string[][]; 
+  dataBody: (string | boolean | null | undefined)[][];
   includeImage?: boolean;
   indexPositionImage?: number;
   handleViewItem: () => void;
@@ -30,46 +30,46 @@ const TableBody: React.FC<TableBodyProps> = ({
             includeImage && cellIndex === indexPositionImage ? (
               <TD key={cellIndex}>
                 <img
-                  src={cell}
+                  src={cell as string}
                   alt="game image"
-                  style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                  style={{ width: '50px', height: '50px', objectFit: 'cover' }}
                 />
               </TD>
             ) : (
               <TD key={cellIndex}>{cell}</TD>
-            )
+            ),
           )}
 
           {}
           <TD>
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around",
-                gap: "5px",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                gap: '5px',
               }}
             >
               <FaEye
                 style={{
-                  cursor: "pointer",
-                  fontSize: "20px",
+                  cursor: 'pointer',
+                  fontSize: '20px',
                   color: COLORS.buttonPrimary,
                 }}
                 onClick={handleViewItem}
               />
               <VscEdit
                 style={{
-                  cursor: "pointer",
-                  fontSize: "20px",
+                  cursor: 'pointer',
+                  fontSize: '20px',
                   color: COLORS.buttonPrimary,
                 }}
                 onClick={handleEditItem}
               />
               <FiTrash
                 style={{
-                  cursor: "pointer",
-                  fontSize: "20px",
+                  cursor: 'pointer',
+                  fontSize: '20px',
                   color: COLORS.buttonPrimary,
                 }}
                 onClick={handleDeleteItem}
