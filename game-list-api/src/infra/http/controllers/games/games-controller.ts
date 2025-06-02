@@ -4,6 +4,7 @@ import { CreateGameUseCase } from '@/domain/use-cases/games/create-games';
 import { DeleteGameUseCase } from '@/domain/use-cases/games/delete-games';
 import { ListFavoriteGamesUseCase } from '@/domain/use-cases/games/list-favorite-games';
 import { ListGamesUseCase } from '@/domain/use-cases/games/list-games';
+import { ListGamesByUserUseCase } from '@/domain/use-cases/games/list-games-by-user';
 import { ToggleFavoriteGameUseCase } from '@/domain/use-cases/games/toggle-favorite-game';
 import { UpdateGameUseCase } from '@/domain/use-cases/games/update-game';
 import { PrismaCategoryRepository } from '@/infra/database/prisma/repositories/prisma-category-repository';
@@ -64,6 +65,11 @@ export class GamesController {
   async list(search: string) {
     const useCase = new ListGamesUseCase(this.repository);
     const result = await useCase.execute({ search: search as string });
+    return result;
+  }
+  async listByUser(userId: string, search: string) {
+    const useCase = new ListGamesByUserUseCase(this.repository);
+    const result = await useCase.execute({ userId, search: search as string });
     return result;
   }
 

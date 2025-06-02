@@ -2,10 +2,20 @@ import { useQuery } from '@tanstack/react-query';
 import { api } from '../../api';
 import { MINUTE, REACT_QUERY_KEYS } from '../../../const';
 
+interface CategoryProps {
+  id?: string;
+  title?: string;
+  description?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  userId?: string;
+}
+
 interface GameProps {
   id?: string;
   title?: string;
   status: 'PLAYING' | 'DONE' | 'ABANDONED';
+  category: CategoryProps;
   categoryId: string;
   plataformId?: string | null;
   imageUrl?: string | null;
@@ -21,9 +31,9 @@ export type GamesListResponse = {
   games: GameProps[];
 };
 
-async function fetchGamesList(): Promise<GamesListResponse> {
-  const { data } = await api.get<GamesListResponse>('/games');
-  return data;
+async function fetchGamesList() {
+  const { data } = await api.get<GamesListResponse>('/games/me');
+  return data.games;
 }
 
 export function useGetGamesList(enabled: boolean) {
