@@ -20,6 +20,7 @@ export const Content = styled.div<{ isSidebarOpen: boolean }>`
   display: flex;
   flex-direction: column;
   transition: margin 0.3s ease;
+  height: 100vh;
 `;
 
 export const Header = styled.header`

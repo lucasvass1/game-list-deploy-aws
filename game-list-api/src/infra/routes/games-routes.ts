@@ -172,6 +172,28 @@ gamesRoutes.get(
     }
   },
 );
+gamesRoutes.get(
+  '/me',
+  ensureAuthenticated,
+  async (req: Request, res: Response) => {
+    try {
+      if (!req.user) {
+        res.status(400).json({ message: 'Bad request.' });
+        return;
+      }
+      const { id: userId } = req.user;
+      const { search } = req.query;
+
+      const games = await gamesController.listByUser(userId, search as string);
+      res.status(200).json(games);
+      return;
+    } catch (error) {
+      console.log('error', error);
+      res.status(500).json({ message: 'Internal server error.' });
+      return;
+    }
+  },
+);
 
 gamesRoutes.patch(
   '/:gameId/favorite',
