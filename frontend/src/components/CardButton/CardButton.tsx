@@ -1,9 +1,13 @@
-import React from "react";
-import * as S from "./CardButton.ts";
+import React from 'react';
+import * as S from './CardButton.ts';
 
-const CardButton = () => {
+interface CardButtonProps {
+  linkRedirect: string;
+}
+
+const CardButton = ({ linkRedirect }: CardButtonProps) => {
   return (
-    <a href="/" style={{ textDecoration: "none" }}>
+    <a href={linkRedirect} style={{ textDecoration: 'none' }}>
       <S.CardButton>
         <img src="add-outline 1.svg" alt="button icon" />
         <p>Add New</p>
