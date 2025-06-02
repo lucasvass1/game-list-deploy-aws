@@ -22,7 +22,15 @@ export function Header({ userName }: HeaderProps) {
   const location = useLocation();
   const path = location.pathname;
 
-  if (path === '/home') {
+  if (path === '/dashboard') {
+    return (
+      <HeaderContainer>
+        <Title>Hello, {userName}!</Title>
+        <Subtitle>Choose one of options below.</Subtitle>
+      </HeaderContainer>
+    );
+  }
+  if (path === '/') {
     return (
       <HeaderContainer>
         <Title>Hello, {userName}!</Title>

@@ -3,10 +3,10 @@ import { api } from '../../api';
 import { MINUTE, REACT_QUERY_KEYS } from '../../../const';
 
 export type StatsUserResponse = {
-  totalGames: number;
-  totalCategories: number;
-  totalPlatforms: number;
-  totalFavorites: number;
+  games: number;
+  categories: number;
+  plataforms: number;
+  favorites: number;
 };
 
 async function fetchUserStats(): Promise<StatsUserResponse> {

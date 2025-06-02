@@ -26,7 +26,7 @@ export function AppRoutes() {
             <Home />
           </RouteWrapper>
         }
-      />  
+      />
 
       <Route
         path="/login"
