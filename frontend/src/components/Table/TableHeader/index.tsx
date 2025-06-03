@@ -1,18 +1,15 @@
-
-import React from "react";
-import { Thead, TR, TH } from "../styles";
-import { COLORS } from "../../../config/colors";
+import React from 'react';
+import { Thead, TR, TH } from '../styles';
+import { COLORS } from '../../../config/colors';
 
 interface TableHeaderProps {
   dataHeader: string[];
-  sortColumn: number | null;
-  sortDirection: "asc" | "desc" | null;
+  sortDirection: 'asc' | 'desc' | null;
   onSort: (index: number) => void;
 }
 
 const TableHeader: React.FC<TableHeaderProps> = ({
   dataHeader,
-  sortColumn,
   sortDirection,
   onSort,
 }) => {
@@ -23,16 +20,23 @@ const TableHeader: React.FC<TableHeaderProps> = ({
           <TH
             key={index}
             onClick={() => onSort(index)}
-            style={{ cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}
+            style={{ cursor: 'pointer', gap: '5px' }}
           >
-            {item}
-            {sortColumn === index && (
-              <span>{sortDirection === "asc" ? "↑" : "↓"}</span>
-            )}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '5px',
+              }}
+            >
+              {item}
+              {sortDirection && !!item?.trim().length && (
+                <img src="order-filters.svg" alt="icon" />
+              )}
+            </div>
           </TH>
         ))}
-        <TH>Favorito</TH>
-        <TH>Ações</TH>
       </TR>
     </Thead>
   );

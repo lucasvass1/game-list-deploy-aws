@@ -11,7 +11,7 @@ interface CategoryProps {
   userId?: string;
 }
 
-interface GameProps {
+export interface GameProps {
   id?: string;
   title?: string;
   status: 'PLAYING' | 'DONE' | 'ABANDONED';

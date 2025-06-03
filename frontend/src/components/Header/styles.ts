@@ -1,13 +1,17 @@
 import styled from 'styled-components';
+import { COLORS } from '../../config/colors';
 
-export const HeaderContainer = styled.header`
-  background-color: #121212;
+export const HeaderContainer = styled.header<{ isBorderBottom?: boolean }>`
+  background-color: ${COLORS.black};
   padding: 1.5rem 2rem;
   color: white;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-height: 8rem;
+  min-height: auto;
+  border-left: 1px solid ${COLORS.white};
+  border-bottom: ${({ isBorderBottom }) =>
+    isBorderBottom ? `1px solid ${COLORS.white}` : 'none'};
 `;
 
 export const Title = styled.div`
@@ -92,4 +96,21 @@ export const ClearButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+`;
+
+export const HeaderButton = styled.button`
+  background: transparent;
+  /* border: 1px solid white; */
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.3s;
+  width: 50px;
+
+  &:hover {
+    background-color: white;
+    color: #202024;
+  }
 `;

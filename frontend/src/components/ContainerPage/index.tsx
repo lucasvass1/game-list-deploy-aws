@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Content, Header, Main } from './styles';
-import { IoIosArrowDropleft } from 'react-icons/io';
-import { IoIosArrowDropright } from 'react-icons/io';
+import { Container, Content, Main } from './styles';
+
 import { Sidebar } from '../Sidebar';
+import { Header } from '../Header/Header';
 
 interface ContainerPageProps {
   children: React.ReactNode;
@@ -20,7 +20,8 @@ const ContainerPage = ({ children }: ContainerPageProps) => {
       {isSidebarOpen && <Sidebar />}
 
       <Content isSidebarOpen={isSidebarOpen}>
-        <Header>
+        <Header toggleSideBar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+        {/* <Header>
           <button onClick={toggleSidebar}>
             {isSidebarOpen ? (
               <IoIosArrowDropleft size={30} />
@@ -28,7 +29,7 @@ const ContainerPage = ({ children }: ContainerPageProps) => {
               <IoIosArrowDropright size={30} />
             )}
           </button>
-        </Header>
+        </Header> */}
 
         <Main>{children}</Main>
       </Content>
