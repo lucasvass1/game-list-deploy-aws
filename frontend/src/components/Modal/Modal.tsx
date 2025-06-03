@@ -6,6 +6,10 @@ import { ModalDates } from '../../ModalDates/ModalDates.tsx';
 import { ModalCategoryRow } from '../ModalCategoryRow/ModalCategoryRow.tsx';
 import { ModalGameStatus } from '../ModalGameStatus/ModalGameStatus.tsx';
 import { ModalUrl } from '../ModalUrl/ModalUrl.tsx';
+import { ModalCompanyInputs } from '../ModalCompanyInputs/ModalCompanyInputs.tsx';
+import ModalDescriptionTextarea from '../ModalDescriptionTextarea/ModalDescriptionTextarea.tsx';
+import ModalGameTitle from '../ModalGameTitle/ModalGameTitle.tsx';
+import ModalCompanyTitle from '../ModalCompanyTitle/ModalCompanyTitle.tsx';
 
 interface ModalSelectInputProps {
   isOpen: boolean;
@@ -17,9 +21,12 @@ interface ModalSelectInputProps {
   isCategoryRow?: boolean;
   isStatus?: boolean;
   isUrl?: boolean;
+  isCompany?: boolean;
+  isCompanyTitle?: boolean;
+  isGameTitle?: boolean;
   buttonTitle: string;
+  isDescription?: boolean;
 }
-
 export interface GameFormData {
   title: string;
   description: string;
@@ -42,6 +49,10 @@ const Modal: React.FC<ModalSelectInputProps> = ({
   isCategoryRow = false,
   isStatus = false,
   isUrl = false,
+  isCompany = false,
+  isCompanyTitle = false,
+  isGameTitle = false,
+  isDescription = false,
   buttonTitle,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -111,29 +122,27 @@ const Modal: React.FC<ModalSelectInputProps> = ({
         </S.ModalHeader>
 
         <S.FormContainer>
-          <S.FormGroup>
-            <S.Label>
-              Title<S.Required>*</S.Required>
-            </S.Label>
-            <S.Input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              placeholder="Mario Kart 8"
-            />
-          </S.FormGroup>
+          <ModalGameTitle
+            isOpen={isGameTitle}
+            formData={formData}
+            handleInputChange={handleInputChange}
+          />
+          <ModalCompanyTitle
+            isOpen={isCompanyTitle}
+            formData={formData}
+            handleInputChange={handleInputChange}
+          />
 
-          <S.FormGroup>
-            <S.Label>Description</S.Label>
-            <S.Textarea
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              placeholder="Amazing game"
-            />
-          </S.FormGroup>
-
+          <ModalCompanyInputs
+            formData={formData}
+            handleInputChange={handleInputChange}
+            isOpen={isCompany}
+          />
+          <ModalDescriptionTextarea
+            formData={formData}
+            handleInputChange={handleInputChange}
+            isOpen={isDescription}
+          />
           <S.FormRow>
             <ModalCategoryRow isOpen={isCategoryRow} />
           </S.FormRow>
@@ -148,7 +157,9 @@ const Modal: React.FC<ModalSelectInputProps> = ({
         </S.FormContainer>
 
         <S.ButtonContainer>
-          <ModalButton onClick={handleSubmit} type="submit">{buttonTitle}</ModalButton>
+          <ModalButton onClick={handleSubmit} type="submit">
+            {buttonTitle}
+          </ModalButton>
         </S.ButtonContainer>
       </S.ModalContainer>
     </S.ModalOverlay>

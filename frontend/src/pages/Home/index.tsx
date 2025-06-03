@@ -17,7 +17,7 @@ export function Home() {
       <Container>
         <Title>Hello, {user?.name}!</Title>
         <Subtitle>Choose one of options below.</Subtitle>
-        <Modal isOpen={isOpen} buttonTitle="CREATE" onClose={() => {setIsOpen(false)}}></Modal>
+        <Modal isOpen={isOpen} isCompany={true}  buttonTitle="CREATE" onClose={() => {setIsOpen(false)}}></Modal>
 
         <ContentItems>
           <Card
