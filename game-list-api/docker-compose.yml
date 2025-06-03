@@ -1,11 +1,16 @@
-version: "3"
+version: '3'
 
 services:
-  api-solid-pg:
+  api-game-list-pg:
     image: bitnami/postgresql
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USERNAME=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DATABASE=gamelistapi
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=gamelistapi
+    volumes:
+      - postgres_data:/bitnami/postgresql
+
+volumes:
+  postgres_data:
