@@ -1,17 +1,17 @@
 // src/components/Table/index.tsx
-import React from "react";
-import { TableContainer } from "./styles";
-import TableHeader from "./TableHeader";
-import TableBody from "./TableBody";
+import React from 'react';
+import { TableContainer } from './styles';
+import TableHeader from './TableHeader';
+import TableBody from './TableBody';
 
 interface TableProps {
   headers: string[];
-  data: string[][];
-  favorites: boolean[];
+  data: (string | boolean | null | undefined)[][];
   includeImage?: boolean;
   indexPositionImage?: number;
-  sortColumn: number | null;
-  sortDirection: "asc" | "desc" | null;
+  hasIconFavorite?: boolean;
+  indexPositionFavorite?: number;
+  sortDirection: 'asc' | 'desc' | null;
   onSort: (index: number) => void;
   onView: (index: number) => void;
   onEdit: (index: number) => void;
@@ -22,22 +22,21 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({
   headers,
   data,
-  favorites,
   includeImage,
   indexPositionImage,
-  sortColumn,
   sortDirection,
   onSort,
   onView,
   onEdit,
   onDelete,
   onToggleFavorite,
+  hasIconFavorite,
+  indexPositionFavorite,
 }) => {
   return (
     <TableContainer>
       <TableHeader
         dataHeader={headers}
-        sortColumn={sortColumn}
         sortDirection={sortDirection}
         onSort={onSort}
       />
@@ -49,7 +48,8 @@ const Table: React.FC<TableProps> = ({
         handleEditItem={onEdit}
         handleDeleteItem={onDelete}
         handleToggleFavorite={onToggleFavorite}
-        favorites={favorites}
+        hasIconFavorite={hasIconFavorite}
+        indexPositionFavorite={indexPositionFavorite}
       />
     </TableContainer>
   );

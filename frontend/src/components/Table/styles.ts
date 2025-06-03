@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { COLORS } from "../../config/colors/index.ts";
+import styled from 'styled-components';
+import { COLORS } from '../../config/colors/index.ts';
 
 export const TableContainer = styled.table`
   width: 100%;
@@ -17,8 +17,9 @@ export const Thead = styled.thead`
 `;
 
 export const TR = styled.tr<{ backgroundColor?: string; marginTop?: string }>`
-  background-color: ${({ backgroundColor }) => backgroundColor ?? "transparent"};
-  margin-top: ${({ marginTop }) => marginTop ?? "0"};
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor ?? 'transparent'};
+  margin-top: ${({ marginTop }) => marginTop ?? '0'};
 `;
 
 export const TH = styled.th`
@@ -32,6 +33,7 @@ export const TH = styled.th`
 
 export const TBody = styled.tbody`
   width: 100%;
+  padding: 10px;
 `;
 
 export const TD = styled.td`

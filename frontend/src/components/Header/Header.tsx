@@ -2,52 +2,53 @@ import { useLocation } from 'react-router-dom';
 import {
   HeaderContainer,
   Title,
-  Subtitle,
   Flex,
   Row,
-  TitleFilter,
   Button,
-  Input,
-  Select,
-  Actions,
-  SearchButton,
-  ClearButton,
+  HeaderButton,
 } from './styles.ts';
+import { IoIosArrowDropleft } from 'react-icons/io';
+import { IoIosArrowDropright } from 'react-icons/io';
 
 interface HeaderProps {
-  userName: string;
+  toggleSideBar: () => void;
+  isSidebarOpen: boolean;
 }
 
-export function Header({ userName }: HeaderProps) {
+export function Header({ toggleSideBar, isSidebarOpen }: HeaderProps) {
   const location = useLocation();
   const path = location.pathname;
 
-  if (path === '/dashboard') {
+  const handleSideBar = () => (
+    <HeaderButton onClick={toggleSideBar}>
+      {isSidebarOpen ? (
+        <IoIosArrowDropleft size={30} />
+      ) : (
+        <IoIosArrowDropright size={30} />
+      )}
+    </HeaderButton>
+  );
+
+  if (path === '/' || path === '/dashboard') {
     return (
-      <HeaderContainer>
-        <Title>Hello, {userName}!</Title>
-        <Subtitle>Choose one of options below.</Subtitle>
-      </HeaderContainer>
-    );
-  }
-  if (path === '/') {
-    return (
-      <HeaderContainer>
-        <Title>Hello, {userName}!</Title>
-        <Subtitle>Choose one of options below.</Subtitle>
+      <HeaderContainer isBorderBottom={false}>
+        {handleSideBar()}
       </HeaderContainer>
     );
   }
 
   if (path === '/games') {
     return (
-      <HeaderContainer>
+      <HeaderContainer isBorderBottom={false}>
         <Flex>
-          <Title>Games</Title>
+          <Row>
+            {handleSideBar()}
+            <Title>Games</Title>
+          </Row>
           <Button>NEW GAME</Button>
         </Flex>
 
-        <Row>
+        {/* <Row>
           <TitleFilter>Filters</TitleFilter>
           <Input placeholder="Search Game" />
           <Select>
@@ -60,14 +61,15 @@ export function Header({ userName }: HeaderProps) {
             <ClearButton>Clear</ClearButton>
             <SearchButton>Search 🔍</SearchButton>
           </Actions>
-        </Row>
+        </Row> */}
       </HeaderContainer>
     );
   }
 
   if (path === '/categories') {
     return (
-      <HeaderContainer>
+      <HeaderContainer isBorderBottom>
+        {handleSideBar()}
         <Flex>
           <Title>Categories</Title>
           <Button>NEW CATEGORY</Button>
@@ -78,7 +80,8 @@ export function Header({ userName }: HeaderProps) {
 
   if (path === '/plataforms') {
     return (
-      <HeaderContainer>
+      <HeaderContainer isBorderBottom>
+        {handleSideBar()}
         <Flex>
           <Title>Plataforms</Title>
           <Button>NEW PLATFORM</Button>
