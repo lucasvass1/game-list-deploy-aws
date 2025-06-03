@@ -1,17 +1,20 @@
-import React from 'react';
-import { TBody, TD, TR } from '../styles.ts';
-import { FaEye } from 'react-icons/fa';
-import { VscEdit } from 'react-icons/vsc';
-import { COLORS } from '../../../config/colors/index.ts';
-import { FiTrash } from 'react-icons/fi';
+// src/components/Table/TableBody/index.tsx
+import React from "react";
+import { TBody, TR, TD } from "../styles";
+import { FaEye, FaStar, FaRegStar } from "react-icons/fa";
+import { VscEdit } from "react-icons/vsc";
+import { FiTrash } from "react-icons/fi";
+import { COLORS } from "../../../config/colors";
 
 interface TableBodyProps {
-  dataBody: (string | boolean | null | undefined)[][];
+  dataBody: string[][];
   includeImage?: boolean;
   indexPositionImage?: number;
-  handleViewItem: () => void;
-  handleEditItem: () => void;
-  handleDeleteItem: () => void;
+  handleViewItem: (index: number) => void;
+  handleEditItem: (index: number) => void;
+  handleDeleteItem: (index: number) => void;
+  handleToggleFavorite: (index: number) => void;
+  favorites: boolean[];
 }
 
 const TableBody: React.FC<TableBodyProps> = ({
@@ -21,58 +24,59 @@ const TableBody: React.FC<TableBodyProps> = ({
   handleViewItem,
   handleEditItem,
   handleDeleteItem,
+  handleToggleFavorite,
+  favorites,
 }) => {
   return (
     <TBody>
-      {dataBody?.map((row, rowIndex) => (
-        <TR key={rowIndex} backgroundColor={COLORS.white} marginTop="10px">
+      {dataBody.map((row, rowIndex) => (
+        <TR key={rowIndex} backgroundColor={COLORS.white}>
           {row.map((cell, cellIndex) =>
             includeImage && cellIndex === indexPositionImage ? (
               <TD key={cellIndex}>
-                <img
-                  src={cell as string}
-                  alt="game image"
-                  style={{ width: '50px', height: '50px', objectFit: 'cover' }}
-                />
+                <img src={cell} alt="game" />
               </TD>
             ) : (
               <TD key={cellIndex}>{cell}</TD>
-            ),
+            )
           )}
-
-          {}
+          <TD>
+            {favorites[rowIndex] ? (
+              <FaStar
+                onClick={() => handleToggleFavorite(rowIndex)}
+                style={{ cursor: "pointer", color: COLORS.favoriteYellow }}
+                title="Remover dos favoritos"
+              />
+            ) : (
+              <FaRegStar
+                onClick={() => handleToggleFavorite(rowIndex)}
+                style={{ cursor: "pointer", color: COLORS.gray }}
+                title="Adicionar aos favoritos"
+              />
+            )}
+          </TD>
           <TD>
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-                gap: '5px',
+                display: "flex",
+                justifyContent: "center",
+                gap: "10px",
               }}
             >
               <FaEye
-                style={{
-                  cursor: 'pointer',
-                  fontSize: '20px',
-                  color: COLORS.buttonPrimary,
-                }}
-                onClick={handleViewItem}
+                onClick={() => handleViewItem(rowIndex)}
+                style={{ cursor: "pointer", color: COLORS.buttonPrimary }}
+                title="Visualizar"
               />
               <VscEdit
-                style={{
-                  cursor: 'pointer',
-                  fontSize: '20px',
-                  color: COLORS.buttonPrimary,
-                }}
-                onClick={handleEditItem}
+                onClick={() => handleEditItem(rowIndex)}
+                style={{ cursor: "pointer", color: COLORS.buttonPrimary }}
+                title="Editar"
               />
               <FiTrash
-                style={{
-                  cursor: 'pointer',
-                  fontSize: '20px',
-                  color: COLORS.buttonPrimary,
-                }}
-                onClick={handleDeleteItem}
+                onClick={() => handleDeleteItem(rowIndex)}
+                style={{ cursor: "pointer", color: COLORS.buttonPrimary }}
+                title="Excluir"
               />
             </div>
           </TD>

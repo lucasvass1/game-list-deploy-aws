@@ -1,44 +1,55 @@
-import React from 'react';
-import { TableContainer } from './styles.ts';
-import TableHeader from './TableHeader/index.tsx';
-import TableBody from './TableBody/index.tsx';
+// src/components/Table/index.tsx
+import React from "react";
+import { TableContainer } from "./styles";
+import TableHeader from "./TableHeader";
+import TableBody from "./TableBody";
 
 interface TableProps {
-  dataHead: string[];
-  dataBody: (string | boolean | null | undefined)[][];
+  headers: string[];
+  data: string[][];
+  favorites: boolean[];
   includeImage?: boolean;
   indexPositionImage?: number;
-  hasIconFavorite?: boolean;
-  indexPositionFavorite?: number;
-  handleViewItem: () => void;
-  handleEditItem: () => void;
-  handleDeleteItem: () => void;
+  sortColumn: number | null;
+  sortDirection: "asc" | "desc" | null;
+  onSort: (index: number) => void;
+  onView: (index: number) => void;
+  onEdit: (index: number) => void;
+  onDelete: (index: number) => void;
+  onToggleFavorite: (index: number) => void;
 }
 
 const Table: React.FC<TableProps> = ({
-  dataHead,
-  dataBody,
+  headers,
+  data,
+  favorites,
   includeImage,
-  hasIconFavorite,
-  indexPositionFavorite,
   indexPositionImage,
-  handleDeleteItem,
-  handleEditItem,
-  handleViewItem,
+  sortColumn,
+  sortDirection,
+  onSort,
+  onView,
+  onEdit,
+  onDelete,
+  onToggleFavorite,
 }) => {
   return (
     <TableContainer>
-      <TableHeader dataHeader={dataHead} />
-
+      <TableHeader
+        dataHeader={headers}
+        sortColumn={sortColumn}
+        sortDirection={sortDirection}
+        onSort={onSort}
+      />
       <TableBody
+        dataBody={data}
         includeImage={includeImage}
-        dataBody={dataBody}
-        hasIconFavorite={hasIconFavorite}
-        indexPositionFavorite={indexPositionFavorite}
         indexPositionImage={indexPositionImage}
-        handleDeleteItem={handleDeleteItem}
-        handleEditItem={handleEditItem}
-        handleViewItem={handleViewItem}
+        handleViewItem={onView}
+        handleEditItem={onEdit}
+        handleDeleteItem={onDelete}
+        handleToggleFavorite={onToggleFavorite}
+        favorites={favorites}
       />
     </TableContainer>
   );
