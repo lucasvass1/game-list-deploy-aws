@@ -1,5 +1,4 @@
 import React from 'react';
-import { SidebarProps } from './types';
 import Logo from './img/Logo.png';
 import homeIcon from './img/home.png';
 import gamepadIcon from './img/gamepad.png';
