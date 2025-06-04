@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as S from './Modal.ts';
 import ModalButton from '../ModalButton/ModalButton.tsx';
 import { ModalFavorite } from '../ModalFavorite/ModalFavorite.tsx';
-import { ModalDates } from '../../ModalDates/ModalDates.tsx';
+import { ModalDates } from '../ModalDates/ModalDates.tsx';
 import { ModalCategoryRow } from '../ModalCategoryRow/ModalCategoryRow.tsx';
 import { ModalGameStatus } from '../ModalGameStatus/ModalGameStatus.tsx';
 import { ModalUrl } from '../ModalUrl/ModalUrl.tsx';

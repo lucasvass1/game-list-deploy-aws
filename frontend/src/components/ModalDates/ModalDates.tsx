@@ -1,4 +1,4 @@
-import * as S from '../components/Modal/Modal.ts';
+import * as S from '../Modal/Modal.ts';
 import React from 'react';
 
 interface ModalDatesProps {
