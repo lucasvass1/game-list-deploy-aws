@@ -9,6 +9,10 @@ import {
 import { useAuth } from './AuthContext.tsx';
 import { useDebounce } from '../hooks/useDebounce.ts';
 import { fetchGameToggleFavorite } from '../services/games/toggleFavorite/index.ts';
+import {
+  fetchGameCreate,
+  GameCreateRequest,
+} from '../services/games/create/index.ts';
 
 type GamesContextType = {
   dataGems?: GamesListObjectResponse;
@@ -22,6 +26,16 @@ type GamesContextType = {
   isFavorite?: boolean;
   setIsFavorite: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   handleToggleFavorite: (id: string) => void;
+  handleCreateGame: ({
+    description,
+    status,
+    title,
+    categoryId,
+    endDate,
+    imageUrl,
+    isFavorite,
+    plataformId,
+  }: GameCreateRequest) => void;
 };
 
 const GamesContext = createContext({} as GamesContextType);
@@ -47,8 +61,21 @@ export function GamesProvider({ children }: GamesProviderProps) {
 
   const { mutate: mutateToggleFavorite } = useMutation({
     mutationFn: fetchGameToggleFavorite,
-    onSuccess: () => {},
-    onError: () => {},
+  });
+  const { mutate: mutateAddGame } = useMutation({
+    mutationFn: fetchGameCreate,
+    onSuccess: () => {
+      toast.success('Game added successfully!');
+      handleClearFilters();
+    },
+    onError: error => {
+      console.log('error', error);
+      if (error.message) {
+        toast.error(error.message);
+        return;
+      }
+      toast.error('Bad Request');
+    },
   });
 
   const { mutate: mutateLoadGamesList } = useMutation({
@@ -91,6 +118,28 @@ export function GamesProvider({ children }: GamesProviderProps) {
     });
   };
 
+  const handleCreateGame = ({
+    title,
+    description,
+    categoryId,
+    plataformId,
+    imageUrl,
+    endDate,
+    status,
+    isFavorite,
+  }: GameCreateRequest) => {
+    mutateAddGame({
+      title,
+      description,
+      categoryId,
+      plataformId,
+      imageUrl,
+      endDate,
+      status,
+      isFavorite,
+    });
+  };
+
   useEffect(() => {
     if (user?.id) {
       const body: {
@@ -125,6 +174,7 @@ export function GamesProvider({ children }: GamesProviderProps) {
         setIsFavorite,
         isFavorite,
         handleToggleFavorite,
+        handleCreateGame,
       }}
     >
       {children}

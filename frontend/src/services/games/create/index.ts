@@ -33,7 +33,7 @@ export async function fetchGameCreate({
 
   if (categoryId) body.categoryId = categoryId;
   if (plataformId) body.plataformId = plataformId;
-  if (imageUrl) body.imageUrl = imageUrl;
+  if (imageUrl?.length) body.imageUrl = imageUrl;
   if (endDate) body.endDate = endDate;
   if (isFavorite !== undefined && isFavorite !== null)
     body.isFavorite = isFavorite;

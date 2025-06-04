@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  AddNewGameButton,
   CheckFavorite,
   ClearButton,
   Container,
@@ -19,6 +20,7 @@ import { useGames } from '../../../../context/GamesContext';
 
 export const FiltersTable = () => {
   const { user } = useAuth();
+  const [isShowModalAddGame, setIsShowModalAddGame] = useState<boolean>(false);
   const { data: dataCategoryList } = useGetCategoryList(
     !!user?.id,
     1,
@@ -32,55 +34,61 @@ export const FiltersTable = () => {
     setCategorySelected,
     setIsFavorite,
     isFavorite,
+    handleCreateGame,
   } = useGames();
 
   return (
-    <Container>
-      <ContainerRow>
-        <Title>Filters</Title>
-        <SearchInput
-          placeholder="Search"
-          type="text"
-          name="search"
-          id="search"
-          value={search}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSearch(e.target.value)
-          }
-        />
-
-        <SelectInput
-          name="Select Category"
-          value={categorySelected}
-          onChange={e => setCategorySelected(e.target.value)}
-        >
-          <option value="" disabled selected>
-            Select category
-          </option>
-          {dataCategoryList?.categories?.map(category => (
-            <option key={category.id} value={category.id}>
-              {category.title}
-            </option>
-          ))}
-        </SelectInput>
-
+    <>
+      <AddNewGameButton onClick={() => setIsShowModalAddGame(true)}>
+        Add new game
+      </AddNewGameButton>
+      <Container>
         <ContainerRow>
-          <CheckFavorite
-            id="favorite"
-            type="checkbox"
-            onChange={() => setIsFavorite(oldState => !oldState)}
-            checked={isFavorite}
+          <Title>Filters</Title>
+          <SearchInput
+            placeholder="Search"
+            type="text"
+            name="search"
+            id="search"
+            value={search}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
           />
-          <label htmlFor="favorite">Favorite</label>
-        </ContainerRow>
-      </ContainerRow>
 
-      <ContainerButtons>
-        <ClearButton onClick={handleClearFilters}>Clear</ClearButton>
-        <SearchButton>
-          Search <IoIosSearch size={16} />
-        </SearchButton>
-      </ContainerButtons>
-    </Container>
+          <SelectInput
+            name="Select Category"
+            value={categorySelected}
+            onChange={e => setCategorySelected(e.target.value)}
+          >
+            <option value="" disabled selected>
+              Select category
+            </option>
+            {dataCategoryList?.categories?.map(category => (
+              <option key={category.id} value={category.id}>
+                {category.title}
+              </option>
+            ))}
+          </SelectInput>
+
+          <ContainerRow>
+            <CheckFavorite
+              id="favorite"
+              type="checkbox"
+              onChange={() => setIsFavorite(oldState => !oldState)}
+              checked={isFavorite}
+            />
+            <label htmlFor="favorite">Favorite</label>
+          </ContainerRow>
+        </ContainerRow>
+
+        <ContainerButtons>
+          <ClearButton onClick={handleClearFilters}>Clear</ClearButton>
+          <SearchButton>
+            Search <IoIosSearch size={16} />
+          </SearchButton>
+        </ContainerButtons>
+      </Container>
+    </>
   );
 };

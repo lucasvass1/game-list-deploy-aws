@@ -45,7 +45,6 @@ export function Header({ toggleSideBar, isSidebarOpen }: HeaderProps) {
             {handleSideBar()}
             <Title>Games</Title>
           </Row>
-          <Button>Add new game</Button>
         </Flex>
       </HeaderContainer>
     );
