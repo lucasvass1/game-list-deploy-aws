@@ -100,7 +100,7 @@ export const Required = styled.span`
 export const Input = styled.input`
   width: auto;
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid black;
   border-radius: 4px;
   font-size: 14px;
   color: #333;
@@ -126,7 +126,7 @@ export const Input = styled.input`
 export const Textarea = styled.textarea`
   width: auto;
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid black;
   border-radius: 4px;
   font-size: 14px;
   color: #333;
@@ -147,7 +147,7 @@ export const Select = styled.select`
   max-width: auto;
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid black;
   border-radius: 4px;
   font-size: 14px;
   color: black;

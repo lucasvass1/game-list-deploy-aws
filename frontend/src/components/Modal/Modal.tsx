@@ -14,7 +14,7 @@ import ModalCompanyTitle from '../ModalCompanyTitle/ModalCompanyTitle.tsx';
 interface ModalSelectInputProps {
   isOpen: boolean;
   onClose: () => void;
-  title?: string;
+  title: string;
   onSave?: (formData: GameFormData) => void;
   isFavorite?: boolean;
   isDates?: boolean;
@@ -38,6 +38,13 @@ export interface GameFormData {
   favorite: boolean;
   imageUrl: string;
 }
+export interface PlatformFormData {
+  platformName: string | number | readonly string[] | undefined;
+  companyName?: string;
+  acquisitionDate?: string;
+  imageUrl?: string;
+}
+
 
 const Modal: React.FC<ModalSelectInputProps> = ({
   isOpen,
@@ -56,7 +63,7 @@ const Modal: React.FC<ModalSelectInputProps> = ({
   buttonTitle,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
-  const [formData, setFormData] = useState<GameFormData>({
+  const [gameFormData, setGameFormData] = useState<GameFormData>({
     title: '',
     description: '',
     category: '',
@@ -65,6 +72,12 @@ const Modal: React.FC<ModalSelectInputProps> = ({
     finishDate: '',
     status: '',
     favorite: false,
+    imageUrl: '',
+  });
+  const [platformFormData, setPlatformFormData] = useState<PlatformFormData>({
+    platformName: '',
+    companyName: '',
+    acquisitionDate: '',
     imageUrl: '',
   });
   useEffect(() => {
@@ -102,11 +115,12 @@ const Modal: React.FC<ModalSelectInputProps> = ({
     >,
   ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setGameFormData(prev => ({ ...prev, [name]: value }));
+    setPlatformFormData(prev => ({ ...prev, [name]: value }));
   };
   const handleSubmit = () => {
     if (onSave) {
-      onSave(formData);
+      onSave(gameFormData || platformFormData);
     }
     onClose();
   };
@@ -124,22 +138,22 @@ const Modal: React.FC<ModalSelectInputProps> = ({
         <S.FormContainer>
           <ModalGameTitle
             isOpen={isGameTitle}
-            formData={formData}
+            formData={gameFormData}
             handleInputChange={handleInputChange}
           />
           <ModalCompanyTitle
             isOpen={isCompanyTitle}
-            formData={formData}
+            formData={platformFormData}
             handleInputChange={handleInputChange}
           />
 
           <ModalCompanyInputs
-            formData={formData}
+            formData={platformFormData}
             handleInputChange={handleInputChange}
             isOpen={isCompany}
           />
           <ModalDescriptionTextarea
-            formData={formData}
+            formData={gameFormData}
             handleInputChange={handleInputChange}
             isOpen={isDescription}
           />
@@ -163,7 +177,7 @@ const Modal: React.FC<ModalSelectInputProps> = ({
         </S.ButtonContainer>
       </S.ModalContainer>
     </S.ModalOverlay>
-  );
+);
 };
 
 export default Modal;

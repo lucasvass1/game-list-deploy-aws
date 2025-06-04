@@ -4,18 +4,16 @@ import { useGetUserStats } from '../../services/users/stats';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/Card/Card.tsx';
 import { Container, ContentItems, Subtitle, Title } from './styles';
-import Modal from '../../components/Modal/Modal.tsx';
 
 export function Home() {
   const { user } = useAuth();
   const { data } = useGetUserStats(!!user?.id);
-
   return (
     <ContainerPage>
       <Container>
         <Title>Hello, {user?.name}!</Title>
         <Subtitle>Choose one of options below.</Subtitle>
-        
+
         <ContentItems>
           <Card
             title="Games"

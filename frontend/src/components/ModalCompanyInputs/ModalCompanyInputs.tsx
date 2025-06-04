@@ -1,14 +1,9 @@
 import React from 'react';
 import * as S from '../Modal/Modal.ts';
-
-export interface CompanyFormData {
-  companyName?: string;
-  acquisitionDate?: string;
-  imageUrl?: string;
-}
+import { PlatformFormData } from '../Modal/Modal.tsx';
 
 interface ModalCompanyInputsProps {
-  formData: CompanyFormData;
+  formData: PlatformFormData;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isOpen: boolean;
 }

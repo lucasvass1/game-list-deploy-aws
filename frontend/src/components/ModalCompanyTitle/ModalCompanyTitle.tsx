@@ -1,10 +1,10 @@
 import React from 'react';
 import * as S from '../Modal/Modal.ts';
-import { CompanyFormData } from '../ModalCompanyInputs/ModalCompanyInputs.tsx';
+import { PlatformFormData } from '../Modal/Modal.tsx';
 
 interface ModalCompanyTitleProps {
   isOpen: boolean;
-  formData: CompanyFormData;
+  formData: PlatformFormData;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -17,14 +17,14 @@ const ModalCompanyTitle: React.FC<ModalCompanyTitleProps> = ({
     isOpen && (
       <S.FormGroup>
         <S.Label>
-          Company name<S.Required>*</S.Required>
+          Platform name<S.Required>*</S.Required>
         </S.Label>
         <S.Input
           type="text"
-          name="companyName"
-          value={formData.companyName}
+          name="platformName"
+          value={formData.platformName}
           onChange={handleInputChange}
-          placeholder="Nintendo"
+          placeholder="Epic games"
         />
       </S.FormGroup>
     )
