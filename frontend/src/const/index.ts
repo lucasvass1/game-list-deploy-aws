@@ -10,13 +10,13 @@ export const REACT_QUERY_KEYS = {
       Stats: 'Stats',
     },
     games: {
-      List: 'List',
+      List: 'ListGames',
     },
     plataform: {
-      List: 'List',
+      List: 'ListPlataform',
     },
     category: {
-      List: 'List',
+      List: 'ListCategory',
     },
   },
 };

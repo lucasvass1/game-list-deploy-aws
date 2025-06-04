@@ -1,6 +1,7 @@
 import { Game } from '@/domain/entities/game';
 import { prisma } from '../client';
 import { GameNotFoundError } from '@/domain/errors/game-not-found';
+import { ListGamesRequest } from '@/domain/use-cases/games/list-games-by-user';
 
 export class PrismaGameRepository {
   async create(userId: string, game: Game) {
@@ -106,50 +107,83 @@ export class PrismaGameRepository {
         }),
     );
   }
-  async findByUser({ userId, search }: { userId: string; search?: string }) {
-    const games = await prisma.game.findMany({
-      where: {
-        userId,
-        OR: search
-          ? [
-              { title: { contains: search, mode: 'insensitive' } },
-              { description: { contains: search, mode: 'insensitive' } },
-            ]
-          : undefined,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        category: true,
-        plataform: true,
-      },
-    });
+  async findByUser({
+    userId,
+    search,
+    page,
+    limit,
+    sortBy,
+    order,
+    category,
+    favorite,
+  }: ListGamesRequest) {
+    const skip = (Number(page) - 1) * Number(limit);
 
-    console.log('games', games);
-    return games.map((game) => ({
-      id: game.id,
-      title: game.title,
-      status: game.status,
-      categoryId: game.categoryId,
-      plataformId: game.plataformId,
-      imageUrl: game.imageUrl,
-      description: game.description,
-      endDate: game.endDate,
-      createdAt: game.createdAt,
-      updatedAt: game.updatedAt,
-      isFavorite: game.isFavorite,
+    const [games, total] = await Promise.all([
+      prisma.game.findMany({
+        where: {
+          userId,
+          isFavorite: favorite,
+          OR: search
+            ? [
+                { title: { contains: search, mode: 'insensitive' } },
+                { description: { contains: search, mode: 'insensitive' } },
+              ]
+            : undefined,
+          categoryId: category?.length ? category : undefined,
+        },
+        skip,
+        take: Number(limit),
+        orderBy: {
+          [sortBy as string]: order,
+        },
+        include: {
+          category: true,
+          plataform: true,
+        },
+      }),
+      prisma.game.count({
+        where: {
+          userId,
+          OR: search
+            ? [
+                { title: { contains: search, mode: 'insensitive' } },
+                { description: { contains: search, mode: 'insensitive' } },
+              ]
+            : undefined,
+          categoryId: category?.length ? category : undefined,
+        },
+      }),
+    ]);
 
-      // adicionando os dados relacionados
-      category: {
-        id: game.category.id,
-        name: game.category.title,
-      },
-      // plataform: {
-      //   id: game.plataform.id,
-      //   name: game.plataform.title,
-      // },
-    }));
+    return {
+      games: games.map((game) => ({
+        id: game.id,
+        title: game.title,
+        status: game.status,
+        categoryId: game.categoryId,
+        plataformId: game.plataformId,
+        imageUrl: game.imageUrl,
+        description: game.description,
+        endDate: game.endDate,
+        createdAt: game.createdAt,
+        updatedAt: game.updatedAt,
+        isFavorite: game.isFavorite,
+        category: {
+          id: game.category.id,
+          name: game.category.title,
+        },
+        plataform: game.plataform
+          ? {
+              id: game.plataform.id,
+              name: game.plataform.title,
+            }
+          : null,
+      })),
+      total,
+      limit: Number(limit),
+      page: Number(page),
+    };
   }
 
   async toggleFavorite(gameId: string, userId: string): Promise<void> {

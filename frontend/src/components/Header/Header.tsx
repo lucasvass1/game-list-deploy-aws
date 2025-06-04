@@ -45,23 +45,8 @@ export function Header({ toggleSideBar, isSidebarOpen }: HeaderProps) {
             {handleSideBar()}
             <Title>Games</Title>
           </Row>
-          <Button>NEW GAME</Button>
+          <Button>Add new game</Button>
         </Flex>
-
-        {/* <Row>
-          <TitleFilter>Filters</TitleFilter>
-          <Input placeholder="Search Game" />
-          <Select>
-            <option>Select Category</option>
-          </Select>
-          <Select>
-            <option>Filter Favorite</option>
-          </Select>
-          <Actions>
-            <ClearButton>Clear</ClearButton>
-            <SearchButton>Search 🔍</SearchButton>
-          </Actions>
-        </Row> */}
       </HeaderContainer>
     );
   }

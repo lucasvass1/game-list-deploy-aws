@@ -49,6 +49,13 @@ categoryRoutes.get(
   ensureAuthenticated,
   async (req: Request, res: Response) => {
     try {
+      if (!req.user) {
+        res.status(400).json({ message: 'Bad request.' });
+        return;
+      }
+
+      const { id: userId } = req.user;
+
       const {
         page = '1',
         limit = '10',
@@ -59,8 +66,9 @@ categoryRoutes.get(
       const categorys = await categorysController.list({
         page: Number(page),
         limit: Number(limit),
-        sortBy: sortBy as 'tilte' | 'description' | 'createdAt' | 'updatedAt',
+        sortBy: sortBy as 'title' | 'description' | 'createdAt' | 'updatedAt',
         order: order as 'asc' | 'desc',
+        userId,
       });
       res.status(200).json(categorys);
       return;

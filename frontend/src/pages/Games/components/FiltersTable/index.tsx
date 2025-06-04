@@ -11,32 +11,72 @@ import {
   Title,
 } from './styles';
 import { IoIosSearch } from 'react-icons/io';
+import { useGetCategoryList } from '../../../../services/category/list';
+import { useAuth } from '../../../../context/AuthContext';
+import { useGames } from '../../../../context/GamesContext';
 
-interface IFiltersTableProps {}
+// interface IFiltersTableProps {}
 
-export const FiltersTable = ({}: IFiltersTableProps) => {
+export const FiltersTable = () => {
+  const { user } = useAuth();
+  const { data: dataCategoryList } = useGetCategoryList(
+    !!user?.id,
+    1,
+    10000000,
+  );
+  const {
+    setSearch,
+    search,
+    handleClearFilters,
+    categorySelected,
+    setCategorySelected,
+    setIsFavorite,
+    isFavorite,
+  } = useGames();
+
   return (
     <Container>
       <ContainerRow>
         <Title>Filters</Title>
-        <SearchInput placeholder="Search" />
+        <SearchInput
+          placeholder="Search"
+          type="text"
+          name="search"
+          id="search"
+          value={search}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearch(e.target.value)
+          }
+        />
 
-        <SelectInput name="Select Category">
-          <option value="" disabled>
+        <SelectInput
+          name="Select Category"
+          value={categorySelected}
+          onChange={e => setCategorySelected(e.target.value)}
+        >
+          <option value="" disabled selected>
             Select category
           </option>
-          <option value="all">All</option>
-          <option value="action">Action</option>
+          {dataCategoryList?.categories?.map(category => (
+            <option key={category.id} value={category.id}>
+              {category.title}
+            </option>
+          ))}
         </SelectInput>
 
         <ContainerRow>
-          <CheckFavorite id="favorite" />
+          <CheckFavorite
+            id="favorite"
+            type="checkbox"
+            onChange={() => setIsFavorite(oldState => !oldState)}
+            checked={isFavorite}
+          />
           <label htmlFor="favorite">Favorite</label>
         </ContainerRow>
       </ContainerRow>
 
       <ContainerButtons>
-        <ClearButton>Clear</ClearButton>
+        <ClearButton onClick={handleClearFilters}>Clear</ClearButton>
         <SearchButton>
           Search <IoIosSearch size={16} />
         </SearchButton>

@@ -23,12 +23,18 @@ export class PrismaCategoryRepository {
   }
 
   async findMany(params: ListCategoriesParams): Promise<{
-    categories: Category[];
+    categories: unknown[];
     total: number;
     page: number;
     limit: number;
   }> {
-    const { page = 1, limit = 10, sortBy = 'title', order = 'asc' } = params;
+    const {
+      page = 1,
+      limit = 10,
+      sortBy = 'title',
+      order = 'asc',
+      userId,
+    } = params;
 
     const skip = (page - 1) * limit;
 
@@ -36,6 +42,7 @@ export class PrismaCategoryRepository {
       prisma.category.findMany({
         skip,
         take: limit,
+        where: { userId },
         orderBy: {
           [sortBy]: order,
         },
@@ -46,7 +53,14 @@ export class PrismaCategoryRepository {
     // return categorys.map((category) => new Category(category));
 
     return {
-      categories: categories.map((category) => new Category(category)),
+      categories: categories.map((category) => ({
+        id: category.id,
+        title: category.title,
+        description: category.description,
+        createdAt: category.createdAt,
+        updatedAt: category.updatedAt,
+        userId: category.userId,
+      })),
       total,
       page,
       limit,

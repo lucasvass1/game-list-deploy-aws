@@ -27,8 +27,20 @@ export class CategorysController {
     return category;
   }
 
-  async list({ page = 1, limit = 10, sortBy = 'createdAt', order = 'desc' }) {
-    const params = { page, limit, sortBy, order };
+  async list({
+    page = 1,
+    limit = 10,
+    sortBy = 'createdAt',
+    order = 'desc',
+    userId,
+  }: {
+    page?: number;
+    limit?: number;
+    sortBy?: 'title' | 'description' | 'createdAt' | 'updatedAt';
+    order?: 'asc' | 'desc';
+    userId: string;
+  }) {
+    const params = { page, limit, sortBy, order, userId };
 
     const useCase = new ListCategoryUseCase(this.repository);
     const result = await useCase.execute(params as ListCategoriesParams);

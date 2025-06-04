@@ -40,8 +40,8 @@ export const SearchInput = styled.input`
 `;
 
 export const SelectInput = styled.select`
-  max-width: 212px;
-  width: 100%;
+  width: auto;
+  min-width: 212px;
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -65,7 +65,7 @@ export const SelectInput = styled.select`
   }
   option {
     padding: 10px;
-    color: black;
+    color: #333;
   }
 
   option:checked {

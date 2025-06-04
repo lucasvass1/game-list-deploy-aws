@@ -67,9 +67,27 @@ export class GamesController {
     const result = await useCase.execute({ search: search as string });
     return result;
   }
-  async listByUser(userId: string, search: string) {
+  async listByUser(
+    userId: string,
+    search: string,
+    page: string,
+    limit: string,
+    sortBy: 'title' | 'description' | 'createdAt' | 'updatedAt',
+    order: 'asc' | 'desc',
+    category?: string,
+    favorite?: boolean,
+  ) {
     const useCase = new ListGamesByUserUseCase(this.repository);
-    const result = await useCase.execute({ userId, search: search as string });
+    const result = await useCase.execute({
+      userId,
+      search,
+      page,
+      limit,
+      sortBy,
+      order,
+      category,
+      favorite,
+    });
     return result;
   }
 
