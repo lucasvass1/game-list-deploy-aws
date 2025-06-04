@@ -8,7 +8,7 @@ export type CategoryUpdateRequest = {
 
 export type CategoryListResponse = CategoryUpdateRequest;
 
-export async function fetchGameUpdate({
+export async function fetchCategoryUpdate({
   id,
   title,
   description,

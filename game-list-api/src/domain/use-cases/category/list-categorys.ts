@@ -1,11 +1,11 @@
-import { Category } from '@/domain/entities/category';
+import { CategoryProps } from '@/domain/entities/category';
 import {
   CategoryRepository,
   ListCategoriesParams,
 } from '@/domain/repositories/category-repository';
 
 type ListCategorysResponse = {
-  categorys: Category[];
+  categorys: CategoryProps[];
   total: number;
   page: number;
   limit: number;

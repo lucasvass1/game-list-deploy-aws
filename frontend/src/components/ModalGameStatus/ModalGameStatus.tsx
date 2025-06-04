@@ -1,21 +1,24 @@
 import * as S from '../Modal/Modal.ts';
 import React from 'react';
+import { GameFormData } from '../Modal/Modal.tsx';
 
 interface ModalGameStatusProps {
   isOpen: boolean;
+  formData: GameFormData;
+  handleInputChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void;
+  isDisabled?: boolean;
 }
 
-export const ModalGameStatus = ({ isOpen }: ModalGameStatusProps) => {
-  const statuses = ['Not started', 'In progress', 'Completed', 'Abandoned'];
-  const [formData, setFormData] = React.useState({
-    status: '',
-  });
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+export const ModalGameStatus = ({
+  isOpen,
+  formData,
+  handleInputChange,
+  isDisabled,
+}: ModalGameStatusProps) => {
+  const statuses = ['PLAYING', 'DONE', 'ABANDONED'];
+
   if (!isOpen) return null;
   return (
     <S.FormGroup>
@@ -23,6 +26,8 @@ export const ModalGameStatus = ({ isOpen }: ModalGameStatusProps) => {
         Status<S.Required>*</S.Required>
       </S.Label>
       <S.Select
+        isDisabled={isDisabled}
+        disabled={isDisabled}
         name="status"
         value={formData.status}
         onChange={handleInputChange}

@@ -1,4 +1,4 @@
-import { Plataform } from '../entities/plataform';
+import { Plataform, PlataformProps } from '../entities/plataform';
 
 export interface ListPlataformParams {
   page?: number;
@@ -11,7 +11,7 @@ export interface PlataformRepository {
   create(userId: string, plataform: Plataform): Promise<void>;
   findByTitle(title: string): Promise<Plataform | null>;
   findMany(params: ListPlataformParams): Promise<{
-    plataforms: Plataform[];
+    plataforms: PlataformProps[];
     total: number;
     page: number;
     limit: number;

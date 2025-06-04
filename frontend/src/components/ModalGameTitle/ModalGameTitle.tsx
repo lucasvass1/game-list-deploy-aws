@@ -6,12 +6,14 @@ interface ModalGameTitleProps {
   isOpen: boolean;
   formData: GameFormData;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isDisabled?: boolean;
 }
 
 const ModalGameTitle: React.FC<ModalGameTitleProps> = ({
   isOpen,
   formData,
   handleInputChange,
+  isDisabled,
 }) => {
   return (
     isOpen && (
@@ -20,6 +22,8 @@ const ModalGameTitle: React.FC<ModalGameTitleProps> = ({
           Title<S.Required>*</S.Required>
         </S.Label>
         <S.Input
+          isDisabled={isDisabled}
+          disabled={isDisabled}
           type="text"
           name="title"
           value={formData.title}

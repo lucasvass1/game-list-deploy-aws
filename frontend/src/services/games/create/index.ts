@@ -8,7 +8,7 @@ export type GameCreateRequest = {
   categoryId?: string;
   plataformId?: string;
   imageUrl?: string;
-  endDate?: string;
+  endDate?: string | Date;
   status: StatusGames;
   isFavorite?: boolean;
 };
@@ -34,7 +34,7 @@ export async function fetchGameCreate({
   if (categoryId) body.categoryId = categoryId;
   if (plataformId) body.plataformId = plataformId;
   if (imageUrl?.length) body.imageUrl = imageUrl;
-  if (endDate) body.endDate = endDate;
+  if (endDate) body.endDate = new Date(endDate);
   if (isFavorite !== undefined && isFavorite !== null)
     body.isFavorite = isFavorite;
 

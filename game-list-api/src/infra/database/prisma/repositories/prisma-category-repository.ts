@@ -1,4 +1,4 @@
-import { Category } from '@/domain/entities/category';
+import { Category, CategoryProps } from '@/domain/entities/category';
 import { prisma } from '../client';
 import { ListCategoriesParams } from '@/domain/repositories/category-repository';
 
@@ -23,8 +23,7 @@ export class PrismaCategoryRepository {
   }
 
   async findMany(params: ListCategoriesParams): Promise<{
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    categories: any[];
+    categories: CategoryProps[];
     total: number;
     page: number;
     limit: number;

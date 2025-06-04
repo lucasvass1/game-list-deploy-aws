@@ -1,33 +1,36 @@
 import React from 'react';
 import * as S from '../Modal/Modal.ts';
+import { GameFormData } from '../Modal/Modal.tsx';
+import { useGetCategoryList } from '../../services/category/list/index.ts';
+import { useAuth } from '../../context/AuthContext.tsx';
+import { useGetPlataformList } from '../../services/plataform/list/index.ts';
 
 interface ModalCategoryRowProps {
   isOpen: boolean;
+  formData: GameFormData;
+  handleInputChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void;
+  isDisabled?: boolean;
 }
 
-export const ModalCategoryRow = ({ isOpen }: ModalCategoryRowProps) => {
-  const categories = [
-    'Action',
-    'Adventure',
-    'RPG',
-    'Strategy',
-    'Sports',
-    'Simulation',
-    'Puzzle',
-  ];
-  const platforms = ['PC', 'PlayStation', 'Xbox', 'Nintendo', 'Mobile'];
-
-  const [formData, setFormData] = React.useState({
-    category: '',
-    platform: '',
-  });
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+export const ModalCategoryRow = ({
+  isOpen,
+  handleInputChange,
+  formData,
+  isDisabled,
+}: ModalCategoryRowProps) => {
+  const { user } = useAuth();
+  const { data: dataCategoryList } = useGetCategoryList(
+    !!user?.id,
+    1,
+    10000000,
+  );
+  const { data: dataPlataformList } = useGetPlataformList(
+    !!user?.id,
+    1,
+    10000000,
+  );
 
   if (!isOpen) return null;
 
@@ -38,6 +41,8 @@ export const ModalCategoryRow = ({ isOpen }: ModalCategoryRowProps) => {
           Category<S.Required>*</S.Required>
         </S.Label>
         <S.Select
+          isDisabled={isDisabled}
+          disabled={isDisabled}
           name="category"
           value={formData.category}
           onChange={handleInputChange}
@@ -45,9 +50,9 @@ export const ModalCategoryRow = ({ isOpen }: ModalCategoryRowProps) => {
           <option value="" disabled>
             Select category
           </option>
-          {categories.map(category => (
-            <option key={category} value={category}>
-              {category}
+          {dataCategoryList?.categories?.map(category => (
+            <option key={category.id} value={category.id}>
+              {category.title}
             </option>
           ))}
         </S.Select>
@@ -56,6 +61,8 @@ export const ModalCategoryRow = ({ isOpen }: ModalCategoryRowProps) => {
       <S.FormGroup>
         <S.Label>Platform</S.Label>
         <S.Select
+          isDisabled={isDisabled}
+          disabled={isDisabled}
           name="platform"
           value={formData.platform}
           onChange={handleInputChange}
@@ -63,9 +70,9 @@ export const ModalCategoryRow = ({ isOpen }: ModalCategoryRowProps) => {
           <option value="" disabled>
             Select platform
           </option>
-          {platforms.map(platform => (
-            <option key={platform} value={platform}>
-              {platform}
+          {dataPlataformList?.plataforms.map(platform => (
+            <option key={platform?.id} value={platform?.id}>
+              {platform?.title}
             </option>
           ))}
         </S.Select>
