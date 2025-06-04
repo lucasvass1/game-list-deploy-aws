@@ -1,5 +1,5 @@
 import { prisma } from '../client';
-import { Plataform } from '@/domain/entities/plataform';
+import { Plataform, PlataformProps } from '@/domain/entities/plataform';
 import { ListPlataformParams } from '@/domain/repositories/plataform-repository';
 
 export class PrismaPlataformRepository {
@@ -32,7 +32,7 @@ export class PrismaPlataformRepository {
   }
 
   async findMany(params: ListPlataformParams): Promise<{
-    plataforms: Plataform[];
+    plataforms: PlataformProps[];
     total: number;
     page: number;
     limit: number;
@@ -53,7 +53,16 @@ export class PrismaPlataformRepository {
     ]);
 
     return {
-      plataforms: plataforms.map((plataform) => new Plataform(plataform)),
+      plataforms: plataforms.map((plataform) => ({
+        id: plataform?.id,
+        userId: plataform?.userId,
+        acquisitionYear: plataform?.acquisitionYear,
+        company: plataform.company,
+        createdAt: plataform.createdAt,
+        imageUrl: plataform?.imageUrl,
+        title: plataform.title,
+        updatedAt: plataform.updatedAt,
+      })),
       total,
       page,
       limit,

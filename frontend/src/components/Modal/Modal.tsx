@@ -10,6 +10,7 @@ import { ModalCompanyInputs } from '../ModalCompanyInputs/ModalCompanyInputs.tsx
 import ModalDescriptionTextarea from '../ModalDescriptionTextarea/ModalDescriptionTextarea.tsx';
 import ModalGameTitle from '../ModalGameTitle/ModalGameTitle.tsx';
 import ModalCompanyTitle from '../ModalCompanyTitle/ModalCompanyTitle.tsx';
+import { useGames } from '../../context/GamesContext.tsx';
 
 interface ModalSelectInputProps {
   isOpen: boolean;
@@ -26,6 +27,9 @@ interface ModalSelectInputProps {
   isGameTitle?: boolean;
   buttonTitle: string;
   isDescription?: boolean;
+  isUpdateGame?: boolean;
+  idGameSelected?: string;
+  isView?: boolean;
 }
 export interface GameFormData {
   title: string;
@@ -45,7 +49,6 @@ export interface PlatformFormData {
   imageUrl?: string;
 }
 
-
 const Modal: React.FC<ModalSelectInputProps> = ({
   isOpen,
   onClose,
@@ -61,8 +64,12 @@ const Modal: React.FC<ModalSelectInputProps> = ({
   isGameTitle = false,
   isDescription = false,
   buttonTitle,
+  isUpdateGame,
+  idGameSelected,
+  isView = false,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const { dataGems } = useGames();
   const [gameFormData, setGameFormData] = useState<GameFormData>({
     title: '',
     description: '',
@@ -111,19 +118,62 @@ const Modal: React.FC<ModalSelectInputProps> = ({
 
   const handleInputChange = (
     e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | any
     >,
   ) => {
-    const { name, value } = e.target;
-    setGameFormData(prev => ({ ...prev, [name]: value }));
-    setPlatformFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, checked } = e.target;
+    setGameFormData(prev => ({
+      ...prev,
+      [name]: name === 'favorite' ? checked : value,
+    }));
+    setPlatformFormData(prev => ({
+      ...prev,
+      [name]: name === 'favorite' ? checked : value,
+    }));
   };
   const handleSubmit = () => {
     if (onSave) {
       onSave(gameFormData || platformFormData);
     }
+    setGameFormData({
+      title: '',
+      description: '',
+      category: '',
+      platform: '',
+      acquisitionDate: '',
+      finishDate: '',
+      status: '',
+      favorite: false,
+      imageUrl: '',
+    });
+    setPlatformFormData({
+      platformName: '',
+      companyName: '',
+      acquisitionDate: '',
+      imageUrl: '',
+    });
     onClose();
   };
+
+  useEffect(() => {
+    if (isUpdateGame && dataGems?.games?.length && idGameSelected?.length) {
+      const game = dataGems?.games?.find(game => game?.id === idGameSelected);
+
+      setGameFormData({
+        title: game?.title ?? '',
+        description: game?.description ?? '',
+        category: game?.categoryId ?? '',
+        platform: game?.plataformId ?? '',
+        // acquisitionDate: game?.,
+        acquisitionDate: '',
+        finishDate: '',
+        // finishDate: game?.endDate as string ?? '',
+        status: game?.status ?? '',
+        favorite: game?.isFavorite ?? false,
+        imageUrl: (game?.imageUrl as string) ?? '',
+      });
+    }
+  }, [isUpdateGame, dataGems, idGameSelected]);
 
   if (!isOpen) return null;
 
@@ -137,6 +187,7 @@ const Modal: React.FC<ModalSelectInputProps> = ({
 
         <S.FormContainer>
           <ModalGameTitle
+            isDisabled={isView}
             isOpen={isGameTitle}
             formData={gameFormData}
             handleInputChange={handleInputChange}
@@ -153,31 +204,59 @@ const Modal: React.FC<ModalSelectInputProps> = ({
             isOpen={isCompany}
           />
           <ModalDescriptionTextarea
+            isDisabled={isView}
             formData={gameFormData}
             handleInputChange={handleInputChange}
             isOpen={isDescription}
           />
           <S.FormRow>
-            <ModalCategoryRow isOpen={isCategoryRow} />
+            <ModalCategoryRow
+              isDisabled={isView}
+              isOpen={isCategoryRow}
+              handleInputChange={handleInputChange}
+              formData={gameFormData}
+            />
           </S.FormRow>
           <S.FormRow>
-            <ModalDates isOpen={isDates} />
+            <ModalDates
+              isDisabled={isView}
+              handleInputChange={handleInputChange}
+              formData={gameFormData}
+              isOpen={isDates}
+            />
           </S.FormRow>
           <S.FormRow>
-            <ModalGameStatus isOpen={isStatus} />
-            <ModalFavorite isOpen={isFavorite} />
+            <ModalGameStatus
+              isDisabled={isView}
+              isOpen={isStatus}
+              handleInputChange={handleInputChange}
+              formData={gameFormData}
+            />
+            <ModalFavorite
+              isDisabled={isView}
+              isOpen={isFavorite}
+              handleInputChange={handleInputChange}
+              formData={gameFormData}
+            />
           </S.FormRow>
-          <ModalUrl isOpen={isUrl} />
+          <ModalUrl
+            isDisabled={isView}
+            isOpen={isUrl}
+            handleInputChange={handleInputChange}
+            formData={gameFormData}
+          />
         </S.FormContainer>
 
-        <S.ButtonContainer>
-          <ModalButton onClick={handleSubmit} type="submit">
-            {buttonTitle}
-          </ModalButton>
-        </S.ButtonContainer>
+        {!isView ? (
+          <S.ButtonContainer>
+            <ModalButton onClick={handleSubmit} type="submit">
+              {buttonTitle}
+            </ModalButton>
+          </S.ButtonContainer>
+        ) : null}
       </S.ModalContainer>
     </S.ModalOverlay>
-);
+  );
 };
 
 export default Modal;

@@ -1,11 +1,11 @@
-import { Plataform } from '@/domain/entities/plataform';
+import { PlataformProps } from '@/domain/entities/plataform';
 import {
   ListPlataformParams,
   PlataformRepository,
 } from '@/domain/repositories/plataform-repository';
 
 type ListPlataformsResponse = {
-  plataforms: Plataform[];
+  plataforms: PlataformProps[];
   total: number;
   page: number;
   limit: number;

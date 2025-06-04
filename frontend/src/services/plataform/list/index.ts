@@ -14,18 +14,32 @@ interface PlataformProps {
 }
 
 export type PlataformListResponse = {
-  plataform: PlataformProps[];
+  plataforms: PlataformProps[];
 };
 
-async function fetchPlataformList(): Promise<PlataformListResponse> {
-  const { data } = await api.get<PlataformListResponse>('/plataform');
+interface IPropsRequest {
+  page?: number;
+  limit?: number;
+}
+
+async function fetchPlataformList({
+  page = 1,
+  limit = 10,
+}: IPropsRequest): Promise<PlataformListResponse> {
+  const { data } = await api.get<PlataformListResponse>(
+    `/plataform?limit=${limit}&page=${page}`,
+  );
   return data;
 }
 
-export function useGetPlataformList(enabled: boolean) {
+export function useGetPlataformList(
+  enabled: boolean,
+  page?: number,
+  limit?: number,
+) {
   return useQuery({
     queryKey: [REACT_QUERY_KEYS.screens.plataform.List],
-    queryFn: fetchPlataformList,
+    queryFn: () => fetchPlataformList({ page, limit }),
     staleTime: MINUTE * 3,
     enabled,
   });

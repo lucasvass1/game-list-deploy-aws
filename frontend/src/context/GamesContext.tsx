@@ -13,6 +13,11 @@ import {
   fetchGameCreate,
   GameCreateRequest,
 } from '../services/games/create/index.ts';
+import { fetchGameDelete } from '../services/games/delete/index.ts';
+import {
+  fetchGameUpdate,
+  GameUpdateRequest,
+} from '../services/games/update/index.ts';
 
 type GamesContextType = {
   dataGems?: GamesListObjectResponse;
@@ -36,6 +41,18 @@ type GamesContextType = {
     isFavorite,
     plataformId,
   }: GameCreateRequest) => void;
+  handleUpdateGame: ({
+    id,
+    description,
+    status,
+    title,
+    categoryId,
+    endDate,
+    imageUrl,
+    isFavorite,
+    plataformId,
+  }: GameUpdateRequest) => void;
+  handleRemoveGame: (id: string) => void;
 };
 
 const GamesContext = createContext({} as GamesContextType);
@@ -66,6 +83,36 @@ export function GamesProvider({ children }: GamesProviderProps) {
     mutationFn: fetchGameCreate,
     onSuccess: () => {
       toast.success('Game added successfully!');
+      handleClearFilters();
+    },
+    onError: error => {
+      console.log('error', error);
+      if (error.message) {
+        toast.error(error.message);
+        return;
+      }
+      toast.error('Bad Request');
+    },
+  });
+  const { mutate: mutateUpdateGame } = useMutation({
+    mutationFn: fetchGameUpdate,
+    onSuccess: () => {
+      toast.success('Game added successfully!');
+      handleClearFilters();
+    },
+    onError: error => {
+      console.log('error', error);
+      if (error.message) {
+        toast.error(error.message);
+        return;
+      }
+      toast.error('Bad Request');
+    },
+  });
+  const { mutate: mutateDeleteGame } = useMutation({
+    mutationFn: fetchGameDelete,
+    onSuccess: () => {
+      toast.success('Game remove successfully!');
       handleClearFilters();
     },
     onError: error => {
@@ -140,6 +187,35 @@ export function GamesProvider({ children }: GamesProviderProps) {
     });
   };
 
+  const handleRemoveGame = (id: string) => {
+    mutateDeleteGame({
+      id,
+    });
+  };
+  const handleUpdateGame = ({
+    id,
+    title,
+    description,
+    categoryId,
+    plataformId,
+    imageUrl,
+    endDate,
+    status,
+    isFavorite,
+  }: GameUpdateRequest) => {
+    mutateUpdateGame({
+      id,
+      categoryId,
+      description,
+      endDate,
+      imageUrl,
+      isFavorite,
+      plataformId,
+      status,
+      title,
+    });
+  };
+
   useEffect(() => {
     if (user?.id) {
       const body: {
@@ -175,6 +251,8 @@ export function GamesProvider({ children }: GamesProviderProps) {
         isFavorite,
         handleToggleFavorite,
         handleCreateGame,
+        handleRemoveGame,
+        handleUpdateGame,
       }}
     >
       {children}

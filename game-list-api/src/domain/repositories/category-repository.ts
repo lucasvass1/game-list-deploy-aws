@@ -1,4 +1,4 @@
-import { Category } from '../entities/category';
+import { Category, CategoryProps } from '../entities/category';
 
 export interface ListCategoriesParams {
   page?: number;
@@ -12,7 +12,7 @@ export interface CategoryRepository {
   create(userId: string, category: Category): Promise<void>;
   findByName(name: string): Promise<Category | null>;
   findMany(params: ListCategoriesParams): Promise<{
-    categories: Category[];
+    categories: CategoryProps[];
     total: number;
     page: number;
     limit: number;

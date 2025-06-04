@@ -12,7 +12,7 @@ export type PlataformUpdateRequest = {
 
 export type PlataformListResponse = PlataformUpdateRequest;
 
-export async function fetchGameUpdate({
+export async function fetchPlataformUpdate({
   id,
   title,
   company,

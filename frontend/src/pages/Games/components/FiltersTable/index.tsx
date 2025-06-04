@@ -15,6 +15,8 @@ import { IoIosSearch } from 'react-icons/io';
 import { useGetCategoryList } from '../../../../services/category/list';
 import { useAuth } from '../../../../context/AuthContext';
 import { useGames } from '../../../../context/GamesContext';
+import Modal from '../../../../components/Modal/Modal.tsx';
+import { StatusGames } from '../../../../services/games/create/index.ts';
 
 // interface IFiltersTableProps {}
 
@@ -39,8 +41,33 @@ export const FiltersTable = () => {
 
   return (
     <>
+      <Modal
+        isOpen={isShowModalAddGame}
+        onClose={() => setIsShowModalAddGame(false)}
+        title="New Game"
+        buttonTitle="CREATE"
+        onSave={formData =>
+          handleCreateGame({
+            description: formData?.description,
+            status: formData?.status as StatusGames,
+            title: formData?.title,
+            categoryId: formData?.category,
+            endDate: formData?.finishDate,
+            imageUrl: formData?.imageUrl,
+            isFavorite: formData?.favorite,
+            plataformId: formData?.platform,
+          })
+        }
+        isFavorite={true}
+        isDates={true}
+        isCategoryRow={true}
+        isStatus={true}
+        isUrl={true}
+        isGameTitle={true}
+        isDescription={true}
+      />
       <AddNewGameButton onClick={() => setIsShowModalAddGame(true)}>
-        Add new game
+        New Game
       </AddNewGameButton>
       <Container>
         <ContainerRow>

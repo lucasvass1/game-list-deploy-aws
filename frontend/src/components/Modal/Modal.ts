@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import { modalButtonColor } from "../../styles/globals.ts";
+import styled from 'styled-components';
+import { modalButtonColor } from '../../styles/globals.ts';
+import { COLORS } from '../../config/colors/index.ts';
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -97,13 +98,15 @@ export const Required = styled.span`
   margin-left: 2px;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ isDisabled?: boolean }>`
   width: auto;
   padding: 10px 12px;
   border: 1px solid black;
   border-radius: 4px;
   font-size: 14px;
   color: #333;
+  background-color: ${({ isDisabled }) =>
+    isDisabled ? COLORS?.disabled : COLORS?.white};
 
   &::placeholder {
     color: #aaa;
@@ -114,7 +117,7 @@ export const Input = styled.input`
     border-color: #666;
   }
 
-  &[type="date"] {
+  &[type='date'] {
     appearance: none;
 
     &::-webkit-calendar-picker-indicator {
@@ -123,7 +126,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Textarea = styled.textarea`
+export const Textarea = styled.textarea<{ isDisabled?: boolean }>`
   width: auto;
   padding: 10px 12px;
   border: 1px solid black;
@@ -132,7 +135,8 @@ export const Textarea = styled.textarea`
   color: #333;
   resize: vertical;
   min-height: 100px;
-
+  background-color: ${({ isDisabled }) =>
+    isDisabled ? COLORS?.disabled : COLORS?.white};
   &::placeholder {
     color: #aaa;
   }
@@ -143,7 +147,7 @@ export const Textarea = styled.textarea`
   }
 `;
 
-export const Select = styled.select`
+export const Select = styled.select<{ isDisabled?: boolean }>`
   max-width: auto;
   width: 100%;
   padding: 10px 12px;
@@ -151,7 +155,8 @@ export const Select = styled.select`
   border-radius: 4px;
   font-size: 14px;
   color: black;
-  background-color: #fff;
+  background-color: ${({ isDisabled }) =>
+    isDisabled ? COLORS?.disabled : COLORS?.white};
   cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -184,11 +189,14 @@ export const CheckboxContainer = styled.div`
   gap: 8px;
 `;
 
-export const Checkbox = styled.input`
+export const Checkbox = styled.input<{ isDisabled?: boolean }>`
   width: 18px;
   height: 18px;
   cursor: pointer;
-  accent-color: #6200ee;
+  accent-color: ${({ isDisabled }) =>
+    isDisabled ? COLORS?.disabled : '#6200ee'};
+  background-color: ${({ isDisabled }) =>
+    isDisabled ? COLORS?.disabled : COLORS?.white};
 `;
 
 export const ButtonContainer = styled.div`

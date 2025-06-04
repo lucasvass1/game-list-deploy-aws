@@ -44,6 +44,10 @@ export const TD = styled.td`
   line-height: 22px;
   padding: 10px;
   background-color: ${COLORS.white};
+  max-width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   &:first-child {
     border-top-left-radius: 12px;

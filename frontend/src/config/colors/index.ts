@@ -8,4 +8,5 @@ export const COLORS = {
   gray: '##ACACAC',
   ligthGray: '#9D9D9D',
   red: '#F00',
+  disabled: '#747474',
 };
