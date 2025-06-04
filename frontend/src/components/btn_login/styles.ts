@@ -11,4 +11,9 @@ export const StyleButton = styled.button`
   background-color: ${COLORS.buttonPrimary};
   border: none;
   cursor: pointer;
+
+  
+  @media (max-width: 480px) {
+    width: 20rem;
+  }
 `;

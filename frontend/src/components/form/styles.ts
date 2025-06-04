@@ -4,6 +4,7 @@ import { COLORS } from '../../config/colors/index.ts';
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 30rem;
+  width: 100%;
   height: auto;
   background-color: ${COLORS.background};
   border: 0.225rem solid ${COLORS.buttonPrimary};
@@ -13,6 +14,12 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    max-width: 80%; /* ocupa quase toda a tela, mas com uma margem */
+    gap: 1.5rem;
+  }
 `;
 
 export const ContainerText = styled.div`
@@ -29,14 +36,31 @@ export const ContainerText = styled.div`
   .textTitle {
     color: white;
     font-size: 2rem;
+    text-align: center;
   }
 
   .textP {
     font-size: 1rem;
     color: #bcbcbc;
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+     gap: 0rem;
+    .img {
+      width: 120px;
+      height: auto;
+    }
+
+    .textTitle {
+      font-size: 1.5rem;
+    }
+
+    .textP {
+      font-size: 0.9rem;
+    }
   }
 `;
-
 export const ContainerForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -53,3 +77,4 @@ export const TextLink = styled.a`
   font-size: 1rem;
   color: ${COLORS.buttonPrimary};
 `;
+

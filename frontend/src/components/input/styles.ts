@@ -6,6 +6,10 @@ export const Label = styled.label`
   font-size: 1.1rem;
   color: #6c6c6c;
   padding-bottom: 0.65rem;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 export const InputStyles = styled.input`
@@ -17,8 +21,13 @@ export const InputStyles = styled.input`
   ::placeholder {
     padding-left: 0.75rem;
   }
+
   :focus {
     outline: none;
     border: solid 2px ${COLORS.buttonPrimary};
+  }
+
+  @media (max-width: 480px) {
+    width: 20rem;
   }
 `;
