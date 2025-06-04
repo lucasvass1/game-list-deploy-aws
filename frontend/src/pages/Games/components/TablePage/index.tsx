@@ -46,6 +46,6 @@ export const TablePage = ({ data }: ITablePageProps) => {
       onSort={() => {}}
     />
   ) : (
-    <MessageEmpty message="No games found" />
+    <MessageEmpty message="No plataforms found" />
   );
 };

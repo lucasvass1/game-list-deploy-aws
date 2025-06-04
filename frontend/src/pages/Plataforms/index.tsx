@@ -4,7 +4,7 @@ import { TablePage } from '../Games/components/TablePage';
 import { Pagination } from '../../components/Pagination';
 import { useGames } from '../../context/GamesContext';
 
-export function Categories() {
+export function Plataforms() {
   const { page, setPage, dataGems: data } = useGames();
 
   return (
