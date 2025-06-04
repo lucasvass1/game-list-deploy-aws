@@ -7,9 +7,10 @@ import { useGames } from '../../../../context/GamesContext';
 
 interface ITablePageProps {
   data: GameProps[];
+  message?: string;
 }
 
-export const TablePage = ({ data }: ITablePageProps) => {
+export const TablePage = ({ data, message }: ITablePageProps) => {
   const { handleToggleFavorite } = useGames();
 
   return data?.length ? (
@@ -46,6 +47,6 @@ export const TablePage = ({ data }: ITablePageProps) => {
       onSort={() => {}}
     />
   ) : (
-    <MessageEmpty message="No plataforms found" />
+    <MessageEmpty message={message ?? 'No games found'} />
   );
 };

@@ -9,7 +9,7 @@ export function Plataforms() {
 
   return (
     <ContainerPage>
-      <TablePage data={data?.games ?? []} />
+      <TablePage data={data?.games ?? []} message="No plataforms found" />
 
       {data?.games?.length ? (
         <Pagination
