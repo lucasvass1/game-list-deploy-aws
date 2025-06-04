@@ -1,20 +1,27 @@
 import React from 'react';
 import ContainerPage from '../../components/ContainerPage';
-import { useAuth } from '../../context/AuthContext';
-import { useGetGamesList } from '../../services/games/list';
 import { TablePage } from './components/TablePage';
 import { FiltersTable } from './components/FiltersTable';
+import { Pagination } from '../../components/Pagination';
+import { useGames } from '../../context/GamesContext';
 
 export function Games() {
-  const { user } = useAuth();
-  const { data } = useGetGamesList(!!user?.id);
-
-  console.log('data', data);
+  const { page, setPage, dataGems: data } = useGames();
 
   return (
     <ContainerPage>
       <FiltersTable />
-      <TablePage data={data ?? []} />
+      <TablePage data={data?.games ?? []} />
+
+      {data?.games?.length ? (
+        <Pagination
+          currentPage={page}
+          totalPages={
+            data?.total / data?.limit > 1 ? data?.total / data?.limit : 1
+          }
+          onPageChange={currentPage => setPage(currentPage)}
+        />
+      ) : null}
     </ContainerPage>
   );
 }

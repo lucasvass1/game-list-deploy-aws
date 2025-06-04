@@ -12,18 +12,32 @@ interface CategoryProps {
 }
 
 export type CategoryListResponse = {
-  plataform: CategoryProps[];
+  categories: CategoryProps[];
 };
 
-async function fetchCategoryList(): Promise<CategoryListResponse> {
-  const { data } = await api.get<CategoryListResponse>('/category');
+interface IPropsRequest {
+  page?: number;
+  limit?: number;
+}
+
+async function fetchCategoryList({
+  page = 1,
+  limit = 10,
+}: IPropsRequest): Promise<CategoryListResponse> {
+  const { data } = await api.get<CategoryListResponse>(
+    `/category?limit=${limit}&page=${page}`,
+  );
   return data;
 }
 
-export function useGetPlataformList(enabled: boolean) {
+export function useGetCategoryList(
+  enabled: boolean,
+  page?: number,
+  limit?: number,
+) {
   return useQuery({
     queryKey: [REACT_QUERY_KEYS.screens.category.List],
-    queryFn: fetchCategoryList,
+    queryFn: () => fetchCategoryList({ page, limit }),
     staleTime: MINUTE * 3,
     enabled,
   });

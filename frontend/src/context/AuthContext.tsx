@@ -41,11 +41,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
       toast.success('Login successful!');
       storageUserAndTokenSave(data.user, data.token);
       setUser(data.user);
-      window.location.replace('/dashboard');
     },
     onError: error => {
       if (error.message) {
-        toast.error(error.message);
+        toast.error(`auth: ${error.message}`);
         return;
       }
       toast.error('Bad Request');

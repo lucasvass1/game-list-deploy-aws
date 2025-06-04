@@ -21,16 +21,6 @@ const ContainerPage = ({ children }: ContainerPageProps) => {
 
       <Content isSidebarOpen={isSidebarOpen}>
         <Header toggleSideBar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
-        {/* <Header>
-          <button onClick={toggleSidebar}>
-            {isSidebarOpen ? (
-              <IoIosArrowDropleft size={30} />
-            ) : (
-              <IoIosArrowDropright size={30} />
-            )}
-          </button>
-        </Header> */}
-
         <Main>{children}</Main>
       </Content>
     </Container>

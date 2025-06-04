@@ -5,6 +5,7 @@ export interface ListCategoriesParams {
   limit?: number;
   sortBy?: 'title' | 'description' | 'createdAt' | 'updatedAt';
   order?: 'asc' | 'desc';
+  userId: string;
 }
 
 export interface CategoryRepository {

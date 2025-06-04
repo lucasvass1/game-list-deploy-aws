@@ -1,5 +1,4 @@
 import React from 'react';
-import { SidebarProps } from './types';
 import Logo from './img/Logo.png';
 import homeIcon from './img/home.png';
 import gamepadIcon from './img/gamepad.png';
@@ -28,7 +27,7 @@ export const Sidebar: React.FC = () => {
           <LogoImg src={Logo} alt="Logo" />
         </LogoContainer>
         <Nav>
-          <NavItem to="/" icon={homeIcon} label="Home" />
+          <NavItem to="/dashboard" icon={homeIcon} label="Home" />
           <NavItem to="/games" icon={gamepadIcon} label="Games" />
           <NavItem to="/categories" icon={tagIcon} label="Categories" />
           <NavItem to="/platforms" icon={platformIcon} label="Platforms" />

@@ -181,10 +181,28 @@ gamesRoutes.get(
         res.status(400).json({ message: 'Bad request.' });
         return;
       }
-      const { id: userId } = req.user;
-      const { search } = req.query;
 
-      const games = await gamesController.listByUser(userId, search as string);
+      const { id: userId } = req.user;
+      const {
+        search,
+        page = '1',
+        limit = '10',
+        sortBy = 'createdAt',
+        order = 'desc',
+        category,
+        favorite,
+      } = req.query;
+
+      const games = await gamesController.listByUser(
+        userId,
+        search as string,
+        page as string,
+        limit as string,
+        sortBy as 'title' | 'description' | 'createdAt' | 'updatedAt',
+        order as 'asc' | 'desc',
+        category as string | undefined,
+        favorite === 'true' ? true : undefined,
+      );
       res.status(200).json(games);
       return;
     } catch (error) {

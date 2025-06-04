@@ -1,0 +1,116 @@
+import React, { useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import {
+  fetchGamesList,
+  GamesListObjectResponse,
+} from '../services/games/list/index.ts';
+import { useAuth } from './AuthContext.tsx';
+import { useDebounce } from '../hooks/useDebounce.ts';
+import { fetchGameToggleFavorite } from '../services/games/toggleFavorite/index.ts';
+
+type GamesContextType = {
+  dataGems?: GamesListObjectResponse;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  categorySelected?: string;
+  setCategorySelected: React.Dispatch<React.SetStateAction<string | undefined>>;
+  handleClearFilters: () => void;
+  isFavorite?: boolean;
+  setIsFavorite: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+};
+
+const GamesContext = createContext({} as GamesContextType);
+
+interface GamesProviderProps {
+  children: React.ReactNode;
+}
+
+export function GamesProvider({ children }: GamesProviderProps) {
+  const { user } = useAuth();
+  const [dataGems, setDataGems] = useState<GamesListObjectResponse>();
+  const [search, setSearch] = useState<string>('');
+  const [categorySelected, setCategorySelected] = useState<string>();
+  const [page, setPage] = useState(1);
+  const [isFavorite, setIsFavorite] = useState<undefined | boolean>(undefined);
+  const debounceSearchInput = useDebounce(search, 2000);
+
+  const handleClearFilters = () => {
+    setSearch('');
+    setPage(1);
+    setCategorySelected('');
+  };
+
+  const { mutate: mutateToggleFavorite } = useMutation({
+    mutationFn: fetchGameToggleFavorite,
+    onSuccess: () => {},
+    onError: () => {},
+  });
+
+  const { mutate: mutateLoadGamesList } = useMutation({
+    mutationFn: fetchGamesList,
+    onSuccess: data => {
+      setDataGems(data);
+    },
+    onError: error => {
+      console.log('error', error);
+      if (error.message) {
+        toast.error(error.message);
+        return;
+      }
+      toast.error('Bad Request');
+    },
+  });
+
+  const handleToggleFavorite = (id: string) => {
+    mutateToggleFavorite({
+      id,
+    });
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      const body: {
+        search?: string;
+        category?: string;
+        favorite?: boolean;
+      } = {};
+      if (debounceSearchInput?.length) body.search = debounceSearchInput;
+      if (categorySelected?.length) body.category = categorySelected;
+      if (isFavorite) body.favorite = true;
+      mutateLoadGamesList(body);
+    }
+  }, [
+    user,
+    debounceSearchInput,
+    mutateLoadGamesList,
+    categorySelected,
+    isFavorite,
+  ]);
+
+  return (
+    <GamesContext.Provider
+      value={{
+        dataGems,
+        search,
+        setSearch,
+        page,
+        setPage,
+        handleClearFilters,
+        categorySelected,
+        setCategorySelected,
+        setIsFavorite,
+        isFavorite,
+      }}
+    >
+      {children}
+    </GamesContext.Provider>
+  );
+}
+
+export function useGames() {
+  return useContext(GamesContext);
+}

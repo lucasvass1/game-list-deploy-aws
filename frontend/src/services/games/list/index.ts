@@ -27,20 +27,61 @@ export interface GameProps {
   userId?: string;
 }
 
-export type GamesListResponse = {
+export type GamesListObjectResponse = {
   games: GameProps[];
+  limit: number;
+  page: number;
+  total: number;
 };
 
-async function fetchGamesList() {
-  const { data } = await api.get<GamesListResponse>('/games/me');
-  return data.games;
+export type GamesListResponse = {
+  games: GamesListObjectResponse;
+};
+
+interface IPropsRequest {
+  enabled?: boolean;
+  search?: string;
+  category?: string;
+  favorite?: boolean;
+  page?: number;
+  limit?: number;
 }
 
-export function useGetGamesList(enabled: boolean) {
+export async function fetchGamesList({
+  search,
+  category,
+  favorite,
+  page = 1,
+  limit = 10,
+}: IPropsRequest) {
+  console.log('search', search);
+  const { data } = await api.get<GamesListResponse>(
+    `/games/me?limit=${limit}${search?.length ? `&search=${search}` : ''}${
+      category?.length ? `&category=${category}` : ''
+    }${favorite ? `&favorite=${favorite}` : ''}&page=${page}`,
+  );
+
+  return data?.games || [];
+}
+
+export function useGetGamesList({
+  enabled,
+  search,
+  category,
+  favorite,
+  page = 1,
+  limit = 10,
+}: IPropsRequest) {
   return useQuery({
-    queryKey: [REACT_QUERY_KEYS.screens.games.List],
-    queryFn: fetchGamesList,
+    queryKey: [
+      REACT_QUERY_KEYS.screens.games.List,
+      search,
+      category,
+      favorite,
+      page,
+      limit,
+    ],
+    queryFn: () => fetchGamesList({ search, category, favorite, page, limit }),
     staleTime: MINUTE * 3,
-    enabled,
   });
 }
