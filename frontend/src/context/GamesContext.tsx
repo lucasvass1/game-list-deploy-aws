@@ -21,6 +21,7 @@ type GamesContextType = {
   handleClearFilters: () => void;
   isFavorite?: boolean;
   setIsFavorite: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+  handleToggleFavorite: (id: string) => void;
 };
 
 const GamesContext = createContext({} as GamesContextType);
@@ -66,6 +67,25 @@ export function GamesProvider({ children }: GamesProviderProps) {
   });
 
   const handleToggleFavorite = (id: string) => {
+    setDataGems(prev => {
+      if (!prev) return prev;
+
+      const updatedGames = prev.games.map(game => {
+        if (game.id === id) {
+          return {
+            ...game,
+            isFavorite: !game.isFavorite,
+          };
+        }
+        return game;
+      });
+
+      return {
+        ...prev,
+        games: updatedGames,
+      };
+    });
+
     mutateToggleFavorite({
       id,
     });
@@ -104,6 +124,7 @@ export function GamesProvider({ children }: GamesProviderProps) {
         setCategorySelected,
         setIsFavorite,
         isFavorite,
+        handleToggleFavorite,
       }}
     >
       {children}

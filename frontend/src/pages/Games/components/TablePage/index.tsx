@@ -3,12 +3,15 @@ import { GameProps } from '../../../../services/games/list';
 import { MessageEmpty } from '../../../../components/MessageEmpty';
 import { formatDate } from '../../../../utils/formatDate';
 import Table from '../../../../components/Table';
+import { useGames } from '../../../../context/GamesContext';
 
 interface ITablePageProps {
   data: GameProps[];
 }
 
 export const TablePage = ({ data }: ITablePageProps) => {
+  const { handleToggleFavorite } = useGames();
+
   return data?.length ? (
     <Table
       headers={[
@@ -38,7 +41,7 @@ export const TablePage = ({ data }: ITablePageProps) => {
       onDelete={() => {}}
       onEdit={() => {}}
       onView={() => {}}
-      onToggleFavorite={() => {}}
+      onToggleFavorite={id => handleToggleFavorite(data[id]?.id ?? '')}
       sortDirection={'asc'}
       onSort={() => {}}
     />
