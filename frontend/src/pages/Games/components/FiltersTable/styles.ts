@@ -6,10 +6,10 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   gap: 20px;
-  padding: 5px;
+  padding: 0px 0px 5px;
   border-bottom: 1px solid #e5e5e5;
   margin-bottom: 20px;
 `;
@@ -111,7 +111,7 @@ export const ContainerButtons = styled.div`
 `;
 
 export const SearchButton = styled.button`
-  background-color: #42d9c8;
+  background-color: ${COLORS.buttonPrimary};
   border: none;
   min-width: 90px;
   padding: 5px 10px;
@@ -125,6 +125,24 @@ export const SearchButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 10px;
+`;
+
+export const AddNewGameButton = styled.button`
+  background-color: ${COLORS.buttonPrimary};
+  border: none;
+  min-width: 90px;
+  padding: 5px 10px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  color: white;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: -20px 0 10px;
 `;
 
 export const ClearButton = styled.button`
