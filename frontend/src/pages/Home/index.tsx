@@ -10,7 +10,7 @@ export function Home() {
   const { user } = useAuth();
   const { data } = useGetUserStats(!!user?.id);
 
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <ContainerPage>
