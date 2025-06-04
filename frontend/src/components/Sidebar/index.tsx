@@ -3,7 +3,7 @@ import Logo from './img/Logo.png';
 import homeIcon from './img/home.png';
 import gamepadIcon from './img/gamepad.png';
 import tagIcon from './img/tag.png';
-import platformIcon from './img/platform.png';
+import plataformIcon from './img/plataform.png';
 import logoutIcon from './img/logout.png';
 
 import {
@@ -30,7 +30,7 @@ export const Sidebar: React.FC = () => {
           <NavItem to="/" icon={homeIcon} label="Home" />
           <NavItem to="/games" icon={gamepadIcon} label="Games" />
           <NavItem to="/categories" icon={tagIcon} label="Categories" />
-          <NavItem to="/platforms" icon={platformIcon} label="Platforms" />
+          <NavItem to="/plataforms" icon={plataformIcon} label="Plataforms" />
         </Nav>
       </SidebarContainer>
 
