@@ -1,11 +1,25 @@
-import React from "react";
+import React from 'react';
+import ContainerPage from '../../components/ContainerPage';
+import { TablePage } from '../Games/components/TablePage';
+import { Pagination } from '../../components/Pagination';
+import { useGames } from '../../context/GamesContext';
 
-const Categories = () => {
+export function Categories() {
+  const { page, setPage, dataGems: data } = useGames();
+
   return (
-    <div>
-      <h1>Categories</h1>
-    </div>
-  );
-};
+    <ContainerPage>
+      <TablePage data={data?.games ?? []} />
 
-export default Categories;
+      {data?.games?.length ? (
+        <Pagination
+          currentPage={page}
+          totalPages={
+            data?.total / data?.limit > 1 ? data?.total / data?.limit : 1
+          }
+          onPageChange={currentPage => setPage(currentPage)}
+        />
+      ) : null}
+    </ContainerPage>
+  );
+}

@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { RouteWrapper } from './RouteWrapper.tsx';
 import { Home } from '../pages/Home/index.tsx';
 import { Games } from '../pages/Games/index.tsx';
-import Categories from '../pages/Categories/index.tsx';
+import { Categories } from '../pages/Categories/index.tsx';
 import Plataforms from '../pages/Plataforms/index.tsx';
 import { Register } from '../pages/Register/Register.tsx';
 import { Login } from '../pages/login/index.tsx';
