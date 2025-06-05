@@ -20,4 +20,5 @@ export interface CategoryRepository {
   update(category: Category): Promise<void>;
   findById(id: string): Promise<Category | null>;
   delete(id: string): Promise<void>;
+  hasRelatedGames(id: string): Promise<boolean>;
 }
