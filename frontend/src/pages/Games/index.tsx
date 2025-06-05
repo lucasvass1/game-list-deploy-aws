@@ -5,7 +5,6 @@ import { FiltersTable } from './components/FiltersTable';
 import { Pagination } from '../../components/Pagination';
 import { useLocation } from 'react-router-dom';
 import Modal from '../../components/Modal/Modal.tsx';
-import { GameFormData } from '../../components/Modal/Modal.tsx';
 import { StatusGames } from '../../services/games/create/index.ts';
 import { useGames } from '../../context/GamesContext';
 
@@ -19,31 +18,31 @@ export function Games() {
     <>
       <ContainerPage>
         {create ? (
-          <Modal
-            isOpen={modalOpen}
-            onClose={() => setModalOpen(false)}
-            title="New Game"
-            buttonTitle="CREATE"
-            onSave={(formData: GameFormData) => {
-              handleCreateGame({
-                description: formData?.description,
-                status: formData?.status as StatusGames,
-                title: formData?.title,
-                categoryId: formData?.category,
-                endDate: formData?.finishDate,
-                imageUrl: formData?.imageUrl,
-                isFavorite: formData?.favorite,
-                plataformId: formData?.platform,
-              });
-            }}
-            isFavorite={true}
-            isDates={true}
-            isCategoryRow={true}
-            isStatus={true}
-            isUrl={true}
-            isGameTitle={true}
-            isDescription={true}
-          />
+           <Modal
+           isOpen={modalOpen}
+           onClose={() => setModalOpen(false)}
+           title="New Game"
+           buttonTitle="CREATE"
+           onSave={formData =>
+             handleCreateGame({
+               description: formData?.description,
+               status: formData?.status as StatusGames,
+               title: formData?.title,
+               categoryId: formData?.category,
+               endDate: formData?.finishDate,
+               imageUrl: formData?.imageUrl,
+               isFavorite: formData?.favorite,
+               plataformId: formData?.platform,
+             })
+           }
+           isFavorite={true}
+           isDates={true}
+           isCategoryRow={true}
+           isStatus={true}
+           isUrl={true}
+           isGameTitle={true}
+           isDescription={true}
+         />
         ) : null}
         <FiltersTable />
         <TablePage data={data?.games ?? []} />
