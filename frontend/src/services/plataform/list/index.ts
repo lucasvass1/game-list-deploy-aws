@@ -38,7 +38,7 @@ export function useGetPlataformList(
   limit?: number,
 ) {
   return useQuery({
-    queryKey: [REACT_QUERY_KEYS.screens.plataform.List],
+    queryKey: [REACT_QUERY_KEYS.screens.plataform.List, page, limit],
     queryFn: () => fetchPlataformList({ page, limit }),
     staleTime: MINUTE * 3,
     enabled,
