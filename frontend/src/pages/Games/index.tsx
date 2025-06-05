@@ -3,19 +3,50 @@ import ContainerPage from '../../components/ContainerPage';
 import { TablePage } from './components/TablePage';
 import { FiltersTable } from './components/FiltersTable';
 import { Pagination } from '../../components/Pagination';
+import { useLocation } from 'react-router-dom';
+import Modal from '../../components/Modal/Modal.tsx';
+import { GameFormData } from '../../components/Modal/Modal.tsx';
+import { StatusGames } from '../../services/games/create/index.ts';
 import { useGames } from '../../context/GamesContext';
-import { useLocalSearchParams } from 'expo-router';
 
 export function Games() {
-  const { page, setPage, dataGems: data } = useGames();
-  const { create } = useLocalSearchParams();
+  const { page, setPage, dataGems: data, handleCreateGame } = useGames();
+  const location = useLocation();
+  const create = location.search === '?create=true';
+  const [modalOpen, setModalOpen] = React.useState(true);
 
   return (
     <>
       <ContainerPage>
-        {create === 'true' ? <FiltersTable /> : null}
+        {create ? (
+          <Modal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            title="New Game"
+            buttonTitle="CREATE"
+            onSave={(formData: GameFormData) => {
+              handleCreateGame({
+                description: formData?.description,
+                status: formData?.status as StatusGames,
+                title: formData?.title,
+                categoryId: formData?.category,
+                endDate: formData?.finishDate,
+                imageUrl: formData?.imageUrl,
+                isFavorite: formData?.favorite,
+                plataformId: formData?.platform,
+              });
+            }}
+            isFavorite={true}
+            isDates={true}
+            isCategoryRow={true}
+            isStatus={true}
+            isUrl={true}
+            isGameTitle={true}
+            isDescription={true}
+          />
+        ) : null}
+        <FiltersTable />
         <TablePage data={data?.games ?? []} />
-
         {data?.games?.length ? (
           <Pagination
             currentPage={page}
