@@ -10,7 +10,10 @@ export interface ListPlataformParams {
 export interface PlataformRepository {
   create(userId: string, plataform: Plataform): Promise<void>;
   findByTitle(title: string): Promise<Plataform | null>;
-  findMany(params: ListPlataformParams): Promise<{
+  findMany(
+    params: ListPlataformParams,
+    userId: string,
+  ): Promise<{
     plataforms: PlataformProps[];
     total: number;
     page: number;
@@ -19,4 +22,5 @@ export interface PlataformRepository {
   update(plataform: Plataform): Promise<void>;
   findById(id: string): Promise<Plataform | null>;
   delete(id: string): Promise<void>;
+  hasRelatedGames(id: string): Promise<boolean>;
 }
