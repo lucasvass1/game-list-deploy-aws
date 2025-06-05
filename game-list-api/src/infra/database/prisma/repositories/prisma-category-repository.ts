@@ -87,4 +87,12 @@ export class PrismaCategoryRepository {
   async delete(id: string): Promise<void> {
     await prisma.category.delete({ where: { id } });
   }
+
+  async hasRelatedGames(categoryId: string): Promise<boolean> {
+    const count = await prisma.game.count({
+      where: { categoryId },
+    });
+
+    return count > 0;
+  }
 }
