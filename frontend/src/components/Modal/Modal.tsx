@@ -11,6 +11,7 @@ import ModalDescriptionTextarea from '../ModalDescriptionTextarea/ModalDescripti
 import ModalGameTitle from '../ModalGameTitle/ModalGameTitle.tsx';
 import ModalCompanyTitle from '../ModalCompanyTitle/ModalCompanyTitle.tsx';
 import { useGames } from '../../context/GamesContext.tsx';
+import { usePlataforms } from '../../context/PlataformsContext.tsx';
 
 interface ModalSelectInputProps {
   isOpen: boolean;
@@ -29,6 +30,8 @@ interface ModalSelectInputProps {
   isDescription?: boolean;
   isUpdateGame?: boolean;
   idGameSelected?: string;
+  isUpdatePlatform?: boolean;
+  idPlatformSelected?: string;
   isView?: boolean;
 }
 export interface GameFormData {
@@ -67,9 +70,12 @@ const Modal: React.FC<ModalSelectInputProps> = ({
   isUpdateGame,
   idGameSelected,
   isView = false,
+  idPlatformSelected,
+  isUpdatePlatform,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const { dataGems } = useGames();
+  const { dataPlataforms } = usePlataforms();
   const [gameFormData, setGameFormData] = useState<GameFormData>({
     title: '',
     description: '',
@@ -172,8 +178,42 @@ const Modal: React.FC<ModalSelectInputProps> = ({
         favorite: game?.isFavorite ?? false,
         imageUrl: (game?.imageUrl as string) ?? '',
       });
+      return;
     }
+    setGameFormData({
+      title: '',
+      description: '',
+      category: '',
+      platform: '',
+      acquisitionDate: '',
+      finishDate: '',
+      status: '',
+      favorite: false,
+      imageUrl: '',
+    });
   }, [isUpdateGame, dataGems, idGameSelected]);
+
+  useEffect(() => {
+    if (isUpdatePlatform && idPlatformSelected?.length) {
+      const platform = dataPlataforms?.plataforms?.find(
+        plataform => plataform?.id === idPlatformSelected,
+      );
+
+      setPlatformFormData({
+        platformName: platform?.title,
+        acquisitionDate: platform?.acquisitionYear?.toString() as string,
+        companyName: platform?.company ?? '',
+        imageUrl: platform?.imageUrl ?? '',
+      });
+      return;
+    }
+    setPlatformFormData({
+      platformName: '',
+      companyName: '',
+      acquisitionDate: '',
+      imageUrl: '',
+    });
+  }, [isUpdatePlatform, dataGems, dataPlataforms, idPlatformSelected]);
 
   if (!isOpen) return null;
 
@@ -193,12 +233,14 @@ const Modal: React.FC<ModalSelectInputProps> = ({
             handleInputChange={handleInputChange}
           />
           <ModalCompanyTitle
+            isDisabled={isView}
             isOpen={isCompanyTitle}
             formData={platformFormData}
             handleInputChange={handleInputChange}
           />
 
           <ModalCompanyInputs
+            isDisabled={isView}
             formData={platformFormData}
             handleInputChange={handleInputChange}
             isOpen={isCompany}
