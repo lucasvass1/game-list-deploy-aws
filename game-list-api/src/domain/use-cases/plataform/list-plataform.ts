@@ -16,8 +16,11 @@ type ListPlataformsResponse = {
 export class ListPlataformUseCase {
   constructor(private plataformRepository: PlataformRepository) {}
 
-  async execute(params: ListPlataformParams): Promise<ListPlataformsResponse> {
-    const plataforms = await this.plataformRepository.findMany(params);
+  async execute(
+    params: ListPlataformParams,
+    userId: string,
+  ): Promise<ListPlataformsResponse> {
+    const plataforms = await this.plataformRepository.findMany(params, userId);
 
     return {
       plataforms: plataforms.plataforms,

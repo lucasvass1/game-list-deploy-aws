@@ -3,7 +3,7 @@ import { GameProps } from '../../../../services/games/list';
 import { MessageEmpty } from '../../../../components/MessageEmpty';
 import { formatDate } from '../../../../utils/formatDate';
 import Table from '../../../../components/Table';
-import { useGames } from '../../../../context/GamesContext';
+import { PropsSortBy, useGames } from '../../../../context/GamesContext';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal.tsx';
 import Modal from '../../../../components/Modal/Modal.tsx';
 import { StatusGames } from '../../../../services/games/create/index.ts';
@@ -14,8 +14,13 @@ interface ITablePageProps {
 }
 
 export const TablePage = ({ data, message }: ITablePageProps) => {
-  const { handleToggleFavorite, handleRemoveGame, handleUpdateGame } =
-    useGames();
+  const {
+    handleToggleFavorite,
+    handleRemoveGame,
+    handleUpdateGame,
+    setSortBy,
+    setOrder,
+  } = useGames();
   const [isShowModalDeleteGame, setIsShowModalDeleteGame] =
     useState<boolean>(false);
   const [gameSelected, setGameSelected] = useState<string>();
@@ -23,12 +28,13 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
     useState<boolean>(false);
   const [isView, setIsView] = useState<boolean>(false);
 
-  const MAP_INDEX_INFORMATION_ORDER_FILTER = [
+  const MAP_SORT_BY = [
     'image',
     'title',
     'description',
     'category',
-    'date',
+    'createdAt',
+    'updatedAt',
     'favorite',
   ];
 
@@ -110,8 +116,14 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
             setIsShowModalUpdateGame(true);
           }}
           onToggleFavorite={id => handleToggleFavorite(data[id]?.id ?? '')}
-          sortDirection={'asc'}
-          onSort={() => {}}
+          sortDirection={() =>
+            setOrder(oldState => (oldState === 'asc' ? 'desc' : 'asc'))
+          }
+          onSort={index => {
+            const sort = MAP_SORT_BY[index];
+
+            setSortBy(sort as PropsSortBy);
+          }}
         />
       ) : (
         <MessageEmpty message={message ?? 'No games found'} />

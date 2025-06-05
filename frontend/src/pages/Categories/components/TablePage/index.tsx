@@ -73,7 +73,7 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
             setIsView(true);
             setIsModalOpen(true);
           }}
-          sortDirection={'asc'}
+          sortDirection={() => {}}
           onSort={() => {}}
         />
       ) : (

@@ -1,6 +1,7 @@
 import { Plataform } from '@/domain/entities/plataform';
 import { PlataformNotFoundError } from '@/domain/errors/plataform-not-found';
 import { PlataformRepository } from '@/domain/repositories/plataform-repository';
+import { ensureOwnership } from '@/utils/ensure-ownership';
 
 interface UpdatePlataformUseCaseRequest {
   plataformId: string;
@@ -9,6 +10,7 @@ interface UpdatePlataformUseCaseRequest {
   company: string | null;
   imageUrl: string | null;
   acquisitionYear: Date | null;
+  userId: string;
 }
 
 interface UpdatePlataformUseCaseResponse {
@@ -25,10 +27,13 @@ export class UpdatePlataformUseCase {
     company,
     imageUrl,
     updatedAt,
+    userId,
   }: UpdatePlataformUseCaseRequest): Promise<UpdatePlataformUseCaseResponse> {
     const plataform = await this.plataformRepository.findById(plataformId);
 
     if (!plataform) throw new PlataformNotFoundError();
+
+    ensureOwnership(plataform.userId, userId);
 
     plataform.updatePlataform({
       title,

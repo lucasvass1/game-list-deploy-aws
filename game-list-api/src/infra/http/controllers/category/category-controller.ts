@@ -1,7 +1,7 @@
 import { CategoryProps } from '@/domain/entities/category';
-import { CategoryNotFoundError } from '@/domain/errors/category-not-foud';
 import { ListCategoriesParams } from '@/domain/repositories/category-repository';
 import { CreateCategoryUseCase } from '@/domain/use-cases/category/create-category';
+import { DeleteCategoryUseCase } from '@/domain/use-cases/category/delete-category';
 import { FindCategoryByNameUseCase } from '@/domain/use-cases/category/find-category-by-name';
 import { ListCategoryUseCase } from '@/domain/use-cases/category/list-categorys';
 import { UpdateCategoryUseCase } from '@/domain/use-cases/category/update-category';
@@ -57,16 +57,14 @@ export class CategorysController {
     return category;
   }
 
-  async update(data: CategoryProps) {
+  async update(data: CategoryProps, userId: string) {
     const useCase = new UpdateCategoryUseCase(this.repository);
-
-    const categoryExists = await this.repository.findById(data.id as string);
-    if (!categoryExists) throw new CategoryNotFoundError();
 
     const { category } = await useCase.execute({
       categoryId: data.id as string,
       title: data.title,
       description: data.description,
+      userId,
     });
     return {
       title: category.title,
@@ -77,8 +75,11 @@ export class CategorysController {
     };
   }
 
-  async delete(id: string) {
+  async delete(id: string, userId: string) {
     //Implementar validação se a categoria tem jogo vinculado
-    await this.repository.delete(id);
+
+    const useCase = new DeleteCategoryUseCase(this.repository);
+
+    await useCase.execute({ id, userId });
   }
 }

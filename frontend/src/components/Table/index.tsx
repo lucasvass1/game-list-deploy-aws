@@ -11,7 +11,7 @@ interface TableProps {
   indexPositionImage?: number;
   hasIconFavorite?: boolean;
   indexPositionFavorite?: number;
-  sortDirection: 'asc' | 'desc' | null;
+  sortDirection: () => void;
   onSort: (index: number) => void;
   onView: (index: number) => void;
   onEdit: (index: number) => void;

@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../../api';
 import { MINUTE, REACT_QUERY_KEYS } from '../../../const';
+import { PropsSortBy } from '../../../context/GamesContext';
+import { PropsOrder } from '../../../context/PlataformsContext';
 
 interface CategoryProps {
   id?: string;
@@ -45,6 +47,8 @@ interface IPropsRequest {
   favorite?: boolean;
   page?: number;
   limit?: number;
+  sortBy?: PropsSortBy;
+  order?: PropsOrder;
 }
 
 export async function fetchGamesList({
@@ -53,12 +57,16 @@ export async function fetchGamesList({
   favorite,
   page = 1,
   limit = 10,
+  sortBy,
+  order,
 }: IPropsRequest) {
   console.log('search', search);
   const { data } = await api.get<GamesListResponse>(
     `/games/me?limit=${limit}${search?.length ? `&search=${search}` : ''}${
       category?.length ? `&category=${category}` : ''
-    }${favorite ? `&favorite=${favorite}` : ''}&page=${page}`,
+    }${favorite ? `&favorite=${favorite}` : ''}${
+      sortBy?.length ? `&sortBy=${sortBy}` : ''
+    }${order?.length ? `&order=${order}` : ''}&page=${page}`,
   );
 
   return data?.games || [];

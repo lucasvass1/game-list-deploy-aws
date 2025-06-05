@@ -23,6 +23,7 @@ export const PlataformTablePage = ({
     handleCreatePlatform,
     handleUpdatePlatform,
     setSortBy,
+    setOrder,
   } = usePlataforms();
   const [plataformSelected, setPlataformSelected] = useState<string>();
   const [isShowModalAddPlataforms, setIsShowModalAddPlataforms] =
@@ -163,7 +164,9 @@ export const PlataformTablePage = ({
             setPlataformSelected(data[index]?.id);
             setIsShowModalDeletPlatform(true);
           }}
-          sortDirection={'asc'}
+          sortDirection={() =>
+            setOrder(oldState => (oldState === 'asc' ? 'desc' : 'asc'))
+          }
           onSort={index => {
             const sort = MAP_SORT_BY[index];
 

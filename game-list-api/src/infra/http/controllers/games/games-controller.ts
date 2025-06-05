@@ -91,9 +91,9 @@ export class GamesController {
     return result;
   }
 
-  async delete(id: string) {
+  async delete(id: string, userId: string) {
     const useCase = new DeleteGameUseCase(this.repository);
-    await useCase.execute(id);
+    await useCase.execute(id, userId);
   }
 
   async toggleFavorite(gameId: string, userId: string) {
