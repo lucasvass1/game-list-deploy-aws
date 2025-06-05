@@ -72,6 +72,7 @@ export class PrismaGameRepository {
       updatedAt: game.updatedAt,
       id: game.id,
       isFavorite: game.isFavorite,
+      userId: game.userId,
     });
   }
 
