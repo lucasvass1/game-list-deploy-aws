@@ -23,6 +23,15 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
     useState<boolean>(false);
   const [isView, setIsView] = useState<boolean>(false);
 
+  const MAP_INDEX_INFORMATION_ORDER_FILTER = [
+    'image',
+    'title',
+    'description',
+    'category',
+    'date',
+    'favorite',
+  ];
+
   return (
     <>
       <Modal

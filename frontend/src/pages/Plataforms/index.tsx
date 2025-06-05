@@ -15,9 +15,7 @@ export function Plataforms() {
         <Pagination
           currentPage={page}
           totalPages={
-            data?.total && data?.limit
-              ? Math.ceil(data.total / data.limit)
-              : 1
+            data?.total && data?.limit ? Math.ceil(data.total / data.limit) : 1
           }
           onPageChange={setPage}
         />

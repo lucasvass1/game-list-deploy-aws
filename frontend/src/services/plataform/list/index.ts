@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../../api';
 import { MINUTE, REACT_QUERY_KEYS } from '../../../const';
+import { PropsOrder, PropsSortBy } from '../../../context/PlataformsContext';
 
-interface PlataformProps {
+export interface PlataformProps {
   id?: string;
   title?: string;
   createdAt?: string;
@@ -15,19 +16,28 @@ interface PlataformProps {
 
 export type PlataformListResponse = {
   plataforms: PlataformProps[];
+  limit: number;
+  page: number;
+  total: number;
 };
 
 interface IPropsRequest {
   page?: number;
   limit?: number;
+  sortBy?: PropsSortBy;
+  order?: PropsOrder;
 }
 
-async function fetchPlataformList({
+export async function fetchPlataformList({
   page = 1,
   limit = 10,
+  sortBy,
+  order,
 }: IPropsRequest): Promise<PlataformListResponse> {
   const { data } = await api.get<PlataformListResponse>(
-    `/plataform?limit=${limit}&page=${page}`,
+    `/plataform?limit=${limit}&page=${page}${
+      sortBy?.length ? `&sortBy=${sortBy}` : ''
+    }${order?.length ? `&order=${order}` : ''}`,
   );
   return data;
 }

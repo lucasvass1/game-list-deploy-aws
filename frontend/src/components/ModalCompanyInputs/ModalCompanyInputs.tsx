@@ -6,12 +6,14 @@ interface ModalCompanyInputsProps {
   formData: PlatformFormData;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isOpen: boolean;
+  isDisabled?: boolean;
 }
 
 export const ModalCompanyInputs: React.FC<ModalCompanyInputsProps> = ({
   formData,
   handleInputChange,
   isOpen,
+  isDisabled,
 }) => {
   return (
     isOpen && (
@@ -19,6 +21,8 @@ export const ModalCompanyInputs: React.FC<ModalCompanyInputsProps> = ({
         <S.FormGroup>
           <S.Label>Company</S.Label>
           <S.Input
+            isDisabled={isDisabled}
+            disabled={isDisabled}
             type="text"
             name="companyName"
             value={formData.companyName}
@@ -29,6 +33,8 @@ export const ModalCompanyInputs: React.FC<ModalCompanyInputsProps> = ({
         <S.FormGroup>
           <S.Label>Acquisition year</S.Label>
           <S.Input
+            isDisabled={isDisabled}
+            disabled={isDisabled}
             type="date"
             name="acquisitionDate"
             value={formData.acquisitionDate}
@@ -39,6 +45,8 @@ export const ModalCompanyInputs: React.FC<ModalCompanyInputsProps> = ({
         <S.FormGroup>
           <S.Label>Image (url)</S.Label>
           <S.Input
+            isDisabled={isDisabled}
+            disabled={isDisabled}
             type="text"
             name="imageUrl"
             value={formData.imageUrl}

@@ -16,7 +16,7 @@ interface TableProps {
   onView: (index: number) => void;
   onEdit: (index: number) => void;
   onDelete: (index: number) => void;
-  onToggleFavorite: (index: number) => void;
+  onToggleFavorite?: (index: number) => void;
 }
 
 const Table: React.FC<TableProps> = ({
