@@ -6,12 +6,14 @@ interface ModalCompanyTitleProps {
   isOpen: boolean;
   formData: PlatformFormData;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isDisabled?: boolean;
 }
 
 const ModalCompanyTitle: React.FC<ModalCompanyTitleProps> = ({
   isOpen,
   formData,
   handleInputChange,
+  isDisabled,
 }) => {
   return (
     isOpen && (
@@ -20,6 +22,8 @@ const ModalCompanyTitle: React.FC<ModalCompanyTitleProps> = ({
           Platform name<S.Required>*</S.Required>
         </S.Label>
         <S.Input
+          isDisabled={isDisabled}
+          disabled={isDisabled}
           type="text"
           name="platformName"
           value={formData.platformName}

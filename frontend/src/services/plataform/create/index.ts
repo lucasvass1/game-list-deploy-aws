@@ -6,7 +6,7 @@ export type PlataformCreateRequest = {
   title: string;
   company?: string;
   imageUrl?: string;
-  acquisitionYear?: string;
+  acquisitionYear?: string | Date;
 };
 
 export type PlataformListResponse = PlataformCreateRequest;
@@ -23,7 +23,7 @@ export async function fetchPlataformCreate({
 
   if (company) body.company = company;
   if (imageUrl) body.imageUrl = imageUrl;
-  if (acquisitionYear) body.acquisitionYear = acquisitionYear;
+  if (acquisitionYear) body.acquisitionYear = new Date(acquisitionYear);
 
   const { data } = await api.post<PlataformListResponse>('/plataform', {
     ...body,

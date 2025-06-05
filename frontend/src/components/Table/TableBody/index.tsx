@@ -46,13 +46,17 @@ const TableBody: React.FC<TableBodyProps> = ({
               <TD key={cellIndex}>
                 {cell ? (
                   <FaStar
-                    onClick={() => handleToggleFavorite?.(rowIndex)}
+                    onClick={() =>
+                      handleToggleFavorite ? handleToggleFavorite(rowIndex) : {}
+                    }
                     style={{ cursor: 'pointer', color: COLORS.background }}
                     title="Remover dos favoritos"
                   />
                 ) : (
                   <FaRegStar
-                    onClick={() => handleToggleFavorite?.(rowIndex)}
+                    onClick={() =>
+                      handleToggleFavorite ? handleToggleFavorite(rowIndex) : {}
+                    }
                     style={{ cursor: 'pointer', color: COLORS.gray }}
                     title="Adicionar aos favoritos"
                   />

@@ -64,11 +64,12 @@ export function Header({ toggleSideBar, isSidebarOpen }: HeaderProps) {
 
   if (path === '/plataforms') {
     return (
-      <HeaderContainer isBorderBottom>
-        {handleSideBar()}
+      <HeaderContainer isBorderBottom={false}>
         <Flex>
-          <Title>Plataforms</Title>
-          <Button>NEW PLATFORM</Button>
+          <Row>
+            {handleSideBar()}
+            <Title>Plataforms</Title>
+          </Row>
         </Flex>
       </HeaderContainer>
     );
