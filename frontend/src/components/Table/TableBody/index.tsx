@@ -32,7 +32,11 @@ const TableBody: React.FC<TableBodyProps> = ({
   return (
     <TBody>
       {dataBody.map((row, rowIndex) => (
-        <TR key={rowIndex} backgroundColor={COLORS.white}>
+        <TR
+          key={rowIndex}
+          backgroundColor={COLORS.white}
+          style={{ height: '85px' }}
+        >
           {row.map((cell, cellIndex) =>
             includeImage && cellIndex === indexPositionImage ? (
               <TD key={cellIndex}>
