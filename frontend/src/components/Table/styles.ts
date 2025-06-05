@@ -14,12 +14,18 @@ export const Thead = styled.thead`
   width: 100%;
   border-top: 1px solid ${COLORS.gray};
   background-color: ${COLORS.background};
+  height: 42px;
 `;
 
 export const TR = styled.tr<{ backgroundColor?: string; marginTop?: string }>`
   background-color: ${({ backgroundColor }) =>
     backgroundColor ?? 'transparent'};
   margin-top: ${({ marginTop }) => marginTop ?? '0'};
+  &:not(:first-child){
+    height: 85px;
+  }  
+  
+  
 `;
 
 export const TH = styled.th`
