@@ -4,13 +4,16 @@ import { TablePage } from './components/TablePage';
 import { FiltersTable } from './components/FiltersTable';
 import { Pagination } from '../../components/Pagination';
 import { useGames } from '../../context/GamesContext';
+import { useLocalSearchParams } from 'expo-router';
 
 export function Games() {
   const { page, setPage, dataGems: data } = useGames();
+  const { create } = useLocalSearchParams();
+
   return (
     <>
       <ContainerPage>
-        <FiltersTable />
+        {create === 'true' ? <FiltersTable /> : null}
         <TablePage data={data?.games ?? []} />
 
         {data?.games?.length ? (

@@ -18,21 +18,21 @@ export function Home() {
           <Card
             title="Games"
             dinamicNumber={data?.games ?? 0}
-            buttonRedirect="/games"
+            buttonRedirect="/games?create=true"
             iconImage="game-controller-outline 1.svg"
             altImage="game-controller-outline 1"
           />
           <Card
             title="Categories"
             dinamicNumber={data?.categories ?? 0}
-            buttonRedirect="/categories"
+            buttonRedirect="/categories?create=true"
             iconImage="categories-outline.svg"
             altImage="categories-outline 1"
           />
           <Card
             title="Platforms"
             dinamicNumber={data?.plataforms ?? 0}
-            buttonRedirect="/plataform"
+            buttonRedirect="/plataforms?create=true"
             iconImage="plataforms-outline.svg"
             altImage="plataforms-outline 1"
           />
@@ -42,6 +42,7 @@ export function Home() {
             buttonRedirect="/favorites"
             iconImage="star-outline.svg"
             altImage="star-outline 1"
+            isButton={false}
           />
         </ContentItems>
       </Container>

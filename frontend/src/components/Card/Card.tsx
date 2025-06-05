@@ -8,6 +8,7 @@ interface CardProps {
   buttonRedirect: string;
   iconImage: string;
   altImage: string;
+  isButton?: boolean;
 }
 
 const Card = ({
@@ -16,6 +17,7 @@ const Card = ({
   buttonRedirect,
   iconImage,
   altImage,
+  isButton = true,
 }: CardProps) => {
   return (
     <S.CardContainer>
@@ -24,7 +26,7 @@ const Card = ({
           <S.CardImage src={iconImage} alt={altImage} />
           <S.CardTitle>{title}</S.CardTitle>
         </div>
-        <CardButton linkRedirect={buttonRedirect} />
+        <CardButton linkRedirect={buttonRedirect} isButton={isButton}/>
       </div>
       <S.CardNumber>{dinamicNumber}</S.CardNumber>
     </S.CardContainer>
