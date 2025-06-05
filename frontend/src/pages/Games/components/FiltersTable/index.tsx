@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AddNewGameButton,
   CheckFavorite,
@@ -17,11 +17,14 @@ import { useAuth } from '../../../../context/AuthContext';
 import { useGames } from '../../../../context/GamesContext';
 import Modal from '../../../../components/Modal/Modal.tsx';
 import { StatusGames } from '../../../../services/games/create/index.ts';
+import { useLocation } from 'react-router-dom';
 
 // interface IFiltersTableProps {}
 
 export const FiltersTable = () => {
   const { user } = useAuth();
+  const location = useLocation();
+  const create = location.search === '?create=true';
   const [isShowModalAddGame, setIsShowModalAddGame] = useState<boolean>(false);
   const { data: dataCategoryList } = useGetCategoryList(
     !!user?.id,
@@ -38,6 +41,10 @@ export const FiltersTable = () => {
     isFavorite,
     handleCreateGame,
   } = useGames();
+
+  useEffect(() => {
+    if (create) setIsShowModalAddGame(true);
+  }, [create, location.pathname]);
 
   return (
     <>
