@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PlataformProps } from '../../../services/plataform/list/index.ts';
 import { MessageEmpty } from '../../../components/MessageEmpty';
 import Table from '../../../components/Table';
@@ -7,6 +7,7 @@ import { formatDate } from '../../../utils/formatDate.ts';
 import Modal, { PlatformFormData } from '../../../components/Modal/Modal.tsx';
 import { AddNewGameButton } from '../../Games/components/FiltersTable/styles.ts';
 import DeleteModal from '../../../components/DeleteModal/DeleteModal.tsx';
+import { useLocation } from 'react-router-dom';
 
 interface IPlataformTablePageProps {
   data: PlataformProps[];
@@ -32,7 +33,8 @@ export const PlataformTablePage = ({
   const [isView, setIsView] = useState<boolean>(false);
   const [isShowModalDeletPlatform, setIsShowModalDeletPlatform] =
     useState<boolean>(false);
-
+  const location = useLocation();
+  const create = location.search === '?create=true';
   const MAP_SORT_BY = [
     '',
     'title',
@@ -76,6 +78,15 @@ export const PlataformTablePage = ({
       },
     },
   };
+
+  useEffect(() => {
+    if (create) {
+      setTypeModal('CREATE');
+      setIsShowModalAddPlataforms(true);
+      setIsView(false);
+      setPlataformSelected(undefined);
+    }
+  }, [create, location.pathname]);
 
   return (
     <>

@@ -50,14 +50,7 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
       />
       {data?.length ? (
         <Table
-          headers={[
-            ' ',
-            'Title',
-            'Description',
-            'Created at',
-            'Updated at',
-            ' ',
-          ]}
+          headers={['Title', 'Description', 'Created at', 'Updated at', ' ']}
           data={
             data?.map(category => [
               category.title,
