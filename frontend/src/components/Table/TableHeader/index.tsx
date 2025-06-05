@@ -4,7 +4,7 @@ import { COLORS } from '../../../config/colors';
 
 interface TableHeaderProps {
   dataHeader: string[];
-  sortDirection: 'asc' | 'desc' | null;
+  sortDirection: () => void;
   onSort: (index: number) => void;
 }
 
@@ -30,10 +30,19 @@ const TableHeader: React.FC<TableHeaderProps> = ({
                 gap: '5px',
               }}
             >
-              {item}
-              {sortDirection && !!item?.trim().length && (
-                <img src="order-filters.svg" alt="icon" />
-              )}
+              <span>{item}</span>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onClick={sortDirection}
+              >
+                {!!item?.trim().length && (
+                  <img src="order-filters.svg" alt="icon" />
+                )}
+              </div>
             </div>
           </TH>
         ))}
