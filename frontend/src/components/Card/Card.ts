@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const CardContainer = styled.div`
+interface CardContainerProps {
+  isClickable?: boolean;
+}
+
+export const CardContainer = styled.div<CardContainerProps>`
   display: flex;
   justify-content: space-between;
   background-color: #262626;
@@ -8,14 +12,28 @@ export const CardContainer = styled.div`
   height: 173px;
   border-radius: 10px;
   border: 1px solid #6c6c6c;
+
+  ${(props) =>
+    props.isClickable &&
+    css`
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #333333;
+      }
+    `}
+
   h2 {
     margin-top: 8px;
   }
+
   div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
+
   div div {
     margin-top: 17px;
     margin-left: 21px;
