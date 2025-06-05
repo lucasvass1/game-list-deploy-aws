@@ -7,6 +7,7 @@ import { EndDateGameRequiredError } from '@/domain/errors/end-date-game-required
 import { GameNotFoundError } from '@/domain/errors/game-not-found';
 import { CategoryNotFoundError } from '@/domain/errors/category-not-foud';
 import { GameAlreadyExistsError } from '@/domain/errors/game-already-exists-error';
+import { UnauthorizedError } from '@/domain/errors/unauthorized-error';
 
 const gamesRoutes = Router();
 const gamesController = new GamesController(new PrismaGameRepository());
@@ -140,10 +141,21 @@ gamesRoutes.delete(
         res.status(400).json({ message: 'Bad request.' });
         return;
       }
-      await gamesController.delete(id);
+      if (!req.user) {
+        res.status(400).json({ message: 'Bad request.' });
+        return;
+      }
+      const { id: userId } = req.user;
+      await gamesController.delete(id, userId);
       res.status(200).json({ message: 'Game deleted.' });
       return;
     } catch (error) {
+      if (error instanceof UnauthorizedError) {
+        res
+          .status(403)
+          .json({ message: 'You are not authorized to perform this action.' });
+        return;
+      }
       if (error instanceof GameNotFoundError) {
         res.status(404).json({ message: 'Game not found.' });
         return;
