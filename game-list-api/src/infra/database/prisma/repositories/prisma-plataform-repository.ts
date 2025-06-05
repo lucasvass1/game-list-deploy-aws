@@ -31,7 +31,10 @@ export class PrismaPlataformRepository {
     });
   }
 
-  async findMany(params: ListPlataformParams): Promise<{
+  async findMany(
+    params: ListPlataformParams,
+    userId: string,
+  ): Promise<{
     plataforms: PlataformProps[];
     total: number;
     page: number;
@@ -43,6 +46,9 @@ export class PrismaPlataformRepository {
 
     const [plataforms, total] = await Promise.all([
       prisma.plataform.findMany({
+        where: {
+          userId,
+        },
         skip,
         take: limit,
         orderBy: {
@@ -90,5 +96,13 @@ export class PrismaPlataformRepository {
 
   async delete(id: string): Promise<void> {
     await prisma.plataform.delete({ where: { id } });
+  }
+
+  async hasRelatedGames(plataformId: string): Promise<boolean> {
+    const count = await prisma.game.count({
+      where: { plataformId },
+    });
+
+    return count > 0;
   }
 }
