@@ -9,6 +9,10 @@ export const Container = styled.div`
   padding: 10px;
   max-width: 1400px;
   margin: 10px auto;
+
+  @media (max-width: 480px) {
+    padding: 8px;
+  }
 `;
 
 export const Title = styled.h2`
@@ -16,6 +20,11 @@ export const Title = styled.h2`
   color: ${COLORS?.white};
   font-weight: bold;
   line-height: 5px;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    line-height: normal;
+  }
 `;
 
 export const Subtitle = styled.p`
@@ -23,13 +32,20 @@ export const Subtitle = styled.p`
   color: ${COLORS?.ligthGray};
   font-weight: 200;
   margin: 0;
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
 `;
 
 export const ContentItems = styled.div`
   display: grid;
-  /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 20px;
   margin-top: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;

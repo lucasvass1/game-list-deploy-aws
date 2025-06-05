@@ -9,12 +9,38 @@ export const Aside = styled.aside`
   flex-direction: column;
   justify-content: space-between;
   padding: 1.5rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    max-height: none;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 `;
 
 export const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -22,11 +48,19 @@ export const LogoContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0;
+  }
 `;
 
 export const LogoImg = styled.img`
   width: 120px;
   height: auto;
+
+  @media (max-width: 480px) {
+    width: 100px;
+  }
 `;
 
 export const Nav = styled.nav`
@@ -35,6 +69,17 @@ export const Nav = styled.nav`
   gap: 1rem;
   max-width: 193px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    max-width: none;
+    width: auto;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 export const NavItemStyled = styled.a<{ $active?: boolean }>`
@@ -60,6 +105,14 @@ export const NavItemStyled = styled.a<{ $active?: boolean }>`
 
   &:hover {
     background-color: #2a2a2a;
+  }
+
+  @media (max-width: 768px) {
+    padding: 6px 10px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
   }
 `;
 
@@ -88,5 +141,15 @@ export const LogoutButton = styled.button`
 
   &:hover {
     color: #5c5858;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+
+    img {
+      width: 18px;
+      height: 18px;
+      margin-left: 8px;
+    }
   }
 `;

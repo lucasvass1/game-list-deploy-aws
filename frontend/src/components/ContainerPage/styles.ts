@@ -5,6 +5,10 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const Sidebar = styled.aside`
@@ -13,6 +17,13 @@ export const Sidebar = styled.aside`
   color: white;
   padding: 20px;
   height: 100vh;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    order: 2;
+  }
 `;
 
 export const Content = styled.div<{ isSidebarOpen: boolean }>`
@@ -21,6 +32,10 @@ export const Content = styled.div<{ isSidebarOpen: boolean }>`
   flex-direction: column;
   transition: margin 0.3s ease;
   height: 100vh;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
 
 export const Header = styled.header`
@@ -35,7 +50,6 @@ export const Header = styled.header`
 
   button {
     background: transparent;
-    /* border: 1px solid white; */
     border: none;
     color: white;
     padding: 6px 12px;
@@ -48,6 +62,12 @@ export const Header = styled.header`
       color: #202024;
     }
   }
+
+  @media (max-width: 768px) {
+    height: 50px;
+    padding: 0 12px;
+    font-size: 0.9rem;
+  }
 `;
 
 export const Main = styled.main`
@@ -56,4 +76,8 @@ export const Main = styled.main`
   background-color: ${COLORS.black};
   overflow-y: auto;
   border-left: 1px solid ${COLORS.white};
+
+  @media (max-width: 768px) {
+    padding: 12px;
+  }
 `;
