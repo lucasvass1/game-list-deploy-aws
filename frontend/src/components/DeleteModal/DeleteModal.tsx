@@ -1,25 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as S from "./DeleteModal.ts";
 
-// EXEMPLO DE COMO USAR O MODAL
-
-/*
- const [showModal, setShowModal] = React.useState(false);
-    const handleDelete = () => {
-        setShowModal(false);
-    };
-
-<DeleteModal 
-    isOpen={showModal}
-    onClose={() => setShowModal(false)}
-    onDelete={handleDelete}
-    title="Custom title"
-    message="Custom message"
-    cancelText="Cancel"
-    deleteText="Delete"
-/>
-*/
-
 interface DeleteModalProps {
   isOpen: boolean;
   onClose: () => void;

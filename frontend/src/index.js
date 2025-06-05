@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GamesProvider } from './context/GamesContext.tsx';
 import { PlataformsProvider } from './context/PlataformsContext.tsx';
+import { CategoriesProvider } from './context/CategoriesContext.tsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,21 +19,23 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <PlataformsProvider>
-            <GamesProvider>
-              <ToastContainer
-                position="top-center"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-              />
-              <App />
-            </GamesProvider>
+            <CategoriesProvider>
+              <GamesProvider>
+                <ToastContainer
+                  position="top-center"
+                  autoClose={3000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="dark"
+                />
+                <App />
+              </GamesProvider>
+            </CategoriesProvider>
           </PlataformsProvider>
         </AuthProvider>
       </QueryClientProvider>

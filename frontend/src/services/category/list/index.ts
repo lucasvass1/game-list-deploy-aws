@@ -20,7 +20,7 @@ interface IPropsRequest {
   limit?: number;
 }
 
-async function fetchCategoryList({
+export async function fetchCategoryList({
   page = 1,
   limit = 10,
 }: IPropsRequest): Promise<CategoryListResponse> {
