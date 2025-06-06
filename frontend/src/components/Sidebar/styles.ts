@@ -17,12 +17,14 @@ export const Aside = styled.aside`
     justify-content: space-between;
     padding: 1rem;
     max-height: none;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   @media (max-width: 480px) {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: center;
+    gap: 1.5rem;
   }
 `;
 
@@ -39,7 +41,9 @@ export const SidebarContainer = styled.div`
 
   @media (max-width: 480px) {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
   }
 `;
 
@@ -70,14 +74,19 @@ export const Nav = styled.nav`
   width: 193px;
   align-items: center;
 
-
+  @media (max-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    width: auto;
+  }
 
   @media (max-width: 480px) {
     flex-direction: column;
     width: 100%;
+    gap: 1rem;
   }
-
-  l 
 `;
 
 export const NavItemStyled = styled.a<{ $active?: boolean }>`
@@ -85,7 +94,6 @@ export const NavItemStyled = styled.a<{ $active?: boolean }>`
   align-items: center;
   width: 100%;
   height: 41px;
-  
   border-radius: 8px;
   color: white;
   text-decoration: none;
@@ -108,28 +116,33 @@ export const NavItemStyled = styled.a<{ $active?: boolean }>`
 
   @media (max-width: 768px) {
     padding: 6px 10px;
+    width: auto;
   }
 
   @media (max-width: 480px) {
     width: 100%;
   }
-  
+
   span {
     margin-left: 10px;
-    }
+  }
 `;
 
 export const Icon = styled.img`
   width: 18px;
   height: 18px;
   margin-left: 41px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
 `;
 
 export const LogoutButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0,875rem;
+  font-size: 0.875rem;
   background: none;
   border: none;
   color: white;
@@ -156,5 +169,12 @@ export const LogoutButton = styled.button`
       height: 18px;
       margin-left: 8px;
     }
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: center;
+    padding: 0.5rem;
+    font-size: 0.8rem;
   }
 `;
