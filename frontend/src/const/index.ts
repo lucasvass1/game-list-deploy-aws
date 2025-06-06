@@ -46,4 +46,8 @@ export const PLATFORM_MODAL_CONFIG = {
     title: 'Details Platform',
     button: '',
   },
+  DELETE: {
+    title: 'Delete Platform',
+    button: '',
+  },
 } as const;

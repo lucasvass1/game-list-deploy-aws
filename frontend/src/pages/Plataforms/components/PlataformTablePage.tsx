@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { PlataformProps } from '../../../services/plataform/list/index.ts';
 import { MessageEmpty } from '../../../components/MessageEmpty';
 import Table from '../../../components/Table';
@@ -14,7 +14,8 @@ import {
   URL_DEFAULT_IMAGE,
 } from '../../../const/index.ts';
 import { validateCreatePlatformForm } from '../../../utils/validateCreatePlatformForm.ts';
-type ModalType = 'CREATE' | 'VIEW' | 'UPDATE';
+import { usePlatform } from '../usePlatform.ts';
+type ModalType = 'CREATE' | 'VIEW' | 'UPDATE' | 'DELETE';
 
 interface IPlataformTablePageProps {
   data: PlataformProps[];
@@ -32,15 +33,21 @@ export const PlataformTablePage = ({
     setSortBy,
     setOrder,
   } = usePlataforms();
-  const [plataformSelected, setPlataformSelected] = useState<string>();
-  const [isShowModalAddPlataforms, setIsShowModalAddPlataforms] =
-    useState<boolean>(false);
-  const [typeModal, setTypeModal] = useState<
-    'CREATE' | 'VIEW' | 'UPDATE' | 'DELETE'
-  >('CREATE');
-  const [isView, setIsView] = useState<boolean>(false);
-  const [isShowModalDeletPlatform, setIsShowModalDeletPlatform] =
-    useState<boolean>(false);
+
+  const {
+    isCreate,
+    isView,
+    isUpdate,
+    isDelete,
+    selectedId,
+    openCreate,
+    openView,
+    openUpdate,
+    openDelete,
+    close,
+    type,
+  } = usePlatform();
+
   const location = useLocation();
   const create = location.search === '?create=true';
 
@@ -56,7 +63,7 @@ export const PlataformTablePage = ({
 
   const handleUpdate = (formData: PlatformFormData) => {
     handleUpdatePlatform({
-      id: plataformSelected,
+      id: selectedId,
       title: formData?.platformName as string,
       acquisitionYear: formData?.acquisitionDate,
       company: formData?.companyName,
@@ -64,43 +71,39 @@ export const PlataformTablePage = ({
     });
   };
 
-  const handleOpenCreateModal = () => {
-    setTypeModal('CREATE');
-    setIsShowModalAddPlataforms(true);
-    setIsView(false);
-    setPlataformSelected(undefined);
+  const handleDelete = () => {
+    if (!selectedId) return;
+    handleRemovePlataform(selectedId);
+    close();
   };
 
   useEffect(() => {
     if (create) {
-      setTypeModal('CREATE');
-      setIsShowModalAddPlataforms(true);
-      setIsView(false);
-      setPlataformSelected(undefined);
+      openCreate();
     }
-  }, [create, location.pathname]);
+  }, [create, location.pathname, openCreate]);
 
   return (
     <>
       <Modal
-        isOpen={isShowModalAddPlataforms}
-        onClose={() => setIsShowModalAddPlataforms(false)}
-        title={PLATFORM_MODAL_CONFIG[typeModal as ModalType].title}
-        buttonTitle={PLATFORM_MODAL_CONFIG[typeModal as ModalType].button}
+        isOpen={isCreate || isView || isUpdate}
+        onClose={close}
+        title={PLATFORM_MODAL_CONFIG[type as ModalType].title}
+        buttonTitle={PLATFORM_MODAL_CONFIG[type as ModalType].button}
         onSave={(formData: any) => {
-          if (typeModal === 'CREATE') handleCreate(formData);
-          if (typeModal === 'UPDATE') handleUpdate(formData);
+          if (type === 'CREATE') handleCreate(formData);
+          if (type === 'UPDATE') handleUpdate(formData);
         }}
         isCompany={true}
         isCompanyTitle={true}
         isView={isView}
-        idPlatformSelected={plataformSelected}
-        isUpdatePlatform={typeModal === 'UPDATE' || typeModal === 'VIEW'}
+        idPlatformSelected={selectedId}
+        isUpdatePlatform={type === 'UPDATE' || type === 'VIEW'}
       />
       <DeleteModal
-        isOpen={isShowModalDeletPlatform}
-        onClose={() => setIsShowModalDeletPlatform(false)}
-        onDelete={() => handleRemovePlataform(plataformSelected ?? '')}
+        isOpen={isDelete}
+        onClose={close}
+        onDelete={handleDelete}
         message="Deleting this game will remove permanently from system. This action is not reversible."
       />
       <div
@@ -109,9 +112,7 @@ export const PlataformTablePage = ({
           borderBottom: '1px solid #e5e5e5',
         }}
       >
-        <AddNewGameButton onClick={handleOpenCreateModal}>
-          NEW PLATFORM
-        </AddNewGameButton>
+        <AddNewGameButton onClick={openCreate}>NEW PLATFORM</AddNewGameButton>
       </div>
       {data?.length ? (
         <Table
@@ -138,10 +139,7 @@ export const PlataformTablePage = ({
                 : '-',
             ]) || []
           }
-          onDelete={index => {
-            setPlataformSelected(data[index]?.id);
-            setIsShowModalDeletPlatform(true);
-          }}
+          onDelete={index => openDelete(data[index]?.id ?? '')}
           sortDirection={() =>
             setOrder(oldState => (oldState === 'asc' ? 'desc' : 'asc'))
           }
@@ -151,18 +149,8 @@ export const PlataformTablePage = ({
             setSortBy(sort as PropsSortBy);
           }}
           includeImage
-          onView={index => {
-            setPlataformSelected(data[index]?.id);
-            setIsView(true);
-            setTypeModal('VIEW');
-            setIsShowModalAddPlataforms(true);
-          }}
-          onEdit={index => {
-            setPlataformSelected(data[index]?.id);
-            setIsView(false);
-            setTypeModal('UPDATE');
-            setIsShowModalAddPlataforms(true);
-          }}
+          onView={index => openView(data[index]?.id ?? '')}
+          onEdit={index => openUpdate(data[index]?.id ?? '')}
           hasIconFavorite={false}
         />
       ) : (
