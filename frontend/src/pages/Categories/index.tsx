@@ -18,17 +18,23 @@ export const Categories = () => {
   return (
     <>
       <ContainerPage>
-        <AddNewGameButton onClick={() => setModalOpen(true)}>
-          NEW CATEGORY
-        </AddNewGameButton>
-
+        <div
+          style={{
+            padding: '20px',
+            borderBottom: '1px solid #e5e5e5',
+          }}
+        >
+          <AddNewGameButton onClick={() => setModalOpen(true)}>
+            NEW CATEGORY
+          </AddNewGameButton>
+        </div>
         {create ? (
           <Modal
             isOpen={isCreate}
             onClose={() => setIsCreate(false)}
             title="New Category"
             buttonTitle="Save Category +"
-            onSave={(formData) => {
+            onSave={formData => {
               handleCreateCategory({ ...formData });
             }}
             isGameTitle={true}
@@ -40,7 +46,7 @@ export const Categories = () => {
             onClose={() => setModalOpen(false)}
             title="New Category"
             buttonTitle="Save Category +"
-            onSave={(formData) => {
+            onSave={formData => {
               handleCreateCategory({ ...formData });
             }}
             isGameTitle={true}

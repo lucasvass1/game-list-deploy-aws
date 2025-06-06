@@ -76,7 +76,7 @@ export const FiltersTable = () => {
       />
 
       <AddNewGameButton onClick={() => setIsShowModalAddGame(true)}>
-        New Game
+        NEW GAME
       </AddNewGameButton>
 
       <Container>
