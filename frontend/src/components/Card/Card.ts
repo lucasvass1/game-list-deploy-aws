@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 interface CardContainerProps {
   isClickable?: boolean;
@@ -13,7 +13,7 @@ export const CardContainer = styled.div<CardContainerProps>`
   border-radius: 10px;
   border: 1px solid #6c6c6c;
 
-  ${(props) =>
+  ${props =>
     props.isClickable &&
     css`
       cursor: pointer;
@@ -38,6 +38,15 @@ export const CardContainer = styled.div<CardContainerProps>`
     margin-top: 17px;
     margin-left: 21px;
     align-items: flex-start;
+  }
+
+  @media (max-width: 700px) {
+    flex: 1;
+  }
+
+  @media (max-width: 400px) {
+    width: 95%;
+    margin: 5px auto;
   }
 `;
 

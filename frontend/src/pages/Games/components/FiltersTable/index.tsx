@@ -19,6 +19,7 @@ import { useGames } from '../../../../context/GamesContext';
 import Modal from '../../../../components/Modal/Modal.tsx';
 import { StatusGames } from '../../../../services/games/create/index.ts';
 import { useLocation } from 'react-router-dom';
+import { validateCreateGamesForm } from '../../../../utils/validateCreateGamesForm.ts';
 
 export const FiltersTable = () => {
   const { user } = useAuth();
@@ -29,7 +30,7 @@ export const FiltersTable = () => {
   const { data: dataCategoryList } = useGetCategoryList(
     !!user?.id,
     1,
-    10000000
+    10000000,
   );
 
   const {
@@ -54,7 +55,8 @@ export const FiltersTable = () => {
         onClose={() => setIsShowModalAddGame(false)}
         title="New Game"
         buttonTitle="CREATE"
-        onSave={(formData) =>
+        onSave={formData => {
+          if (!validateCreateGamesForm(formData)) return;
           handleCreateGame({
             description: formData?.description,
             status: formData?.status as StatusGames,
@@ -64,8 +66,9 @@ export const FiltersTable = () => {
             imageUrl: formData?.imageUrl,
             isFavorite: formData?.favorite,
             plataformId: formData?.platform,
-          })
-        }
+          });
+          setIsShowModalAddGame(false);
+        }}
         isFavorite={true}
         isDates={true}
         isCategoryRow={true}
@@ -94,17 +97,16 @@ export const FiltersTable = () => {
             }
           />
 
-          
           <CategoryFavoriteWrapper>
             <SelectInput
               name="Select Category"
               value={categorySelected}
-              onChange={(e) => setCategorySelected(e.target.value)}
+              onChange={e => setCategorySelected(e.target.value)}
             >
               <option value="" disabled selected>
                 Select category
               </option>
-              {dataCategoryList?.categories?.map((category) => (
+              {dataCategoryList?.categories?.map(category => (
                 <option key={category.id} value={category.id}>
                   {category.title}
                 </option>
@@ -115,7 +117,7 @@ export const FiltersTable = () => {
               <CheckFavorite
                 id="favorite"
                 type="checkbox"
-                onChange={() => setIsFavorite((oldState) => !oldState)}
+                onChange={() => setIsFavorite(oldState => !oldState)}
                 checked={isFavorite}
               />
               <label htmlFor="favorite">Favorite</label>
