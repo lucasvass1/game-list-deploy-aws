@@ -13,4 +13,5 @@ export interface UsersRepository {
   findByEmail(email: string): Promise<User | null>;
   create(user: User): Promise<PartialUser | null>;
   stats(userId: string): Promise<StatsUserResponse>;
+  findById(id: string): Promise<User | null>;
 }
