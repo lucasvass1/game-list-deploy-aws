@@ -12,6 +12,9 @@ export const Container = styled.div`
   padding: 0px 0px 5px;
   border-bottom: 1px solid #e5e5e5;
   margin-bottom: 20px;
+  div {
+    padding-left: 20px;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -20,6 +23,7 @@ export const Container = styled.div`
     width: 100%;
     padding-bottom: 20px;
   }
+
 `;
 
 export const Title = styled.h2`
@@ -135,6 +139,7 @@ export const ContainerRow = styled.div<{ flexDirectionMobile?: string }>`
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
+  width: 100%;
 
   label {
     color: ${COLORS.white};
@@ -150,6 +155,9 @@ export const ContainerRow = styled.div<{ flexDirectionMobile?: string }>`
     justify-content: flex-start;
     width: 100%;
   }
+    &:first-child {
+      align-self: flex-start;
+    }
 `;
 
 export const ContainerButtons = styled.div`

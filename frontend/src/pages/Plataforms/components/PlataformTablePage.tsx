@@ -69,6 +69,7 @@ export const PlataformTablePage = ({
       company: formData?.companyName,
       imageUrl: formData?.imageUrl,
     });
+    close();
   };
 
   const handleDelete = () => {

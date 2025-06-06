@@ -78,11 +78,16 @@ export const FiltersTable = () => {
         isDescription={true}
       />
 
-      <AddNewGameButton onClick={() => setIsShowModalAddGame(true)}>
-        NEW GAME
-      </AddNewGameButton>
-
       <Container>
+        <div
+          style={{
+            padding: '20px',
+          }}
+        >
+          <AddNewGameButton onClick={() => setIsShowModalAddGame(true)}>
+            NEW GAME
+          </AddNewGameButton>
+        </div>
         <ContainerRow>
           <Title>Filters</Title>
 
