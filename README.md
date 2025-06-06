@@ -46,6 +46,11 @@ cd backend
 # Instale as dependências
 npm install
 
+# Inicie os containers com o Doker
+# Certifique-se de que o Docker está instalado e em execução na sua máquina.
+# No terminal, vá para a pasta game-list-api
+doker-compose up -d
+
 # Configure o arquivo .env com suas variáveis (como URL do banco)
 # Execute as migrations
 npx prisma migrate dev
