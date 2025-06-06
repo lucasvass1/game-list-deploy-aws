@@ -42,7 +42,10 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
       <DeleteModal
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
-        onDelete={() => handleRemoveCategory(categorySelected ?? '')}
+        onDelete={() => {
+          handleRemoveCategory(categorySelected ?? '');
+          setIsDeleteModalOpen(false);
+        }}
         message="Deleting this category will remove permanently from system. This action is not reversible."
       />
       {data?.length ? (
