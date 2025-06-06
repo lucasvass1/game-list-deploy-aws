@@ -12,14 +12,6 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route
-        path="/"
-        element={
-          <RouteWrapper isPrivate>
-            <Home />
-          </RouteWrapper>
-        }
-      />
-      <Route
         path="/dashboard"
         element={
           <RouteWrapper isPrivate>
@@ -28,6 +20,14 @@ export function AppRoutes() {
         }
       />
 
+      <Route
+        path="/"
+        element={
+          <RouteWrapper isPrivate>
+            <Home />
+          </RouteWrapper>
+        }
+      />
       <Route
         path="/login"
         element={
