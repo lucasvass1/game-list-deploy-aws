@@ -69,10 +69,14 @@ npm install
 # Inicie o servidor de desenvolvimento
 npm run start
 
-| Project  | Description                                | Link                                          |
-| -------- | ---------------------------------------- | --------------------------------------------- |
+```
+
+
+```
+| Project  | Description                               | Link                                                      |
+| -------- | ---------------------------------------- | ---------------------------------------------              |
 | Backend  | API REST com Express, Prisma, Swagger    | [📄 game-list-api/README.md](./game-list-api/README.md)   |
-| Frontend | Interface React com React Query & Styled | [📄 frontend/README.md](./frontend/README.md) |
+| Frontend | Interface React com React Query & Styled | [📄 frontend/README.md](./frontend/README.md)             |
 
 
 ```
