@@ -59,16 +59,6 @@ Create a `.env` file in the root and configure the API URL:
 REACT_APP_API_URL=http://localhost:3333
 ```
 
-## 🐳 Docker Support
-
-This frontend is designed to work alongside a backend API running in Docker. Ensure you run the full stack with:
-
-```bash
-docker-compose up -d
-```
-
-> ℹ️ Make sure the backend API is running at the correct URL configured in your `.env`.
-
 ## 🧼 Linting & Formatting
 
 This project uses ESLint and Prettier. You can format the code using:
