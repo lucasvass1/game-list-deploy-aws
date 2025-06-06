@@ -86,6 +86,11 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
     onSuccess: () => {
       toast.success('Platform added successfuly!');
       handleClearFilters();
+      mutateLoadPlatformList({
+        page,
+        sortBy,
+        order,
+      });
     },
     onError: error => {
       if (error.message) {
@@ -100,6 +105,11 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
     mutationFn: fetchPlataformDelete,
     onSuccess: () => {
       handleClearFilters();
+      mutateLoadPlatformList({
+        page,
+        sortBy,
+        order,
+      });
     },
     onError: error => {
       if (error.message) {
@@ -113,6 +123,11 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
     mutationFn: fetchPlataformUpdate,
     onSuccess: () => {
       handleClearFilters();
+      mutateLoadPlatformList({
+        page,
+        sortBy,
+        order,
+      });
     },
     onError: error => {
       if (error.message) {

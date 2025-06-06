@@ -6,7 +6,7 @@ import { PropsOrder } from '../../../context/PlataformsContext';
 
 interface CategoryProps {
   id?: string;
-  title?: string;
+  name?: string;
   description?: string;
   createdAt?: string;
   updatedAt?: string;
@@ -60,7 +60,6 @@ export async function fetchGamesList({
   sortBy,
   order,
 }: IPropsRequest) {
-  console.log('search', search);
   const { data } = await api.get<GamesListResponse>(
     `/games/me?limit=${limit}${search?.length ? `&search=${search}` : ''}${
       category?.length ? `&category=${category}` : ''
