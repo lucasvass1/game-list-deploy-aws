@@ -67,26 +67,25 @@ export const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 193px;
-  width: 100%;
+  width: 193px;
+  align-items: center;
 
-  @media (max-width: 768px) {
-    flex-direction: row;
-    max-width: none;
-    width: auto;
-  }
+
 
   @media (max-width: 480px) {
     flex-direction: column;
     width: 100%;
   }
+
+  l 
 `;
 
 export const NavItemStyled = styled.a<{ $active?: boolean }>`
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 10px;
+  height: 41px;
+  
   border-radius: 8px;
   color: white;
   text-decoration: none;
@@ -114,28 +113,34 @@ export const NavItemStyled = styled.a<{ $active?: boolean }>`
   @media (max-width: 480px) {
     width: 100%;
   }
+  
+  span {
+    margin-left: 10px;
+    }
 `;
 
 export const Icon = styled.img`
   width: 18px;
   height: 18px;
-  margin-right: 8px;
+  margin-left: 41px;
 `;
 
 export const LogoutButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.875rem;
+  font-size: 0,875rem;
   background: none;
   border: none;
   color: white;
   cursor: pointer;
+  font-weight: 500;
+  line-height: 100%;
 
   img {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
+    width: 17px;
+    height: 17px;
+    margin-left: 20px;
     margin-right: 8px;
   }
 
