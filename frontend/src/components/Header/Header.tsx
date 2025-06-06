@@ -52,11 +52,10 @@ export function Header({ toggleSideBar, isSidebarOpen }: HeaderProps) {
 
   if (path === '/categories') {
     return (
-      <HeaderContainer isBorderBottom>
+      <HeaderContainer isBorderBottom={false}>
         {handleSideBar()}
         <Flex>
           <Title>Categories</Title>
-          <Button>NEW CATEGORY</Button>
         </Flex>
       </HeaderContainer>
     );
