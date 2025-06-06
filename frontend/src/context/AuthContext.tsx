@@ -10,6 +10,7 @@ import { api } from '../services/api.ts';
 import { useMutation } from '@tanstack/react-query';
 import { login } from '../services/users/login/index.tsx';
 import { toast } from 'react-toastify';
+import { IPropsErrosRequest } from '../interface/errors-request.ts';
 
 type User = {
   id: string;
@@ -42,7 +43,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
       storageUserAndTokenSave(data.user, data.token);
       setUser(data.user);
     },
-    onError: error => {
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(`auth: ${error.message}`);
         return;

@@ -22,6 +22,8 @@ import {
   REGEX_VALIDATE_EMAIL,
   REGEX_VALIDATE_PASSWORD_REGISTER,
 } from '../../const/index.ts';
+import { ComponentPasswordValidate } from '../ComponentPasswordValidate/index.tsx';
+import { IPropsErrosRequest } from '../../interface/errors-request.ts';
 
 interface FormRegisterProps {
   title: string;
@@ -42,10 +44,12 @@ export function FormRegister({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
   const navigate = useNavigate();
   const { signIn } = useAuth();
 
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const { mutate: mutateRegisterUser } = useMutation({
     mutationFn: register,
@@ -54,12 +58,12 @@ export function FormRegister({
       signIn(email, password);
       navigate('/');
     },
-    onError: error => {
-      if (error.message) {
-        toast.error(error.message);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error(error.message || 'Bad Request');
     },
   });
 
@@ -73,31 +77,39 @@ export function FormRegister({
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const validationErrors: string[] = [];
 
-    if (!name.trim()) validationErrors.push('Name is required.');
-    else if (name.trim().length < 3)
-      validationErrors.push('Name must be at least 3 characters.');
+    const validationErrors: Record<string, string> = {};
 
-    if (!email.trim()) validationErrors.push('Email is required.');
-    else if (!validateEmail(email.trim()))
-      validationErrors.push('Email is not valid.');
+    if (!name.trim()) {
+      validationErrors.name = 'Name is required.';
+    } else if (name.trim().length < 3) {
+      validationErrors.name = 'Name must be at least 3 characters.';
+    }
 
-    if (!password) validationErrors.push('Password is required.');
-    else if (!validatePassword(password))
-      validationErrors.push(
-        'Password must be at least 8 characters and include letters, numbers, and special characters.',
-      );
+    if (!email.trim()) {
+      validationErrors.email = 'Email is required.';
+    } else if (!validateEmail(email.trim())) {
+      validationErrors.email = 'Email is not valid.';
+    }
 
-    if (password !== confirmPassword)
-      validationErrors.push('Passwords do not match.');
+    if (!password) {
+      validationErrors.password = 'Password is required.';
+    } else if (!validatePassword(password)) {
+      validationErrors.password =
+        'Password must be at least 8 characters and include letters, numbers, and special characters.';
+    }
 
-    if (validationErrors.length > 0) {
+    if (password !== confirmPassword) {
+      validationErrors.confirmPassword = 'Passwords do not match.';
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      Object.values(validationErrors).forEach(err => toast.error(err));
       return;
     }
 
-    setErrors([]);
+    setErrors({});
 
     mutateRegisterUser({
       name,
@@ -122,6 +134,7 @@ export function FormRegister({
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
+          error={errors.name}
         />
 
         <Input
@@ -131,6 +144,7 @@ export function FormRegister({
           type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          error={errors.email}
         />
 
         <Input
@@ -140,7 +154,14 @@ export function FormRegister({
           type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
+          onFocus={() => setIsPasswordFocused(true)}
+          onBlur={() => setIsPasswordFocused(false)}
+          error={errors.password}
         />
+
+        {isPasswordFocused && password.length > 0 && (
+          <ComponentPasswordValidate password={password} />
+        )}
 
         <Input
           label="Confirm Password"
@@ -149,15 +170,8 @@ export function FormRegister({
           type="password"
           value={confirmPassword}
           onChange={e => setConfirmPassword(e.target.value)}
+          error={errors.confirmPassword}
         />
-
-        {errors.length > 0 && (
-          <div style={{ color: 'red' }}>
-            {errors.map((error, idx) => (
-              <p key={idx}>{error}</p>
-            ))}
-          </div>
-        )}
 
         <ButtonLogin type="submit" name="SIGN UP" />
       </ContainerForm>

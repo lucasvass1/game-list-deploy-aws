@@ -5,9 +5,11 @@ import { TablePage } from './components/TablePage/index.tsx';
 import { Pagination } from '../../components/Pagination';
 import { useLocation } from 'react-router-dom';
 import { useCategories } from '../../context/CategoriesContext';
+import { AddNewGameButton } from '../Games/components/FiltersTable/styles.ts';
 
 export const Categories = () => {
-  const [modalOpen, setModalOpen] = React.useState(true);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [isCreate, setIsCreate] = React.useState(true);
   const location = useLocation();
   const { page, setPage } = useCategories();
   const create = location.search === '?create=true';
@@ -16,7 +18,21 @@ export const Categories = () => {
   return (
     <>
       <ContainerPage>
+        <AddNewGameButton onClick={() => setModalOpen(true)}>
+          NEW CATEGORY
+        </AddNewGameButton>
+
         {create ? (
+          <Modal
+            isOpen={isCreate}
+            onClose={() => setIsCreate(false)}
+            title="New Category"
+            buttonTitle="Save Category +"
+            onSave={() => {}}
+            isGameTitle={true}
+            isDescription={true}
+          />
+        ) : (
           <Modal
             isOpen={modalOpen}
             onClose={() => setModalOpen(false)}
@@ -26,8 +42,7 @@ export const Categories = () => {
             isGameTitle={true}
             isDescription={true}
           />
-        ) : null}
-
+        )}
         <TablePage data={dataCategories?.categories ?? []} />
         {dataCategories?.categories?.length ? (
           <Pagination
