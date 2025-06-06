@@ -140,25 +140,8 @@ const Modal: React.FC<ModalSelectInputProps> = ({
   const handleSubmit = () => {
     if (onSave) {
       onSave(gameFormData || platformFormData);
+      // onClose();
     }
-    setGameFormData({
-      title: '',
-      description: '',
-      category: '',
-      platform: '',
-      acquisitionDate: '',
-      finishDate: '',
-      status: '',
-      favorite: false,
-      imageUrl: '',
-    });
-    setPlatformFormData({
-      platformName: '',
-      companyName: '',
-      acquisitionDate: '',
-      imageUrl: '',
-    });
-    onClose();
   };
 
   useEffect(() => {
@@ -214,6 +197,28 @@ const Modal: React.FC<ModalSelectInputProps> = ({
       imageUrl: '',
     });
   }, [isUpdatePlatform, dataGems, dataPlataforms, idPlatformSelected]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setGameFormData({
+        title: '',
+        description: '',
+        category: '',
+        platform: '',
+        acquisitionDate: '',
+        finishDate: '',
+        status: '',
+        favorite: false,
+        imageUrl: '',
+      });
+      setPlatformFormData({
+        platformName: '',
+        companyName: '',
+        acquisitionDate: '',
+        imageUrl: '',
+      });
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

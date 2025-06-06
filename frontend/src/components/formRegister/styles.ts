@@ -16,6 +16,16 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0px !important;
+    border: none !important;
+    margin: 0;
+    padding: 10px;
+    max-height: 100%;
+  }
 `;
 
 export const ContainerText = styled.div`
@@ -37,6 +47,10 @@ export const ContainerText = styled.div`
   .textP {
     font-size: 1rem;
     color: #bcbcbc;
+  }
+
+  @media (max-width: 600px) {
+    margin-top: 20px;
   }
 `;
 
