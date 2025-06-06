@@ -8,6 +8,10 @@ export const TableContainer = styled.table`
   margin-top: 20px;
   border-spacing: 0 8px;
   border-collapse: separate;
+
+  @media (max-width: 700px) {
+    width: 1100px;
+  }
 `;
 
 export const Thead = styled.thead`
@@ -21,11 +25,9 @@ export const TR = styled.tr<{ backgroundColor?: string; marginTop?: string }>`
   background-color: ${({ backgroundColor }) =>
     backgroundColor ?? 'transparent'};
   margin-top: ${({ marginTop }) => marginTop ?? '0'};
-  &:not(:first-child){
+  &:not(:first-child) {
     height: 85px;
-  }  
-  
-  
+  }
 `;
 
 export const TH = styled.th`
