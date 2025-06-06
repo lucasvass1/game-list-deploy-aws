@@ -26,13 +26,14 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
         onClose={() => setIsModalOpen(false)}
         title="Edit Category"
         buttonTitle="UPDATE"
-        onSave={formData =>
+        onSave={formData => {
           handleUpdateCategory({
             id: categorySelected as string,
             description: formData?.description,
             title: formData?.title,
-          })
-        }
+          });
+          setIsModalOpen(false);
+        }}
         isGameTitle
         isDescription
         idGameSelected={categorySelected}
