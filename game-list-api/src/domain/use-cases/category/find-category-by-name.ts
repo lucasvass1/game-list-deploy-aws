@@ -1,5 +1,6 @@
-import { Category } from "@/domain/entities/category";
-import { CategoryRepository } from "@/domain/repositories/category-repository";
+import { Category } from '@/domain/entities/category';
+import { CategoryNotFoundError } from '@/domain/errors/category-not-foud';
+import { CategoryRepository } from '@/domain/repositories/category-repository';
 
 type FindCategoryByNameRequest = { name: string };
 
@@ -13,7 +14,7 @@ export class FindCategoryByNameUseCase {
   }: FindCategoryByNameRequest): Promise<FindCategoryByNameResponse> {
     const category = await this.categoryRepository.findByName(name);
     if (!category) {
-      return null;
+      throw new CategoryNotFoundError();
     }
 
     return { category };

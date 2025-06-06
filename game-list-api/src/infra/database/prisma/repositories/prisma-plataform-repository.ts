@@ -16,9 +16,9 @@ export class PrismaPlataformRepository {
     });
   }
 
-  async findByTitle(title: string): Promise<Plataform | null> {
+  async findByTitle(title: string, userId: string): Promise<Plataform | null> {
     const plataform = await prisma.plataform.findUnique({
-      where: { title },
+      where: { title, userId },
     });
     if (!plataform) return null;
     return new Plataform({

@@ -16,6 +16,9 @@ import {
 import { fetchCategoryList } from '../services/category/list/index.ts';
 import { CategoryListResponse } from '../services/category/list/index.ts';
 import { IPropsErrosRequest } from '../interface/errors-request.ts';
+import { PropsOrder } from './PlataformsContext.tsx';
+
+export type PropsSortBy = 'title' | 'description' | 'createdAt' | 'updatedAt';
 
 type CategoriesContextType = {
   dataCategories?: CategoryListResponse;
@@ -33,6 +36,8 @@ type CategoriesContextType = {
     description,
   }: CategoryUpdateRequest) => void;
   handleRemoveCategory: (id: string) => void;
+  setSortBy: React.Dispatch<React.SetStateAction<PropsSortBy | undefined>>;
+  setOrder: React.Dispatch<React.SetStateAction<PropsOrder | undefined>>;
 };
 
 const CategoriesContext = createContext({} as CategoriesContextType);
@@ -47,6 +52,8 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
   const [search, setSearch] = useState<string>('');
   const [categorySelected, setCategorySelected] = useState<string>();
   const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState<PropsSortBy>();
+  const [order, setOrder] = useState<PropsOrder>();
   const debounceSearchInput = useDebounce(search, 2000);
 
   const handleClearFilters = () => {
@@ -142,9 +149,11 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
     if (user?.id) {
       mutateLoadCategoriesList({
         page,
+        sortBy,
+        order,
       });
     }
-  }, [mutateLoadCategoriesList, page, user?.id]);
+  }, [mutateLoadCategoriesList, page, user?.id, order, sortBy]);
 
   const handleCreateCategory = ({
     title,
@@ -187,6 +196,8 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
         handleRemoveCategory,
         handleUpdateCategory,
         dataCategories,
+        setOrder,
+        setSortBy,
       }}
     >
       {children}

@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../../api';
 import { MINUTE, REACT_QUERY_KEYS } from '../../../const';
+import { PropsSortBy } from '../../../context/CategoriesContext';
+import { PropsOrder } from '../../../context/PlataformsContext';
 
 interface CategoryProps {
   id?: string;
@@ -18,14 +20,20 @@ export type CategoryListResponse = {
 interface IPropsRequest {
   page?: number;
   limit?: number;
+  sortBy?: PropsSortBy;
+  order?: PropsOrder;
 }
 
 export async function fetchCategoryList({
   page = 1,
   limit = 10,
+  order,
+  sortBy,
 }: IPropsRequest): Promise<CategoryListResponse> {
   const { data } = await api.get<CategoryListResponse>(
-    `/category?limit=${limit}&page=${page}`,
+    `/category?limit=${limit}&page=${page}${
+      sortBy?.length ? `&sortBy=${sortBy}` : ''
+    }${order?.length ? `&order=${order}` : ''}`,
   );
   return data;
 }
