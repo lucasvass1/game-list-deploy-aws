@@ -23,6 +23,7 @@ import {
   REGEX_VALIDATE_PASSWORD_REGISTER,
 } from '../../const/index.ts';
 import { ComponentPasswordValidate } from '../ComponentPasswordValidate/index.tsx';
+import { IPropsErrosRequest } from '../../interface/errors-request.ts';
 
 interface FormRegisterProps {
   title: string;
@@ -57,7 +58,11 @@ export function FormRegister({
       signIn(email, password);
       navigate('/');
     },
-    onError: error => {
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       toast.error(error.message || 'Bad Request');
     },
   });
