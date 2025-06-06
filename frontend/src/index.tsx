@@ -12,7 +12,11 @@ import { GamesProvider } from './context/GamesContext.tsx';
 import { PlataformsProvider } from './context/PlataformsContext.tsx';
 import { CategoriesProvider } from './context/CategoriesContext.tsx';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root');
+if (!rootElement) throw new Error('Root element not found');
+
+const root = ReactDOM.createRoot(rootElement);
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
