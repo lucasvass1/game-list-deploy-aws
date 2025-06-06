@@ -59,6 +59,9 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
     mutationFn: fetchCategoryCreate,
     onSuccess: () => {
       toast.success('Category added successfully!');
+      mutateLoadCategoriesList({
+        page,
+      });
       handleClearFilters();
     },
     onError: (error: IPropsErrosRequest) => {
@@ -77,6 +80,9 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
     mutationFn: fetchCategoryUpdate,
     onSuccess: () => {
       toast.success('Category updated successfully!');
+      mutateLoadCategoriesList({
+        page,
+      });
       handleClearFilters();
     },
     onError: (error: IPropsErrosRequest) => {
@@ -95,6 +101,9 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
     mutationFn: fetchCategoryDelete,
     onSuccess: () => {
       toast.success('Category remove successfully!');
+      mutateLoadCategoriesList({
+        page,
+      });
       handleClearFilters();
     },
     onError: (error: IPropsErrosRequest) => {

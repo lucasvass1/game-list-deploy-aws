@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from '../../components/Modal/Modal.tsx';
 import ContainerPage from '../../components/ContainerPage';
 import { TablePage } from './components/TablePage/index.tsx';
@@ -9,11 +9,15 @@ import { AddNewGameButton } from '../Games/components/FiltersTable/styles.ts';
 
 export const Categories = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [isCreate, setIsCreate] = React.useState(true);
   const location = useLocation();
   const { page, setPage } = useCategories();
   const create = location.search === '?create=true';
   const { dataCategories, handleCreateCategory } = useCategories();
+  useEffect(() => {
+    if (create) {
+      setModalOpen(true);
+    }
+  }, [create, location.pathname]);
 
   return (
     <>
@@ -28,31 +32,19 @@ export const Categories = () => {
             NEW CATEGORY
           </AddNewGameButton>
         </div>
-        {create ? (
-          <Modal
-            isOpen={isCreate}
-            onClose={() => setIsCreate(false)}
-            title="New Category"
-            buttonTitle="Save Category +"
-            onSave={formData => {
-              handleCreateCategory({ ...formData });
-            }}
-            isGameTitle={true}
-            isDescription={true}
-          />
-        ) : (
-          <Modal
-            isOpen={modalOpen}
-            onClose={() => setModalOpen(false)}
-            title="New Category"
-            buttonTitle="Save Category +"
-            onSave={formData => {
-              handleCreateCategory({ ...formData });
-            }}
-            isGameTitle={true}
-            isDescription={true}
-          />
-        )}
+        <Modal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          title="New Category"
+          buttonTitle="Save Category +"
+          onSave={formData => {
+            handleCreateCategory({ ...formData });
+            setModalOpen(false);
+          }}
+          isGameTitle={true}
+          isDescription={true}
+        />
+
         <TablePage data={dataCategories?.categories ?? []} />
         {dataCategories?.categories?.length ? (
           <Pagination
