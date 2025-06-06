@@ -15,6 +15,7 @@ import {
   fetchPlataformUpdate,
   PlataformUpdateRequest,
 } from '../services/plataform/update';
+import { IPropsErrosRequest } from '../interface/errors-request';
 
 export type PropsSortBy =
   | 'title'
@@ -71,8 +72,11 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
     onSuccess: data => {
       setData(data);
     },
-    onError: error => {
-      console.log('error', error);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
@@ -92,7 +96,11 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
         order,
       });
     },
-    onError: error => {
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
@@ -111,7 +119,11 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
         order,
       });
     },
-    onError: error => {
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
@@ -129,7 +141,11 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
         order,
       });
     },
-    onError: error => {
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;

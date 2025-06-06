@@ -32,8 +32,7 @@ export function useGameTable(data: GameProps[]) {
     'description',
     'categoryId',
     'createdAt',
-    'updatedAt',
-    'favorite',
+    'isFavorite',
   ];
 
   const handleOpenDelete = (index: number) => {
@@ -70,10 +69,6 @@ export function useGameTable(data: GameProps[]) {
 
   const handleSort = (index: number) => {
     const sort = MAP_SORT_BY[index];
-    console.log({
-      index,
-      sort,
-    });
     setSortBy(sort as PropsSortBy);
   };
 

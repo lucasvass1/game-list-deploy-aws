@@ -19,6 +19,7 @@ import {
   GameUpdateRequest,
 } from '../services/games/update/index.ts';
 import { PropsOrder } from './PlataformsContext.tsx';
+import { IPropsErrosRequest } from '../interface/errors-request.ts';
 
 export type PropsSortBy =
   | 'title'
@@ -97,8 +98,11 @@ export function GamesProvider({ children }: GamesProviderProps) {
       toast.success('Game added successfully!');
       handleClearFilters();
     },
-    onError: error => {
-      console.log('error', error);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
@@ -112,8 +116,11 @@ export function GamesProvider({ children }: GamesProviderProps) {
       toast.success('Game added successfully!');
       handleClearFilters();
     },
-    onError: error => {
-      console.log('error', error);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
@@ -127,8 +134,11 @@ export function GamesProvider({ children }: GamesProviderProps) {
       toast.success('Game remove successfully!');
       handleClearFilters();
     },
-    onError: error => {
-      console.log('error', error);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
@@ -142,8 +152,11 @@ export function GamesProvider({ children }: GamesProviderProps) {
     onSuccess: data => {
       setDataGems(data);
     },
-    onError: error => {
-      console.log('error', error);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
