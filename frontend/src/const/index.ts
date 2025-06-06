@@ -20,3 +20,34 @@ export const REACT_QUERY_KEYS = {
     },
   },
 };
+
+export const MAP_SORT_BY_PLATFORM = [
+  '',
+  'title',
+  'company',
+  'acquisitionYear',
+  'createdAt',
+  'updatedAt',
+];
+
+export const URL_DEFAULT_IMAGE =
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjGzoB0iNupD1n4X2hMt8a0abTvs9rszQHLw&s';
+
+export const PLATFORM_MODAL_CONFIG = {
+  CREATE: {
+    title: 'New Platform',
+    button: 'Save Platform +',
+  },
+  UPDATE: {
+    title: 'Edit Platform',
+    button: 'Edit Platform +',
+  },
+  VIEW: {
+    title: 'Details Platform',
+    button: '',
+  },
+  DELETE: {
+    title: 'Delete Platform',
+    button: '',
+  },
+} as const;

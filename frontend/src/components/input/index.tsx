@@ -1,27 +1,31 @@
-import React from "react";
-import { InputStyles, Label } from "./styles.ts";
+import React from 'react';
+import { InputStyles, Label, ErrorMessage } from './styles.ts';
 
 interface InputProps {
   label: string;
   placeholder: string;
-  type?: string;
   name: string;
+  type: string;
   value: string;
-  onChange: (e) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
   error?: string;
 }
 
 export function Input({
   label,
   placeholder,
-  type = "text",
+  type = 'text',
   name,
   value,
   onChange,
   error,
+  onBlur,
+  onFocus,
 }: InputProps) {
   return (
-    <div className={"reset"}>
+    <div className={'reset'}>
       {label && <Label htmlFor={name}>{label}</Label>}
       <InputStyles
         id={name}
@@ -30,7 +34,11 @@ export function Input({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        $hasError={!!error}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </div>
   );
 }
