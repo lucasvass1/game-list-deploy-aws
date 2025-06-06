@@ -9,7 +9,7 @@ export interface ListPlataformParams {
 
 export interface PlataformRepository {
   create(userId: string, plataform: Plataform): Promise<void>;
-  findByTitle(title: string): Promise<Plataform | null>;
+  findByTitle(title: string, userId: string): Promise<Plataform | null>;
   findMany(
     params: ListPlataformParams,
     userId: string,
