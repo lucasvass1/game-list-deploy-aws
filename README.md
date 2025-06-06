@@ -9,7 +9,6 @@ Aplicação **fullstack** desenvolvida para o **Desafio 02 da Compass UOL**, que
 ### 🔹 Frontend
 - React
 - TypeScript
-- Vite
 - TanStack Query (React Query)
 - Axios
 - React Router DOM
@@ -52,7 +51,7 @@ npm install
 npx prisma migrate dev
 
 # Inicie o servidor backend
-npm run dev
+npm run start:dev
 ```
 ### 💻 Frontend
 ```bash
@@ -63,6 +62,6 @@ cd frontend
 npm install
 
 # Inicie o servidor de desenvolvimento
-npm run dev
+npm run start
 
 
