@@ -1,10 +1,13 @@
-import styled from "styled-components";
-import { COLORS } from "../../config/colors/index.ts";
+import styled from 'styled-components';
+import { COLORS } from '../../config/colors/index.ts';
 
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 30rem;
   height: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: #18181be3;
   border: 0.225rem solid ${COLORS.buttonPrimary};
   border-radius: 1.25rem;

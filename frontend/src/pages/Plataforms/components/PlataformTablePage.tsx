@@ -8,6 +8,13 @@ import Modal, { PlatformFormData } from '../../../components/Modal/Modal.tsx';
 import { AddNewGameButton } from '../../Games/components/FiltersTable/styles.ts';
 import DeleteModal from '../../../components/DeleteModal/DeleteModal.tsx';
 import { useLocation } from 'react-router-dom';
+import {
+  MAP_SORT_BY_PLATFORM,
+  PLATFORM_MODAL_CONFIG,
+  URL_DEFAULT_IMAGE,
+} from '../../../const/index.ts';
+import { validateCreatePlatformForm } from '../../../utils/validateCreatePlatformForm.ts';
+type ModalType = 'CREATE' | 'VIEW' | 'UPDATE';
 
 interface IPlataformTablePageProps {
   data: PlataformProps[];
@@ -36,48 +43,32 @@ export const PlataformTablePage = ({
     useState<boolean>(false);
   const location = useLocation();
   const create = location.search === '?create=true';
-  const MAP_SORT_BY = [
-    '',
-    'title',
-    'company',
-    'acquisitionYear',
-    'createdAt',
-    'updatedAt',
-  ];
 
-  const MAP_TYPE_MODAL = {
-    CREATE: {
-      textTitle: 'New Platform',
-      textButton: 'Save Platform +',
-      onSave: (formData: PlatformFormData) => {
-        handleCreatePlatform({
-          title: formData?.platformName as string,
-          acquisitionYear: formData?.acquisitionDate,
-          company: formData?.companyName,
-          imageUrl: formData?.imageUrl,
-        });
-      },
-    },
-    UPDATE: {
-      textTitle: 'Edit Platform',
-      textButton: 'Edit Platform +',
-      onSave: (formData: PlatformFormData) => {
-        handleUpdatePlatform({
-          id: plataformSelected,
-          title: formData?.platformName as string,
-          acquisitionYear: formData?.acquisitionDate,
-          company: formData?.companyName,
-          imageUrl: formData?.imageUrl,
-        });
-      },
-    },
-    VIEW: {
-      textTitle: 'Details Platform',
-      textButton: '',
-      onSave: (formData: PlatformFormData) => {
-        console.log('form', formData);
-      },
-    },
+  const handleCreate = (formData: PlatformFormData) => {
+    if (!validateCreatePlatformForm(formData)) return;
+    handleCreatePlatform({
+      title: formData?.platformName as string,
+      acquisitionYear: formData?.acquisitionDate,
+      company: formData?.companyName,
+      imageUrl: formData?.imageUrl,
+    });
+  };
+
+  const handleUpdate = (formData: PlatformFormData) => {
+    handleUpdatePlatform({
+      id: plataformSelected,
+      title: formData?.platformName as string,
+      acquisitionYear: formData?.acquisitionDate,
+      company: formData?.companyName,
+      imageUrl: formData?.imageUrl,
+    });
+  };
+
+  const handleOpenCreateModal = () => {
+    setTypeModal('CREATE');
+    setIsShowModalAddPlataforms(true);
+    setIsView(false);
+    setPlataformSelected(undefined);
   };
 
   useEffect(() => {
@@ -94,17 +85,12 @@ export const PlataformTablePage = ({
       <Modal
         isOpen={isShowModalAddPlataforms}
         onClose={() => setIsShowModalAddPlataforms(false)}
-        title={
-          MAP_TYPE_MODAL[typeModal as 'CREATE' | 'UPDATE' | 'VIEW'].textTitle
-        }
-        buttonTitle={
-          MAP_TYPE_MODAL[typeModal as 'CREATE' | 'UPDATE' | 'VIEW'].textButton
-        }
-        onSave={(formData: any) =>
-          MAP_TYPE_MODAL[typeModal as 'CREATE' | 'UPDATE' | 'VIEW'].onSave(
-            formData,
-          )
-        }
+        title={PLATFORM_MODAL_CONFIG[typeModal as ModalType].title}
+        buttonTitle={PLATFORM_MODAL_CONFIG[typeModal as ModalType].button}
+        onSave={(formData: any) => {
+          if (typeModal === 'CREATE') handleCreate(formData);
+          if (typeModal === 'UPDATE') handleUpdate(formData);
+        }}
         isCompany={true}
         isCompanyTitle={true}
         isView={isView}
@@ -123,14 +109,7 @@ export const PlataformTablePage = ({
           borderBottom: '1px solid #e5e5e5',
         }}
       >
-        <AddNewGameButton
-          onClick={() => {
-            setTypeModal('CREATE');
-            setIsShowModalAddPlataforms(true);
-            setIsView(false);
-            setPlataformSelected(undefined);
-          }}
-        >
+        <AddNewGameButton onClick={handleOpenCreateModal}>
           NEW PLATFORM
         </AddNewGameButton>
       </div>
@@ -147,8 +126,7 @@ export const PlataformTablePage = ({
           ]}
           data={
             data?.map(plataform => [
-              plataform?.imageUrl ??
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjGzoB0iNupD1n4X2hMt8a0abTvs9rszQHLw&s',
+              plataform?.imageUrl ?? URL_DEFAULT_IMAGE,
               plataform?.title,
               plataform?.company || '-',
               plataform?.acquisitionYear
@@ -168,7 +146,7 @@ export const PlataformTablePage = ({
             setOrder(oldState => (oldState === 'asc' ? 'desc' : 'asc'))
           }
           onSort={index => {
-            const sort = MAP_SORT_BY[index];
+            const sort = MAP_SORT_BY_PLATFORM[index];
 
             setSortBy(sort as PropsSortBy);
           }}
