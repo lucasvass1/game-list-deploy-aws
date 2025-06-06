@@ -3,9 +3,13 @@ import { CategoryListResponse } from '../../../../services/category/list';
 import { MessageEmpty } from '../../../../components/MessageEmpty';
 import { formatDate } from '../../../../utils/formatDate';
 import Table from '../../../../components/Table';
-import { useCategories } from '../../../../context/CategoriesContext';
+import {
+  PropsSortBy,
+  useCategories,
+} from '../../../../context/CategoriesContext';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal.tsx';
 import Modal from '../../../../components/Modal/Modal.tsx';
+import { MAP_SORT_BY_CATEGORIES } from '../../../../const/index.ts';
 
 interface ITablePageProps {
   data: CategoryListResponse['categories'];
@@ -13,13 +17,14 @@ interface ITablePageProps {
 }
 
 export const TablePage = ({ data, message }: ITablePageProps) => {
-  const { handleRemoveCategory, handleUpdateCategory } = useCategories();
+  const { handleRemoveCategory, handleUpdateCategory, setOrder, setSortBy } =
+    useCategories();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [categorySelected, setCategorySelected] = useState<string>();
   const [isView, setIsView] = useState<boolean>(false);
 
-    return (
+  return (
     <>
       <Modal
         isOpen={isModalOpen}
@@ -73,8 +78,14 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
             setIsView(true);
             setIsModalOpen(true);
           }}
-          sortDirection={() => {}}
-          onSort={() => {}}
+          sortDirection={() =>
+            setOrder(oldState => (oldState === 'asc' ? 'desc' : 'asc'))
+          }
+          onSort={index => {
+            const sort = MAP_SORT_BY_CATEGORIES[index];
+
+            setSortBy(sort as PropsSortBy);
+          }}
         />
       ) : (
         <MessageEmpty message={message ?? 'No categories found'} />

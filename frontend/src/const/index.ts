@@ -29,6 +29,12 @@ export const MAP_SORT_BY_PLATFORM = [
   'createdAt',
   'updatedAt',
 ];
+export const MAP_SORT_BY_CATEGORIES = [
+  'title',
+  'description',
+  'createdAt',
+  'updatedAt',
+];
 
 export const URL_DEFAULT_IMAGE =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjGzoB0iNupD1n4X2hMt8a0abTvs9rszQHLw&s';
