@@ -153,13 +153,15 @@ const Modal: React.FC<ModalSelectInputProps> = ({
         description: game?.description ?? '',
         category: game?.categoryId ?? '',
         platform: game?.plataformId ?? '',
-        // acquisitionDate: game?.,
-        acquisitionDate: '',
-        finishDate: '',
-        // finishDate: game?.endDate as string ?? '',
+        acquisitionDate: game?.createdAt
+          ? new Date(game.createdAt).toISOString().slice(0, 10)
+          : '',
+        finishDate: game?.endDate
+          ? new Date(game.endDate).toISOString().slice(0, 10)
+          : '',
         status: game?.status ?? '',
         favorite: game?.isFavorite ?? false,
-        imageUrl: (game?.imageUrl as string) ?? '',
+        imageUrl: game?.imageUrl ?? '',
       });
       return;
     }
@@ -183,8 +185,10 @@ const Modal: React.FC<ModalSelectInputProps> = ({
       );
 
       setPlatformFormData({
-        platformName: platform?.title,
-        acquisitionDate: platform?.acquisitionYear?.toString() as string,
+        platformName: platform?.title ?? '',
+        acquisitionDate: platform?.acquisitionYear
+          ? new Date(platform.acquisitionYear).toISOString().slice(0, 10)
+          : '',
         companyName: platform?.company ?? '',
         imageUrl: platform?.imageUrl ?? '',
       });
