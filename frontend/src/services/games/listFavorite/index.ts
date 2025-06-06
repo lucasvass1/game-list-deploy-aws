@@ -23,3 +23,4 @@ export async function fetchGamesListFavorite(): Promise<GamesListResponse> {
   const { data } = await api.get<GamesListResponse>('/games/favorite');
   return data;
 }
+

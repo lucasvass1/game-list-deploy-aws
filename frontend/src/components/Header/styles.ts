@@ -6,9 +6,8 @@ export const HeaderContainer = styled.header<{ isBorderBottom?: boolean }>`
   padding: 1.5rem 2rem;
   color: white;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.5rem;
-  min-height: auto;
   border-left: 1px solid ${COLORS.white};
   border-bottom: ${({ isBorderBottom }) =>
     isBorderBottom ? `1px solid ${COLORS.white}` : 'none'};
@@ -28,7 +27,6 @@ export const Flex = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-bottom: 1rem;
 `;
 
 export const Row = styled.div`

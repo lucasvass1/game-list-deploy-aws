@@ -10,6 +10,7 @@ import {
   SearchInput,
   SelectInput,
   Title,
+  CategoryFavoriteWrapper,
 } from './styles';
 import { IoIosSearch } from 'react-icons/io';
 import { useGetCategoryList } from '../../../../services/category/list';
@@ -19,18 +20,18 @@ import Modal from '../../../../components/Modal/Modal.tsx';
 import { StatusGames } from '../../../../services/games/create/index.ts';
 import { useLocation } from 'react-router-dom';
 
-// interface IFiltersTableProps {}
-
 export const FiltersTable = () => {
   const { user } = useAuth();
   const location = useLocation();
   const create = location.search === '?create=true';
   const [isShowModalAddGame, setIsShowModalAddGame] = useState<boolean>(false);
+
   const { data: dataCategoryList } = useGetCategoryList(
     !!user?.id,
     1,
-    10000000,
+    10000000
   );
+
   const {
     setSearch,
     search,
@@ -53,7 +54,7 @@ export const FiltersTable = () => {
         onClose={() => setIsShowModalAddGame(false)}
         title="New Game"
         buttonTitle="CREATE"
-        onSave={formData =>
+        onSave={(formData) =>
           handleCreateGame({
             description: formData?.description,
             status: formData?.status as StatusGames,
@@ -73,12 +74,15 @@ export const FiltersTable = () => {
         isGameTitle={true}
         isDescription={true}
       />
+
       <AddNewGameButton onClick={() => setIsShowModalAddGame(true)}>
-        New Game
+        NEW GAME
       </AddNewGameButton>
+
       <Container>
         <ContainerRow>
           <Title>Filters</Title>
+
           <SearchInput
             placeholder="Search"
             type="text"
@@ -90,30 +94,33 @@ export const FiltersTable = () => {
             }
           />
 
-          <SelectInput
-            name="Select Category"
-            value={categorySelected}
-            onChange={e => setCategorySelected(e.target.value)}
-          >
-            <option value="" disabled selected>
-              Select category
-            </option>
-            {dataCategoryList?.categories?.map(category => (
-              <option key={category.id} value={category.id}>
-                {category.title}
+          
+          <CategoryFavoriteWrapper>
+            <SelectInput
+              name="Select Category"
+              value={categorySelected}
+              onChange={(e) => setCategorySelected(e.target.value)}
+            >
+              <option value="" disabled selected>
+                Select category
               </option>
-            ))}
-          </SelectInput>
+              {dataCategoryList?.categories?.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.title}
+                </option>
+              ))}
+            </SelectInput>
 
-          <ContainerRow>
-            <CheckFavorite
-              id="favorite"
-              type="checkbox"
-              onChange={() => setIsFavorite(oldState => !oldState)}
-              checked={isFavorite}
-            />
-            <label htmlFor="favorite">Favorite</label>
-          </ContainerRow>
+            <ContainerRow>
+              <CheckFavorite
+                id="favorite"
+                type="checkbox"
+                onChange={() => setIsFavorite((oldState) => !oldState)}
+                checked={isFavorite}
+              />
+              <label htmlFor="favorite">Favorite</label>
+            </ContainerRow>
+          </CategoryFavoriteWrapper>
         </ContainerRow>
 
         <ContainerButtons>

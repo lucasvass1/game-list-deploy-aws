@@ -12,6 +12,13 @@ export const Container = styled.div`
   padding: 0px 0px 5px;
   border-bottom: 1px solid #e5e5e5;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    
+  }
 `;
 
 export const Title = styled.h2`
@@ -36,6 +43,10 @@ export const SearchInput = styled.input`
   &:focus {
     outline: none;
     border-color: #666;
+  }
+@media (max-width: 768px) {
+    width: 100%;
+    
   }
 `;
 
@@ -72,7 +83,33 @@ export const SelectInput = styled.select`
     color: black;
     background-color: ${modalButtonColor};
   }
+ @media (max-width: 768px) {
+    width: 100%;
+  }
+     @media (max-width: 488px) {
+    width: 100%;
+  }
 `;
+export const CategoryFavoriteWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+
+  label {
+    color: ${COLORS.white};
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+  }
+`;
+
 
 export const CheckFavorite = styled.input`
   width: 15px;
@@ -85,8 +122,9 @@ export const CheckFavorite = styled.input`
   &:checked {
     background-color: ${modalButtonColor};
   }
-`;
 
+    `;
+    
 export const ContainerRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -100,6 +138,12 @@ export const ContainerRow = styled.div`
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
   }
+ @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    aliegn-items: center;
+  }
 `;
 
 export const ContainerButtons = styled.div`
@@ -108,6 +152,14 @@ export const ContainerButtons = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+ @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
 `;
 
 export const SearchButton = styled.button`
@@ -143,6 +195,12 @@ export const AddNewGameButton = styled.button`
   justify-content: center;
   gap: 10px;
   margin: -20px 0 10px;
+
+   @media (max-width: 768px) {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0 10px;
+  }
 `;
 
 export const ClearButton = styled.button`

@@ -5,29 +5,54 @@ import { TablePage } from './components/TablePage/index.tsx';
 import { Pagination } from '../../components/Pagination';
 import { useLocation } from 'react-router-dom';
 import { useCategories } from '../../context/CategoriesContext';
+import { AddNewGameButton } from '../Games/components/FiltersTable/styles.ts';
 
 export const Categories = () => {
-  const [modalOpen, setModalOpen] = React.useState(true);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [isCreate, setIsCreate] = React.useState(true);
   const location = useLocation();
   const { page, setPage } = useCategories();
   const create = location.search === '?create=true';
-  const { dataCategories } = useCategories();
+  const { dataCategories, handleCreateCategory } = useCategories();
 
   return (
     <>
       <ContainerPage>
+        <div
+          style={{
+            padding: '20px',
+            borderBottom: '1px solid #e5e5e5',
+          }}
+        >
+          <AddNewGameButton onClick={() => setModalOpen(true)}>
+            NEW CATEGORY
+          </AddNewGameButton>
+        </div>
         {create ? (
+          <Modal
+            isOpen={isCreate}
+            onClose={() => setIsCreate(false)}
+            title="New Category"
+            buttonTitle="Save Category +"
+            onSave={formData => {
+              handleCreateCategory({ ...formData });
+            }}
+            isGameTitle={true}
+            isDescription={true}
+          />
+        ) : (
           <Modal
             isOpen={modalOpen}
             onClose={() => setModalOpen(false)}
             title="New Category"
             buttonTitle="Save Category +"
-            onSave={() => {}}
+            onSave={formData => {
+              handleCreateCategory({ ...formData });
+            }}
             isGameTitle={true}
             isDescription={true}
           />
-        ) : null}
-
+        )}
         <TablePage data={dataCategories?.categories ?? []} />
         {dataCategories?.categories?.length ? (
           <Pagination
