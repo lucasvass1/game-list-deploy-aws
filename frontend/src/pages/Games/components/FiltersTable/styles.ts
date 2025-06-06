@@ -17,7 +17,8 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
-    
+    width: 100%;
+    padding-bottom: 20px;
   }
 `;
 
@@ -44,9 +45,13 @@ export const SearchInput = styled.input`
     outline: none;
     border-color: #666;
   }
-@media (max-width: 768px) {
+  @media (max-width: 768px) {
     width: 100%;
-    
+    min-width: 100%;
+  }
+  @media (max-width: 478px) {
+    width: 94%;
+    min-width: 90%;
   }
 `;
 
@@ -83,11 +88,11 @@ export const SelectInput = styled.select`
     color: black;
     background-color: ${modalButtonColor};
   }
- @media (max-width: 768px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
-     @media (max-width: 488px) {
-    width: 100%;
+  @media (max-width: 488px) {
+    min-width: 100%;
   }
 `;
 export const CategoryFavoriteWrapper = styled.div`
@@ -107,9 +112,9 @@ export const CategoryFavoriteWrapper = styled.div`
     width: 100%;
     justify-content: flex-start;
     margin-left: 0;
+    flex-direction: column;
   }
 `;
-
 
 export const CheckFavorite = styled.input`
   width: 15px;
@@ -122,10 +127,9 @@ export const CheckFavorite = styled.input`
   &:checked {
     background-color: ${modalButtonColor};
   }
+`;
 
-    `;
-    
-export const ContainerRow = styled.div`
+export const ContainerRow = styled.div<{ flexDirectionMobile?: string }>`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -138,11 +142,13 @@ export const ContainerRow = styled.div`
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
   }
- @media (max-width: 768px) {
-    flex-direction: column;
+  @media (max-width: 768px) {
+    flex-direction: ${({ flexDirectionMobile }) =>
+      flexDirectionMobile ?? 'column'};
     align-items: flex-start;
     gap: 10px;
-    aliegn-items: center;
+    justify-content: flex-start;
+    width: 100%;
   }
 `;
 
@@ -152,7 +158,7 @@ export const ContainerButtons = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
- @media (max-width: 768px) {
+  @media (max-width: 768px) {
     flex-direction: column;
     width: 100%;
 
@@ -196,7 +202,7 @@ export const AddNewGameButton = styled.button`
   gap: 10px;
   margin: -20px 0 10px;
 
-   @media (max-width: 768px) {
+  @media (max-width: 768px) {
     width: 100%;
     text-align: center;
     margin: 20px 0 10px;

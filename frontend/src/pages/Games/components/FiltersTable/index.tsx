@@ -113,7 +113,7 @@ export const FiltersTable = () => {
               ))}
             </SelectInput>
 
-            <ContainerRow>
+            <ContainerRow flexDirectionMobile="row">
               <CheckFavorite
                 id="favorite"
                 type="checkbox"
