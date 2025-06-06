@@ -15,10 +15,11 @@ interface ITablePageProps {
 export const TablePage = ({ data, message }: ITablePageProps) => {
   const { handleRemoveCategory, handleUpdateCategory } = useCategories();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [categorySelected, setCategorySelected] = useState<string>();
   const [isView, setIsView] = useState<boolean>(false);
 
-  return (
+    return (
     <>
       <Modal
         isOpen={isModalOpen}
@@ -32,19 +33,15 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
             title: formData?.title,
           })
         }
-        isFavorite={false}
-        isDates={true}
-        isCategoryRow={true}
-        isUrl={false}
-        isGameTitle={false}
-        isDescription={true}
+        isGameTitle
+        isDescription
         idGameSelected={categorySelected}
         isUpdateGame
         isView={isView}
       />
       <DeleteModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
         onDelete={() => handleRemoveCategory(categorySelected ?? '')}
         message="Deleting this category will remove permanently from system. This action is not reversible."
       />
@@ -61,7 +58,7 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
           }
           onDelete={index => {
             setCategorySelected(data[index]?.id);
-            setIsModalOpen(true);
+            setIsDeleteModalOpen(true);
           }}
           onEdit={index => {
             setCategorySelected(data[index]?.id);
