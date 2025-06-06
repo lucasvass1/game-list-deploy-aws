@@ -210,7 +210,12 @@ gamesRoutes.get(
         search as string,
         page as string,
         limit as string,
-        sortBy as 'title' | 'description' | 'createdAt' | 'updatedAt',
+        sortBy as
+          | 'title'
+          | 'description'
+          | 'createdAt'
+          | 'updatedAt'
+          | 'categoryId',
         order as 'asc' | 'desc',
         category as string | undefined,
         favorite === 'true' ? true : undefined,

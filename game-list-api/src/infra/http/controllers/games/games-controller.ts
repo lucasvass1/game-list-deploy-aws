@@ -72,7 +72,7 @@ export class GamesController {
     search: string,
     page: string,
     limit: string,
-    sortBy: 'title' | 'description' | 'createdAt' | 'updatedAt',
+    sortBy: 'title' | 'description' | 'createdAt' | 'updatedAt' | 'categoryId',
     order: 'asc' | 'desc',
     category?: string,
     favorite?: boolean,
