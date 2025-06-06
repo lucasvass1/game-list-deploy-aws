@@ -15,6 +15,7 @@ import {
 } from '../services/category/update/index.ts';
 import { fetchCategoryList } from '../services/category/list/index.ts';
 import { CategoryListResponse } from '../services/category/list/index.ts';
+import { IPropsErrosRequest } from '../interface/errors-request.ts';
 
 type CategoriesContextType = {
   dataCategories?: CategoryListResponse;
@@ -60,8 +61,11 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
       toast.success('Category added successfully!');
       handleClearFilters();
     },
-    onError: error => {
-      console.log('error', error);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
@@ -75,8 +79,11 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
       toast.success('Category updated successfully!');
       handleClearFilters();
     },
-    onError: error => {
-      console.log('error', error);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
@@ -90,8 +97,11 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
       toast.success('Category remove successfully!');
       handleClearFilters();
     },
-    onError: error => {
-      console.log('error', error);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
@@ -106,8 +116,11 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
     onSuccess: data => {
       setDataCategories(data);
     },
-    onError: error => {
-      console.log('error', error);
+    onError: (error: IPropsErrosRequest) => {
+      if (error?.response?.data?.message) {
+        toast.error(error?.response?.data?.message);
+        return;
+      }
       if (error.message) {
         toast.error(error.message);
         return;
