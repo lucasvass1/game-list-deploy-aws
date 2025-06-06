@@ -9,7 +9,7 @@ export const Container = styled.div`
   max-height: 90vh;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: ${COLORS.background};
+  background-color: #18181be3;
   border: 0.225rem solid ${COLORS.buttonPrimary};
   border-radius: 1.25rem;
   padding: 1.5rem;
