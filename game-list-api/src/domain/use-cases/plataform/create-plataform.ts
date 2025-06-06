@@ -36,7 +36,10 @@ export class CreatePlataformUseCase {
       createdAt,
     };
 
-    const plataformExists = await this.plataformRepository.findByTitle(title);
+    const plataformExists = await this.plataformRepository.findByTitle(
+      title,
+      userId,
+    );
     if (plataformExists) throw new PlataformAlreadyExistsError();
 
     const plataform = new Plataform(data);
