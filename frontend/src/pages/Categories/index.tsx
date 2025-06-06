@@ -13,7 +13,7 @@ export const Categories = () => {
   const location = useLocation();
   const { page, setPage } = useCategories();
   const create = location.search === '?create=true';
-  const { dataCategories } = useCategories();
+  const { dataCategories, handleCreateCategory } = useCategories();
 
   return (
     <>
@@ -28,7 +28,9 @@ export const Categories = () => {
             onClose={() => setIsCreate(false)}
             title="New Category"
             buttonTitle="Save Category +"
-            onSave={() => {}}
+            onSave={(formData) => {
+              handleCreateCategory({ ...formData });
+            }}
             isGameTitle={true}
             isDescription={true}
           />
@@ -38,7 +40,9 @@ export const Categories = () => {
             onClose={() => setModalOpen(false)}
             title="New Category"
             buttonTitle="Save Category +"
-            onSave={() => {}}
+            onSave={(formData) => {
+              handleCreateCategory({ ...formData });
+            }}
             isGameTitle={true}
             isDescription={true}
           />
