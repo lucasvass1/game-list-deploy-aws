@@ -24,11 +24,11 @@ export class PlataformsController {
     };
   }
 
-  async findByTitle(title: string) {
-    const useCase = new FindPlataformByTitleUseCase(this.repository);
-    const plataform = await useCase.execute({ title });
-    return plataform;
-  }
+ async findByTitle(title: string, userId: string) {
+  const useCase = new FindPlataformByTitleUseCase(this.repository);
+  const plataform = await useCase.execute({ title, userId }); // ✅ Passando os dois argumentos
+  return plataform;
+}
 
   async list({
     page = 1,

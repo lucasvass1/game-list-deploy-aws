@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  postgre-wallet:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgre-wallet-volume:/var/lib/postgresql/data
+    restart: always
+
+
+  game-list-api:
+    container_name: game-list-api
+    build: ./game-list-api
+    restart: always
+    ports:
+      - "3333:3333"
+    depends_on:
+      - postgre-wallet
+    env_file:
+      - ./game-list-api/.env
+
+  frontend:
+    container_name: frontend-wallet
+    build: ./frontend
+    restart: always
+    depends_on:
+      - game-list-api
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - front-volume:/var/www/html
+
+  nginx:
+    container_name: nginx-wallet
+    build: ./nginx
+    ports:
+      - "80:80"
+    
+    depends_on:
+      - postgre-wallet
+      - game-list-api
+      - frontend
+    volumes:
+      - front-volume:/var/www/html
+    
+
+volumes:
+  postgre-wallet-volume:
+  front-volume:
