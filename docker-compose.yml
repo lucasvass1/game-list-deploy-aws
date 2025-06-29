@@ -8,6 +8,10 @@ services:
     volumes:
       - postgre-wallet-volume:/var/lib/postgresql/data
     restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: game-list
 
   game-list-api:
     container_name: game-list-api
