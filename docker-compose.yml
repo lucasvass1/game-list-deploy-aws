@@ -26,14 +26,12 @@ services:
 
   frontend:
     container_name: frontend-wallet
-    build: ./frontend
+    image: nginx:latest
     restart: always
     depends_on:
       - game-list-api
-    env_file:
-      - ./frontend/.env
     volumes:
-      - front-volume:/var/www/html
+      - ./frontend/build:/usr/share/nginx/html
 
   nginx:
     container_name: nginx-wallet
@@ -43,9 +41,8 @@ services:
     depends_on:
       - frontend
     volumes:
-      - front-volume:/var/www/html
+      - ./frontend/build:/var/www/html
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
 volumes:
   postgre-wallet-volume:
-  front-volume:
