@@ -17,10 +17,12 @@ export class PrismaPlataformRepository {
   }
 
   async findByTitle(title: string, userId: string): Promise<Plataform | null> {
-    const plataform = await prisma.plataform.findUnique({
+    const plataform = await prisma.plataform.findFirst({
       where: { title, userId },
     });
+
     if (!plataform) return null;
+
     return new Plataform({
       userId: plataform.userId,
       id: plataform.id,
@@ -28,44 +30,47 @@ export class PrismaPlataformRepository {
       acquisitionYear: plataform.acquisitionYear ?? null,
       company: plataform.company ?? null,
       imageUrl: plataform.imageUrl ?? null,
+      createdAt: plataform.createdAt,
+      updatedAt: plataform.updatedAt,
     });
   }
 
-  async findMany(
-    params: ListPlataformParams,
-    userId: string,
-  ): Promise<{
+  async findMany(params: ListPlataformParams & { userId: string }): Promise<{
     plataforms: PlataformProps[];
     total: number;
     page: number;
     limit: number;
   }> {
-    const { page = 1, limit = 10, sortBy = 'title', order = 'asc' } = params;
+    const {
+      page = 1,
+      limit = 10,
+      sortBy = 'title',
+      order = 'asc',
+      userId,
+    } = params;
 
     const skip = (page - 1) * limit;
 
     const [plataforms, total] = await Promise.all([
       prisma.plataform.findMany({
-        where: {
-          userId,
-        },
+        where: { userId },
         skip,
         take: limit,
         orderBy: {
           [sortBy]: order,
         },
       }),
-      prisma.plataform.count(),
+      prisma.plataform.count({ where: { userId } }),
     ]);
 
     return {
       plataforms: plataforms.map((plataform) => ({
-        id: plataform?.id,
-        userId: plataform?.userId,
-        acquisitionYear: plataform?.acquisitionYear,
+        id: plataform.id,
+        userId: plataform.userId,
+        acquisitionYear: plataform.acquisitionYear,
         company: plataform.company,
         createdAt: plataform.createdAt,
-        imageUrl: plataform?.imageUrl,
+        imageUrl: plataform.imageUrl,
         title: plataform.title,
         updatedAt: plataform.updatedAt,
       })),

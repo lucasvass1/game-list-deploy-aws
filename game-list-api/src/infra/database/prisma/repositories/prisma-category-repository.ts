@@ -73,16 +73,17 @@ export class PrismaCategoryRepository {
     return new Category(category);
   }
 
-  async update(category: Category): Promise<void> {
-    await prisma.category.update({
-      where: { id: category.id },
-      data: {
-        title: category.title,
-        description: category.description,
-        updatedAt: new Date(),
-      },
-    });
-  }
+async update(category: Category): Promise<void> {
+  await prisma.category.update({
+    where: { id: category.id },
+    data: {
+      title: category.title,
+      description: category.description,
+      updatedAt: new Date(),
+    },
+  });
+}
+
 
   async delete(id: string): Promise<void> {
     await prisma.category.delete({ where: { id } });

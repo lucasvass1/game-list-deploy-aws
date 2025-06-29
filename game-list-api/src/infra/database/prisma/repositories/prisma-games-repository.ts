@@ -4,7 +4,7 @@ import { GameNotFoundError } from '@/domain/errors/game-not-found';
 import { ListGamesRequest } from '@/domain/use-cases/games/list-games-by-user';
 
 export class PrismaGameRepository {
-  async create(userId: string, game: Game) {
+  async create(userId: string, game: Game): Promise<void> {
     await prisma.game.create({
       data: {
         userId,
@@ -23,7 +23,7 @@ export class PrismaGameRepository {
     });
   }
 
-  async update(game: Game) {
+  async update(game: Game): Promise<void> {
     await prisma.game.update({
       where: { id: game.id },
       data: {
@@ -39,7 +39,7 @@ export class PrismaGameRepository {
     });
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<void> {
     await prisma.game.delete({
       where: { id },
     });
@@ -53,7 +53,7 @@ export class PrismaGameRepository {
     return new Game(game);
   }
 
-  async findById(id: string) {
+  async findById(id: string): Promise<Game | null> {
     const game = await prisma.game.findUnique({
       where: { id },
     });
@@ -76,7 +76,9 @@ export class PrismaGameRepository {
     });
   }
 
-  async findMany({ search }: { search?: string }) {
+  async findMany(params: { search?: string }): Promise<Game[]> {
+    const { search } = params;
+
     const games = await prisma.game.findMany({
       where: {
         OR: search
@@ -108,6 +110,7 @@ export class PrismaGameRepository {
         }),
     );
   }
+
   async findByUser({
     userId,
     search,
@@ -204,7 +207,8 @@ export class PrismaGameRepository {
       },
     });
   }
-  async findAllFavoritesByUser(userId: string) {
+
+  async findAllFavoritesByUser(userId: string): Promise<Game[]> {
     const games = await prisma.game.findMany({
       where: {
         userId,
@@ -216,6 +220,6 @@ export class PrismaGameRepository {
       },
     });
 
-    return games;
+    return games.map((game) => new Game(game));
   }
 }
