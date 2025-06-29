@@ -93,21 +93,20 @@ export class PrismaGameRepository {
       },
     });
 
-    return games.map(
-      (game) =>
-        new Game({
-          title: game.title,
-          status: game.status as 'PLAYING' | 'DONE' | 'ABANDONED',
-          categoryId: game.categoryId,
-          plataformId: game.plataformId,
-          imageUrl: game.imageUrl,
-          description: game.description,
-          endDate: game.endDate,
-          createdAt: game.createdAt,
-          updatedAt: game.updatedAt,
-          id: game.id,
-          isFavorite: game.isFavorite,
-        }),
+    return games.map((game: any) =>
+      new Game({
+        title: game.title,
+        status: game.status as 'PLAYING' | 'DONE' | 'ABANDONED',
+        categoryId: game.categoryId,
+        plataformId: game.plataformId,
+        imageUrl: game.imageUrl,
+        description: game.description,
+        endDate: game.endDate,
+        createdAt: game.createdAt,
+        updatedAt: game.updatedAt,
+        id: game.id,
+        isFavorite: game.isFavorite,
+      })
     );
   }
 
@@ -161,7 +160,7 @@ export class PrismaGameRepository {
     ]);
 
     return {
-      games: games.map((game) => ({
+      games: games.map((game: any) => ({
         id: game.id,
         title: game.title,
         status: game.status,
@@ -220,6 +219,6 @@ export class PrismaGameRepository {
       },
     });
 
-    return games.map((game) => new Game(game));
+    return games.map((game: any) => new Game(game));
   }
 }

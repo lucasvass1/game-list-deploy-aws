@@ -64,16 +64,17 @@ export class PrismaPlataformRepository {
     ]);
 
     return {
-      plataforms: plataforms.map((plataform) => ({
-        id: plataform.id,
-        userId: plataform.userId,
-        acquisitionYear: plataform.acquisitionYear,
-        company: plataform.company,
-        createdAt: plataform.createdAt,
-        imageUrl: plataform.imageUrl,
-        title: plataform.title,
-        updatedAt: plataform.updatedAt,
-      })),
+  plataforms: plataforms.map((plataform: any) => ({
+  id: plataform.id,
+  userId: plataform.userId,
+  acquisitionYear: plataform.acquisitionYear,
+  company: plataform.company,
+  createdAt: plataform.createdAt,
+  imageUrl: plataform.imageUrl,
+  title: plataform.title,
+  updatedAt: plataform.updatedAt,
+})),
+
       total,
       page,
       limit,

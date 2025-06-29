@@ -53,14 +53,15 @@ export class PrismaCategoryRepository {
     // return categorys.map((category) => new Category(category));
 
     return {
-      categories: categories.map((category) => ({
-        id: category.id,
-        title: category.title,
-        description: category.description,
-        createdAt: category.createdAt,
-        updatedAt: category.updatedAt,
-        userId: category.userId,
-      })),
+categories: categories.map((category: any) => ({
+  id: category.id,
+  title: category.title,
+  description: category.description,
+  createdAt: category.createdAt,
+  updatedAt: category.updatedAt,
+  userId: category.userId,
+})),
+
       total,
       page,
       limit,
