@@ -24,16 +24,15 @@ services:
     env_file:
       - ./game-list-api/.env
 
-  frontend:
-    container_name: frontend-wallet
-    build: ./frontend
-    restart: always
-    depends_on:
-      - game-list-api
-    env_file:
-      - ./frontend/.env
-    volumes:
-      - front-volume:/var/www/html
+frontend:
+  container_name: frontend-wallet
+  image: nginx:latest
+  restart: always
+  depends_on:
+    - game-list-api
+  volumes:
+    - ./frontend/build:/usr/share/nginx/html
+
 
   nginx:
     container_name: nginx-wallet
