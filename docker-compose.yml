@@ -29,7 +29,7 @@ services:
     env_file:
         - ./frontend/.env
     volumes:
-      - front-volume:/var/www/html
+      - front-volume:/frontend/build/var/www/html
 
   nginx:
     container_name: nginx-wallet
@@ -41,7 +41,9 @@ services:
       - game-list-api
       - postgre-wallet
     volumes:
-      - front-volume:/var/www/html
+      - .frontend/build: /var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      
       
 
 volumes:
