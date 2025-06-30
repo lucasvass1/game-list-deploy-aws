@@ -8,7 +8,6 @@ services:
     volumes:
       - postgre-wallet-volume:/var/lib/postgresql/data
     restart: always
-    
 
   game-list-api:
     container_name: game-list-api
@@ -27,9 +26,9 @@ services:
     depends_on:
       - game-list-api
     env_file:
-        - ./frontend/.env
+      - ./frontend/.env
     volumes:
-      - front-volume:/frontend/build/var/www/html
+      - ./frontend/build:/var/www/html
 
   nginx:
     container_name: nginx-wallet
@@ -38,14 +37,9 @@ services:
       - "80:80"
     depends_on:
       - frontend
-      - game-list-api
-      - postgre-wallet
     volumes:
-      - .frontend/build: /var/www/html
+      - ./frontend/build:/var/www/html
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      
-      
 
 volumes:
   postgre-wallet-volume:
-  front-volume: 
