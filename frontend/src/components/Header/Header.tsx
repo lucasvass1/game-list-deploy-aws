@@ -43,7 +43,7 @@ export function Header({ toggleSideBar, isSidebarOpen }: HeaderProps) {
         <Flex>
           <Row>
             {handleSideBar()}
-            <Title>Games</Title>
+            <Title>Jogos</Title>
           </Row>
         </Flex>
       </HeaderContainer>
@@ -56,7 +56,7 @@ export function Header({ toggleSideBar, isSidebarOpen }: HeaderProps) {
         <Flex>
           <Row>
             {handleSideBar()}
-            <Title>Categories</Title>
+            <Title>Categorias</Title>
           </Row>
         </Flex>
       </HeaderContainer>
@@ -69,7 +69,7 @@ export function Header({ toggleSideBar, isSidebarOpen }: HeaderProps) {
         <Flex>
           <Row>
             {handleSideBar()}
-            <Title>Plataforms</Title>
+            <Title>Plataformas</Title>
           </Row>
         </Flex>
       </HeaderContainer>

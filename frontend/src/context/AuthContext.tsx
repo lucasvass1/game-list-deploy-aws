@@ -39,7 +39,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const { mutate: mutateUserLogin } = useMutation({
     mutationFn: login,
     onSuccess: data => {
-      toast.success('Login successful!');
+      toast.success('Login realizado com sucesso!');
       storageUserAndTokenSave(data.user, data.token);
       setUser(data.user);
     },
@@ -49,10 +49,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return;
       }
       if (error.message) {
-        toast.error(`auth: ${error.message}`);
+        toast.error(`autenticação: ${error.message}`);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
 

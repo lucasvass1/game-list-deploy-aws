@@ -34,7 +34,7 @@ export function Form({
     e.preventDefault();
 
     if (!email.length || !password.length) {
-      toast.error('Fill in all fields');
+      toast.error('Preencha todos os campos');
       return;
     }
     signIn(email, password);
@@ -50,8 +50,8 @@ export function Form({
 
       <ContainerForm onSubmit={handleLogin}>
         <Input
-          label="Email"
-          placeholder="Enter your email"
+          label="E-mail"
+          placeholder="Digite seu e-mail"
           name="email"
           type="email"
           onChange={e => setEmail(e.target.value)}
@@ -59,15 +59,15 @@ export function Form({
         />
 
         <Input
-          label="Password"
-          placeholder="Enter your password"
+          label="Senha"
+          placeholder="Digite sua senha"
           name="password"
           type="password"
           onChange={e => setPassword(e.target.value)}
           value={password}
         />
 
-        <ButtonLogin type="submit" name="LOGIN" />
+        <ButtonLogin type="submit" name="ENTRAR" />
       </ContainerForm>
       <div>
         <TextLogin>

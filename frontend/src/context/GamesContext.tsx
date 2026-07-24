@@ -95,7 +95,7 @@ export function GamesProvider({ children }: GamesProviderProps) {
   const { mutate: mutateAddGame } = useMutation({
     mutationFn: fetchGameCreate,
     onSuccess: () => {
-      toast.success('Game added successfully!');
+      toast.success('Jogo adicionado com sucesso!');
       handleClearFilters();
     },
     onError: (error: IPropsErrosRequest) => {
@@ -107,13 +107,13 @@ export function GamesProvider({ children }: GamesProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
   const { mutate: mutateUpdateGame } = useMutation({
     mutationFn: fetchGameUpdate,
     onSuccess: () => {
-      toast.success('Game added successfully!');
+      toast.success('Jogo atualizado com sucesso!');
       handleClearFilters();
     },
     onError: (error: IPropsErrosRequest) => {
@@ -125,13 +125,13 @@ export function GamesProvider({ children }: GamesProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
   const { mutate: mutateDeleteGame } = useMutation({
     mutationFn: fetchGameDelete,
     onSuccess: () => {
-      toast.success('Game remove successfully!');
+      toast.success('Jogo removido com sucesso!');
       handleClearFilters();
     },
     onError: (error: IPropsErrosRequest) => {
@@ -143,7 +143,7 @@ export function GamesProvider({ children }: GamesProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
 
@@ -161,7 +161,7 @@ export function GamesProvider({ children }: GamesProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
 

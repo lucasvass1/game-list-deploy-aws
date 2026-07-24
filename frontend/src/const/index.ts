@@ -41,19 +41,19 @@ export const URL_DEFAULT_IMAGE =
 
 export const PLATFORM_MODAL_CONFIG = {
   CREATE: {
-    title: 'New Platform',
-    button: 'Save Platform +',
+    title: 'Nova plataforma',
+    button: 'Salvar plataforma +',
   },
   UPDATE: {
-    title: 'Edit Platform',
-    button: 'Edit Platform +',
+    title: 'Editar plataforma',
+    button: 'Editar plataforma +',
   },
   VIEW: {
-    title: 'Details Platform',
+    title: 'Detalhes da plataforma',
     button: '',
   },
   DELETE: {
-    title: 'Delete Platform',
+    title: 'Excluir plataforma',
     button: '',
   },
 } as const;

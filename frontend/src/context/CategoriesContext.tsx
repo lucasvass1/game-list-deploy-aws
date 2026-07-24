@@ -65,7 +65,7 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
   const { mutate: mutateAddCategory } = useMutation({
     mutationFn: fetchCategoryCreate,
     onSuccess: () => {
-      toast.success('Category added successfully!');
+      toast.success('Categoria adicionada com sucesso!');
       mutateLoadCategoriesList({
         page,
       });
@@ -80,13 +80,13 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
   const { mutate: mutateUpdateCategory } = useMutation({
     mutationFn: fetchCategoryUpdate,
     onSuccess: () => {
-      toast.success('Category updated successfully!');
+      toast.success('Categoria atualizada com sucesso!');
       mutateLoadCategoriesList({
         page,
       });
@@ -101,13 +101,13 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
   const { mutate: mutateDeleteCategory } = useMutation({
     mutationFn: fetchCategoryDelete,
     onSuccess: () => {
-      toast.success('Category remove successfully!');
+      toast.success('Categoria removida com sucesso!');
       mutateLoadCategoriesList({
         page,
       });
@@ -122,7 +122,7 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
 
@@ -141,7 +141,7 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
 

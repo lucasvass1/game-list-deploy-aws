@@ -19,7 +19,7 @@ const ModalGameTitle: React.FC<ModalGameTitleProps> = ({
     isOpen && (
       <S.FormGroup>
         <S.Label>
-          Title<S.Required>*</S.Required>
+          Título<S.Required>*</S.Required>
         </S.Label>
         <S.Input
           isDisabled={isDisabled}

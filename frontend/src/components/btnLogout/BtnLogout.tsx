@@ -13,7 +13,7 @@ export function BtnLogout() {
   return (
     <S.Container>
       <S.Button onClick={handleLogout}>
-        <S.Text>Logout</S.Text>
+        <S.Text>Sair</S.Text>
         <span>
           <img src={iconeLogout} alt="Icon" />
         </span>

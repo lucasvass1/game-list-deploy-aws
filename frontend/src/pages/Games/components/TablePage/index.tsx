@@ -34,8 +34,8 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
       <Modal
         isOpen={isUpdate || isView}
         onClose={close}
-        title={isView ? 'View Game' : 'Edit Game'}
-        buttonTitle="UPDATE"
+        title={isView ? 'Visualizar jogo' : 'Editar jogo'}
+        buttonTitle="ATUALIZAR"
         onSave={handleSave}
         isFavorite
         isDates
@@ -52,17 +52,17 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
         isOpen={isDelete}
         onClose={close}
         onDelete={handleDelete}
-        message="Deleting this game will remove it permanently from the system. This action is not reversible."
+        message="Excluir este jogo o removerá permanentemente do sistema. Essa ação não pode ser desfeita."
       />
       {data?.length ? (
         <Table
           headers={[
             ' ',
-            'Title',
-            'Description',
-            'Category',
-            'Release Date',
-            'Favorite',
+            'Título',
+            'Descrição',
+            'Categoria',
+            'Data de lançamento',
+            'Favorito',
             ' ',
           ]}
           data={data.map(game => [
@@ -86,7 +86,7 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
           onSort={handleSort}
         />
       ) : (
-        <MessageEmpty message={message ?? 'No games found'} />
+        <MessageEmpty message={message ?? 'Nenhum jogo encontrado'} />
       )}
     </>
   );

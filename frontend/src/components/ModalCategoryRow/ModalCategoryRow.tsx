@@ -38,7 +38,7 @@ export const ModalCategoryRow = ({
     <>
       <S.FormGroup>
         <S.Label>
-          Category<S.Required>*</S.Required>
+          Categoria<S.Required>*</S.Required>
         </S.Label>
         <S.Select
           isDisabled={isDisabled}
@@ -48,7 +48,7 @@ export const ModalCategoryRow = ({
           onChange={handleInputChange}
         >
           <option value="" disabled>
-            Select category
+            Selecione a categoria
           </option>
           {dataCategoryList?.categories?.map(category => (
             <option key={category.id} value={category.id}>
@@ -59,7 +59,7 @@ export const ModalCategoryRow = ({
       </S.FormGroup>
 
       <S.FormGroup>
-        <S.Label>Platform</S.Label>
+        <S.Label>Plataforma</S.Label>
         <S.Select
           isDisabled={isDisabled}
           disabled={isDisabled}
@@ -68,7 +68,7 @@ export const ModalCategoryRow = ({
           onChange={handleInputChange}
         >
           <option value="" disabled>
-            Select platform
+            Selecione a plataforma
           </option>
           {dataPlataformList?.plataforms.map(platform => (
             <option key={platform?.id} value={platform?.id}>

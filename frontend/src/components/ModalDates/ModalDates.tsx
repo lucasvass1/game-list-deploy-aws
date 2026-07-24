@@ -22,7 +22,7 @@ export const ModalDates = ({
     <>
       <S.FormGroup>
         <S.Label>
-          Acquisition date<S.Required>*</S.Required>
+          Data de aquisição<S.Required>*</S.Required>
         </S.Label>
         <S.Input
           isDisabled={isDisabled}
@@ -31,12 +31,12 @@ export const ModalDates = ({
           name="acquisitionDate"
           value={formData.acquisitionDate}
           onChange={handleInputChange}
-          placeholder="DD/MM/YYYY"
+          placeholder="DD/MM/AAAA"
         />
       </S.FormGroup>
       <S.FormGroup>
         <S.Label>
-          Finish date<S.Required>*</S.Required>
+          Data de conclusão<S.Required>*</S.Required>
         </S.Label>
         <S.Input
           isDisabled={isDisabled}
@@ -45,7 +45,7 @@ export const ModalDates = ({
           name="finishDate"
           value={formData.finishDate}
           onChange={handleInputChange}
-          placeholder="DD/MM/YYYY"
+          placeholder="DD/MM/AAAA"
         />
       </S.FormGroup>
     </>

@@ -22,7 +22,7 @@ export const ModalUrl = ({
 
   return (
     <S.FormGroup>
-      <S.Label>Image (url)</S.Label>
+      <S.Label>Imagem (url)</S.Label>
       <S.Input
         isDisabled={isDisabled}
         disabled={isDisabled}

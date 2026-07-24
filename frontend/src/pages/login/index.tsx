@@ -6,11 +6,11 @@ export function Login() {
   return (
     <Container>
       <Form
-        title="Login"
-        instruction="Enter your credentials to access your account"
-        login="Don’t have an account?"
+        title="Entrar"
+        instruction="Digite suas credenciais para acessar sua conta"
+        login="Não tem uma conta?"
         linkLogin="/register"
-        textLink="Register now"
+        textLink="Cadastre-se agora"
       />
     </Container>
   );

@@ -55,7 +55,7 @@ export interface PlatformFormData {
 const Modal: React.FC<ModalSelectInputProps> = ({
   isOpen,
   onClose,
-  title = 'New game',
+  title = 'Novo jogo',
   onSave,
   isFavorite = false,
   isDates = false,

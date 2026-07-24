@@ -105,7 +105,7 @@ export const PlataformTablePage = ({
         isOpen={isDelete}
         onClose={close}
         onDelete={handleDelete}
-        message="Deleting this game will remove permanently from system. This action is not reversible."
+        message="Excluir esta plataforma a removerá permanentemente do sistema. Essa ação não pode ser desfeita."
       />
       <div
         style={{
@@ -113,17 +113,17 @@ export const PlataformTablePage = ({
           borderBottom: '1px solid #e5e5e5',
         }}
       >
-        <AddNewGameButton onClick={openCreate}>NEW PLATFORM</AddNewGameButton>
+        <AddNewGameButton onClick={openCreate}>NOVA PLATAFORMA</AddNewGameButton>
       </div>
       {data?.length ? (
         <Table
           headers={[
             ' ',
-            'Title',
-            'Company',
-            'Acquisition year',
-            'Created at',
-            'Update at',
+            'Título',
+            'Empresa',
+            'Ano de aquisição',
+            'Criado em',
+            'Atualizado em',
             ' ',
           ]}
           data={
@@ -155,7 +155,7 @@ export const PlataformTablePage = ({
           hasIconFavorite={false}
         />
       ) : (
-        <MessageEmpty message={message ?? 'No plataforms found'} />
+        <MessageEmpty message={message ?? 'Nenhuma plataforma encontrada'} />
       )}
     </>
   );

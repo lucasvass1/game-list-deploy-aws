@@ -18,7 +18,7 @@ gamesRoutes.post(
   async (req: Request, res: Response) => {
     try {
       if (!req.user) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
       const { id } = req.user;
@@ -34,7 +34,7 @@ gamesRoutes.post(
       } = req.body;
 
       if (!title || !status || !categoryId) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
 
@@ -53,24 +53,24 @@ gamesRoutes.post(
     } catch (error) {
       console.log('error', error);
       if (error instanceof GameAlreadyExistsError) {
-        res.status(409).json({ message: 'Game already exists.' });
+        res.status(409).json({ message: 'Jogo já existe.' });
         return;
       }
       if (error instanceof CategoryNotFoundError) {
-        res.status(404).json({ message: 'Category not found.' });
+        res.status(404).json({ message: 'Categoria não encontrada.' });
         return;
       }
       if (error instanceof InvalidStatusGameError) {
-        res.status(400).json({ message: 'Invalid status game.' });
+        res.status(400).json({ message: 'Status do jogo inválido.' });
         return;
       }
       if (error instanceof EndDateGameRequiredError) {
         res.status(400).json({
-          message: 'End date is required when status is DONE or ABANDONED',
+          message: 'Data de término é obrigatória quando o status é DONE ou ABANDONED',
         });
         return;
       }
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },
@@ -83,7 +83,7 @@ gamesRoutes.put(
       const { id } = req.params;
 
       if (!id) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
 
@@ -112,20 +112,20 @@ gamesRoutes.put(
     } catch (error) {
       console.log('error', error);
       if (error instanceof GameNotFoundError) {
-        res.status(404).json({ message: 'Game not found.' });
+        res.status(404).json({ message: 'Jogo não encontrado.' });
         return;
       }
       if (error instanceof InvalidStatusGameError) {
-        res.status(400).json({ message: 'Invalid status game.' });
+        res.status(400).json({ message: 'Status do jogo inválido.' });
         return;
       }
       if (error instanceof EndDateGameRequiredError) {
         res.status(400).json({
-          message: 'End date is required when status is DONE or ABANDONED',
+          message: 'Data de término é obrigatória quando o status é DONE ou ABANDONED',
         });
         return;
       }
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },
@@ -138,30 +138,30 @@ gamesRoutes.delete(
     try {
       const { id } = req.params;
       if (!id) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
       if (!req.user) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
       const { id: userId } = req.user;
       await gamesController.delete(id, userId);
-      res.status(200).json({ message: 'Game deleted.' });
+      res.status(200).json({ message: 'Jogo excluído.' });
       return;
     } catch (error) {
       if (error instanceof UnauthorizedError) {
         res
           .status(403)
-          .json({ message: 'You are not authorized to perform this action.' });
+          .json({ message: 'Você não tem permissão para realizar esta ação.' });
         return;
       }
       if (error instanceof GameNotFoundError) {
-        res.status(404).json({ message: 'Game not found.' });
+        res.status(404).json({ message: 'Jogo não encontrado.' });
         return;
       }
       console.log('error', error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },
@@ -179,7 +179,7 @@ gamesRoutes.get(
       return;
     } catch (error) {
       console.log('error', error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },
@@ -190,7 +190,7 @@ gamesRoutes.get(
   async (req: Request, res: Response) => {
     try {
       if (!req.user) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
 
@@ -224,7 +224,7 @@ gamesRoutes.get(
       return;
     } catch (error) {
       console.log('error', error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },
@@ -236,21 +236,21 @@ gamesRoutes.patch(
   async (req: Request, res: Response) => {
     try {
       if (!req.user) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
       const { gameId } = req.params;
       const { id: userId } = req.user;
       await gamesController.toggleFavorite(gameId, userId);
-      res.status(200).json({ message: 'Game favorite updated.' });
+      res.status(200).json({ message: 'Favorito do jogo atualizado.' });
       return;
     } catch (error) {
       console.log('error', error);
       if (error instanceof GameNotFoundError) {
-        res.status(404).json({ message: 'Game not found.' });
+        res.status(404).json({ message: 'Jogo não encontrado.' });
         return;
       }
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },
@@ -259,7 +259,7 @@ gamesRoutes.patch(
 gamesRoutes.get('/favorite', ensureAuthenticated, async (req, res) => {
   try {
     if (!req.user) {
-      res.status(400).json({ message: 'Bad request.' });
+      res.status(400).json({ message: 'Requisição inválida.' });
       return;
     }
     const { id: userId } = req.user;
@@ -268,7 +268,7 @@ gamesRoutes.get('/favorite', ensureAuthenticated, async (req, res) => {
     return;
   } catch (error) {
     console.log('error', error);
-    res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ message: 'Erro interno do servidor.' });
     return;
   }
 });

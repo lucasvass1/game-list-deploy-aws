@@ -18,11 +18,11 @@ plataformRoutes.post(
   async (req: Request, res: Response) => {
     try {
       if (!req.user) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
       if (!req.body.title) {
-        res.status(400).json({ message: 'Missing required fields.' });
+        res.status(400).json({ message: 'Campos obrigatórios ausentes.' });
         return;
       }
       const { id } = req.user;
@@ -40,10 +40,10 @@ plataformRoutes.post(
     } catch (error) {
       console.log('error register', error);
       if (error instanceof PlataformAlreadyExistsError) {
-        res.status(409).json({ message: 'Plataform already exists.' });
+        res.status(409).json({ message: 'Plataforma já existe.' });
         return;
       }
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },
@@ -55,7 +55,7 @@ plataformRoutes.get(
   async (req: Request, res: Response) => {
     try {
       if (!req.user) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
 
@@ -83,7 +83,7 @@ plataformRoutes.get(
       return;
     } catch (error) {
       console.log('error', error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },
@@ -97,12 +97,12 @@ plataformRoutes.put(
       const { id } = req.params;
 
       if (!id) {
-        res.status(400).json({ message: 'Missing required fields.' });
+        res.status(400).json({ message: 'Campos obrigatórios ausentes.' });
         return;
       }
 
       if (!req.user) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
 
@@ -127,14 +127,14 @@ plataformRoutes.put(
       if (error instanceof UnauthorizedError) {
         res
           .status(403)
-          .json({ message: 'You are not authorized to perform this action.' });
+          .json({ message: 'Você não tem permissão para realizar esta ação.' });
         return;
       }
       if (error instanceof PlataformNotFoundError) {
-        res.status(404).json({ message: 'Plataform not found.' });
+        res.status(404).json({ message: 'Plataforma não encontrada.' });
         return;
       }
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },
@@ -147,33 +147,33 @@ plataformRoutes.delete(
     try {
       const { id } = req.params;
       if (!id) {
-        res.status(400).json({ message: 'Missing required fields.' });
+        res.status(400).json({ message: 'Campos obrigatórios ausentes.' });
         return;
       }
 
       if (!req.user) {
-        res.status(400).json({ message: 'Bad request.' });
+        res.status(400).json({ message: 'Requisição inválida.' });
         return;
       }
 
       const { id: userId } = req.user;
 
       await plataformController.delete(id, userId);
-      res.status(200).json({ message: 'Plataform deleted.' });
+      res.status(200).json({ message: 'Plataforma excluída.' });
       return;
     } catch (error) {
       if (error instanceof UnauthorizedError) {
         res
           .status(403)
-          .json({ message: 'You are not authorized to perform this action.' });
+          .json({ message: 'Você não tem permissão para realizar esta ação.' });
         return;
       }
       if (error instanceof PlataformNotFoundError) {
-        res.status(404).json({ message: 'Plataform not found.' });
+        res.status(404).json({ message: 'Plataforma não encontrada.' });
         return;
       }
       console.log('error', error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },

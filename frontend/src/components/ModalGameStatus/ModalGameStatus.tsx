@@ -17,7 +17,11 @@ export const ModalGameStatus = ({
   handleInputChange,
   isDisabled,
 }: ModalGameStatusProps) => {
-  const statuses = ['PLAYING', 'DONE', 'ABANDONED'];
+  const statuses = [
+    { value: 'PLAYING', label: 'Jogando' },
+    { value: 'DONE', label: 'Concluído' },
+    { value: 'ABANDONED', label: 'Abandonado' },
+  ];
 
   if (!isOpen) return null;
   return (
@@ -33,11 +37,11 @@ export const ModalGameStatus = ({
         onChange={handleInputChange}
       >
         <option value="" disabled>
-          Select status
+          Selecione o status
         </option>
         {statuses.map(status => (
-          <option key={status} value={status}>
-            {status}
+          <option key={status.value} value={status.value}>
+            {status.label}
           </option>
         ))}
       </S.Select>

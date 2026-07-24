@@ -81,14 +81,14 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
 
   const { mutate: mutateAddPlataform } = useMutation({
     mutationFn: fetchPlataformCreate,
     onSuccess: () => {
-      toast.success('Platform added successfuly!');
+      toast.success('Plataforma adicionada com sucesso!');
       handleClearFilters();
       mutateLoadPlatformList({
         page,
@@ -105,7 +105,7 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
 
@@ -128,7 +128,7 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
   const { mutate: mutateUpdatePlatform } = useMutation({
@@ -150,7 +150,7 @@ export function PlataformsProvider({ children }: PlataformsProviderProps) {
         toast.error(error.message);
         return;
       }
-      toast.error('Bad Request');
+      toast.error('Requisição inválida');
     },
   });
 

@@ -15,10 +15,10 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   isOpen,
   onClose,
   onDelete,
-  title = "Are you sure?",
-  message = "Deleting this category will remove all game associated. This action is not reversible.",
-  cancelText = "No, cancel action",
-  deleteText = "Yes, delete this",
+  title = "Tem certeza?",
+  message = "Excluir este item removerá todos os jogos associados. Essa ação não pode ser desfeita.",
+  cancelText = "Não, cancelar",
+  deleteText = "Sim, excluir",
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 

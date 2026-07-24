@@ -14,7 +14,7 @@ userRoutes.post('/login', async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Basic ')) {
-      res.status(401).json({ message: 'Missing Authorization header.' });
+      res.status(401).json({ message: 'Cabeçalho de autorização ausente.' });
       return;
     }
     const base64Credentials = authHeader.split(' ')[1];
@@ -25,7 +25,7 @@ userRoutes.post('/login', async (req: Request, res: Response) => {
     const [email, password] = credentials.split(':');
 
     if (!email || !password) {
-      res.status(400).json({ message: 'Invalid Authorization format.' });
+      res.status(400).json({ message: 'Formato de autorização inválido.' });
       return;
     }
     const user = await usersController.login(email, password);
@@ -34,10 +34,10 @@ userRoutes.post('/login', async (req: Request, res: Response) => {
   } catch (error) {
     console.log('error', error);
     if (error instanceof InvalidCredentialsError) {
-      res.status(401).json({ message: 'Invalid credentials.' });
+      res.status(401).json({ message: 'Credenciais inválidas.' });
       return;
     }
-    res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ message: 'Erro interno do servidor.' });
     return;
   }
 });
@@ -45,7 +45,7 @@ userRoutes.post('/login', async (req: Request, res: Response) => {
 userRoutes.post('/register', async (req: Request, res: Response) => {
   try {
     if (!req.body.name || !req.body.email || !req.body.password) {
-      res.status(400).json({ message: 'Missing required fields.' });
+      res.status(400).json({ message: 'Campos obrigatórios ausentes.' });
       return;
     }
     const user = await usersController.register({
@@ -58,10 +58,10 @@ userRoutes.post('/register', async (req: Request, res: Response) => {
   } catch (error) {
     console.log('error register', error);
     if (error instanceof UsersAlreadyExistsError) {
-      res.status(409).json({ message: 'User already exists.' });
+      res.status(409).json({ message: 'Usuário já existe.' });
       return;
     }
-    res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ message: 'Erro interno do servidor.' });
     return;
   }
 });
@@ -75,7 +75,7 @@ userRoutes.get(
         const { id } = req.user;
 
         if (!id) {
-          res.status(400).json({ message: 'Bad request' });
+          res.status(400).json({ message: 'Requisição inválida' });
           return;
         }
 
@@ -83,11 +83,11 @@ userRoutes.get(
         res.status(200).json(stats);
         return;
       }
-      res.status(400).json({ message: 'Bad request.' });
+      res.status(400).json({ message: 'Requisição inválida.' });
       return;
     } catch (error) {
       console.log('error', error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Erro interno do servidor.' });
       return;
     }
   },

@@ -27,15 +27,15 @@ export const Sidebar: React.FC = () => {
           <LogoImg src={Logo} alt="Logo" />
         </LogoContainer>
         <Nav>
-          <NavItem to="/dashboard" icon={homeIcon} label="Home" />
-          <NavItem to="/games" icon={gamepadIcon} label="Games" />
-          <NavItem to="/categories" icon={tagIcon} label="Categories" />
-          <NavItem to="/plataforms" icon={plataformIcon} label="Plataforms" />
+          <NavItem to="/dashboard" icon={homeIcon} label="Início" />
+          <NavItem to="/games" icon={gamepadIcon} label="Jogos" />
+          <NavItem to="/categories" icon={tagIcon} label="Categorias" />
+          <NavItem to="/plataforms" icon={plataformIcon} label="Plataformas" />
         </Nav>
       </SidebarContainer>
 
       <LogoutButton onClick={signOut}>
-        <span>Logout</span>
+        <span>Sair</span>
         <Icon src={logoutIcon} alt="Logout" />
       </LogoutButton>
     </Aside>

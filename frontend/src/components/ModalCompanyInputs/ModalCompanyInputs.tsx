@@ -19,7 +19,7 @@ export const ModalCompanyInputs: React.FC<ModalCompanyInputsProps> = ({
     isOpen && (
       <>
         <S.FormGroup>
-          <S.Label>Company</S.Label>
+          <S.Label>Empresa</S.Label>
           <S.Input
             isDisabled={isDisabled}
             disabled={isDisabled}
@@ -31,7 +31,7 @@ export const ModalCompanyInputs: React.FC<ModalCompanyInputsProps> = ({
           />
         </S.FormGroup>
         <S.FormGroup>
-          <S.Label>Acquisition year</S.Label>
+          <S.Label>Ano de aquisição</S.Label>
           <S.Input
             isDisabled={isDisabled}
             disabled={isDisabled}
@@ -43,7 +43,7 @@ export const ModalCompanyInputs: React.FC<ModalCompanyInputsProps> = ({
           />
         </S.FormGroup>
         <S.FormGroup>
-          <S.Label>Image (url)</S.Label>
+          <S.Label>Imagem (url)</S.Label>
           <S.Input
             isDisabled={isDisabled}
             disabled={isDisabled}

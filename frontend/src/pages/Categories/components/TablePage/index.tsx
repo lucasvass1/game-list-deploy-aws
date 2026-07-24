@@ -29,8 +29,8 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Edit Category"
-        buttonTitle="UPDATE"
+        title="Editar categoria"
+        buttonTitle="ATUALIZAR"
         onSave={formData => {
           handleUpdateCategory({
             id: categorySelected as string,
@@ -52,11 +52,11 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
           handleRemoveCategory(categorySelected ?? '');
           setIsDeleteModalOpen(false);
         }}
-        message="Deleting this category will remove permanently from system. This action is not reversible."
+        message="Excluir esta categoria a removerá permanentemente do sistema. Essa ação não pode ser desfeita."
       />
       {data?.length ? (
         <Table
-          headers={['Title', 'Description', 'Created at', 'Updated at', ' ']}
+          headers={['Título', 'Descrição', 'Criado em', 'Atualizado em', ' ']}
           data={
             data?.map(category => [
               category.title,
@@ -89,7 +89,7 @@ export const TablePage = ({ data, message }: ITablePageProps) => {
           }}
         />
       ) : (
-        <MessageEmpty message={message ?? 'No categories found'} />
+        <MessageEmpty message={message ?? 'Nenhuma categoria encontrada'} />
       )}
     </>
   );

@@ -54,7 +54,7 @@ export function FormRegister({
   const { mutate: mutateRegisterUser } = useMutation({
     mutationFn: register,
     onSuccess: (data: RegisterUserResponse) => {
-      toast.success('User registered successfully!');
+      toast.success('Usuário cadastrado com sucesso!');
       signIn(email, password);
       navigate('/');
     },
@@ -63,7 +63,7 @@ export function FormRegister({
         toast.error(error?.response?.data?.message);
         return;
       }
-      toast.error(error.message || 'Bad Request');
+      toast.error(error.message || 'Requisição inválida');
     },
   });
 
@@ -81,26 +81,26 @@ export function FormRegister({
     const validationErrors: Record<string, string> = {};
 
     if (!name.trim()) {
-      validationErrors.name = 'Name is required.';
+      validationErrors.name = 'Nome é obrigatório.';
     } else if (name.trim().length < 3) {
-      validationErrors.name = 'Name must be at least 3 characters.';
+      validationErrors.name = 'O nome deve ter pelo menos 3 caracteres.';
     }
 
     if (!email.trim()) {
-      validationErrors.email = 'Email is required.';
+      validationErrors.email = 'E-mail é obrigatório.';
     } else if (!validateEmail(email.trim())) {
-      validationErrors.email = 'Email is not valid.';
+      validationErrors.email = 'E-mail inválido.';
     }
 
     if (!password) {
-      validationErrors.password = 'Password is required.';
+      validationErrors.password = 'Senha é obrigatória.';
     } else if (!validatePassword(password)) {
       validationErrors.password =
-        'Password must be at least 8 characters and include letters, numbers, and special characters.';
+        'A senha deve ter pelo menos 8 caracteres e incluir letras, números e caracteres especiais.';
     }
 
     if (password !== confirmPassword) {
-      validationErrors.confirmPassword = 'Passwords do not match.';
+      validationErrors.confirmPassword = 'As senhas não coincidem.';
     }
 
     if (Object.keys(validationErrors).length > 0) {
@@ -128,8 +128,8 @@ export function FormRegister({
 
       <ContainerForm onSubmit={handleSubmit}>
         <Input
-          label="Full Name"
-          placeholder="Your name"
+          label="Nome completo"
+          placeholder="Seu nome"
           name="name"
           type="text"
           value={name}
@@ -138,8 +138,8 @@ export function FormRegister({
         />
 
         <Input
-          label="Email"
-          placeholder="Your email"
+          label="E-mail"
+          placeholder="Seu e-mail"
           name="email"
           type="email"
           value={email}
@@ -148,8 +148,8 @@ export function FormRegister({
         />
 
         <Input
-          label="Password"
-          placeholder="Enter your password"
+          label="Senha"
+          placeholder="Digite sua senha"
           name="password"
           type="password"
           value={password}
@@ -164,8 +164,8 @@ export function FormRegister({
         )}
 
         <Input
-          label="Confirm Password"
-          placeholder="Repeat your password"
+          label="Confirmar senha"
+          placeholder="Repita sua senha"
           name="confirmPassword"
           type="password"
           value={confirmPassword}
@@ -173,7 +173,7 @@ export function FormRegister({
           error={errors.confirmPassword}
         />
 
-        <ButtonLogin type="submit" name="SIGN UP" />
+        <ButtonLogin type="submit" name="CADASTRAR" />
       </ContainerForm>
 
       <div>

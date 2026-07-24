@@ -30,7 +30,7 @@ export const ModalFavorite = ({
           onChange={handleInputChange}
           id="favorite-checkbox"
         />
-        <S.Label htmlFor="favorite-checkbox">Favorite</S.Label>
+        <S.Label htmlFor="favorite-checkbox">Favorito</S.Label>
       </S.CheckboxContainer>
     </S.FormGroup>
   );

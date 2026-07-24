@@ -65,7 +65,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   return (
     <Container>
       <NavButton disabled={currentPage === 1} onClick={handlePrevious}>
-        <FaArrowLeft /> Previous
+        <FaArrowLeft /> Anterior
       </NavButton>
 
       {getPageNumbers().map((page, index) =>
@@ -83,7 +83,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       )}
 
       <NavButton disabled={currentPage === totalPages} onClick={handleNext}>
-        <span>Next</span> <FaArrowRight />
+        <span>Próximo</span> <FaArrowRight />
       </NavButton>
     </Container>
   );

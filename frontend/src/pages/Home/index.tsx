@@ -7,9 +7,9 @@ import { Container, ContentItems, Eyebrow, Hero, Subtitle, Title } from './style
 
 function getGreeting() {
   const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 18) return 'Good afternoon';
-  return 'Good evening';
+  if (hour < 12) return 'Bom dia';
+  if (hour < 18) return 'Boa tarde';
+  return 'Boa noite';
 }
 
 export function Home() {
@@ -20,35 +20,35 @@ export function Home() {
     <ContainerPage>
       <Container>
         <Hero>
-          <Eyebrow>Dashboard</Eyebrow>
+          <Eyebrow>Painel</Eyebrow>
           <Title>{getGreeting()}, {user?.name}</Title>
-          <Subtitle>Here&apos;s a quick overview of your game library.</Subtitle>
+          <Subtitle>Aqui está um resumo rápido da sua biblioteca de jogos.</Subtitle>
         </Hero>
 
         <ContentItems>
           <Card
-            title="Games"
+            title="Jogos"
             dinamicNumber={data?.games ?? 0}
             buttonRedirect="/games?create=true"
             iconImage="game-controller-outline 1.svg"
             altImage="game-controller-outline 1"
           />
           <Card
-            title="Categories"
+            title="Categorias"
             dinamicNumber={data?.categories ?? 0}
             buttonRedirect="/categories?create=true"
             iconImage="categories-outline.svg"
             altImage="categories-outline 1"
           />
           <Card
-            title="Platforms"
+            title="Plataformas"
             dinamicNumber={data?.plataforms ?? 0}
             buttonRedirect="/plataforms?create=true"
             iconImage="plataforms-outline.svg"
             altImage="plataforms-outline 1"
           />
           <Card
-            title="Favorites"
+            title="Favoritos"
             dinamicNumber={data?.favorites ?? 0}
             buttonRedirect="/favorites"
             iconImage="star-outline.svg"

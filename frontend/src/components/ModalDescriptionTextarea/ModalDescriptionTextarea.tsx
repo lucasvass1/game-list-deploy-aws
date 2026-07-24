@@ -18,14 +18,14 @@ const ModalDescriptionTextarea: React.FC<ModalDescriptionTextareaProps> = ({
   return (
     isOpen && (
       <S.FormGroup>
-        <S.Label>Description</S.Label>
+        <S.Label>Descrição</S.Label>
         <S.Textarea
           isDisabled={isDisabled}
           disabled={isDisabled}
           name="description"
           value={formData.description}
           onChange={handleInputChange}
-          placeholder="Amazing game"
+          placeholder="Jogo incrível"
         />
       </S.FormGroup>
     )

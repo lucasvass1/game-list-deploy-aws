@@ -53,8 +53,8 @@ export const FiltersTable = () => {
       <Modal
         isOpen={isShowModalAddGame}
         onClose={() => setIsShowModalAddGame(false)}
-        title="New Game"
-        buttonTitle="CREATE"
+        title="Novo jogo"
+        buttonTitle="CRIAR"
         onSave={formData => {
           if (!validateCreateGamesForm(formData)) return;
           handleCreateGame({
@@ -85,14 +85,14 @@ export const FiltersTable = () => {
           }}
         >
           <AddNewGameButton onClick={() => setIsShowModalAddGame(true)}>
-            NEW GAME
+            NOVO JOGO
           </AddNewGameButton>
         </div>
         <ContainerRow>
-          <Title>Filters</Title>
+          <Title>Filtros</Title>
 
           <SearchInput
-            placeholder="Search"
+            placeholder="Buscar"
             type="text"
             name="search"
             id="search"
@@ -109,7 +109,7 @@ export const FiltersTable = () => {
               onChange={e => setCategorySelected(e.target.value)}
             >
               <option value="" disabled selected>
-                Select category
+                Selecione a categoria
               </option>
               {dataCategoryList?.categories?.map(category => (
                 <option key={category.id} value={category.id}>
@@ -125,15 +125,15 @@ export const FiltersTable = () => {
                 onChange={() => setIsFavorite(oldState => !oldState)}
                 checked={isFavorite}
               />
-              <label htmlFor="favorite">Favorite</label>
+              <label htmlFor="favorite">Favorito</label>
             </ContainerRow>
           </CategoryFavoriteWrapper>
         </ContainerRow>
 
         <ContainerButtons>
-          <ClearButton onClick={handleClearFilters}>Clear</ClearButton>
+          <ClearButton onClick={handleClearFilters}>Limpar</ClearButton>
           <SearchButton>
-            Search <IoIosSearch size={16} />
+            Buscar <IoIosSearch size={16} />
           </SearchButton>
         </ContainerButtons>
       </Container>

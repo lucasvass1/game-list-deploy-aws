@@ -19,7 +19,7 @@ const ModalCompanyTitle: React.FC<ModalCompanyTitleProps> = ({
     isOpen && (
       <S.FormGroup>
         <S.Label>
-          Platform name<S.Required>*</S.Required>
+          Nome da plataforma<S.Required>*</S.Required>
         </S.Label>
         <S.Input
           isDisabled={isDisabled}

@@ -29,14 +29,14 @@ export const Categories = () => {
           }}
         >
           <AddNewGameButton onClick={() => setModalOpen(true)}>
-            NEW CATEGORY
+            NOVA CATEGORIA
           </AddNewGameButton>
         </div>
         <Modal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
-          title="New Category"
-          buttonTitle="Save Category +"
+          title="Nova categoria"
+          buttonTitle="Salvar categoria +"
           onSave={formData => {
             handleCreateCategory({ ...formData });
             setModalOpen(false);

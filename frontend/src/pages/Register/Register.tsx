@@ -6,11 +6,11 @@ export function Register() {
   return (
     <Container>
       <FormRegister
-        title="Sign Up"
-        instruction="Register yourself to access the system"
-        login="Already have an account?"
+        title="Cadastro"
+        instruction="Cadastre-se para acessar o sistema"
+        login="Já tem uma conta?"
         linkLogin="/"
-        textLink="Login now"
+        textLink="Entrar agora"
       />
     </Container>
   );

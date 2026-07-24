@@ -8,7 +8,7 @@ interface CardButtonProps {
 }
 const CardButton = ({
   linkRedirect,
-  buttonTitle = 'Add new',
+  buttonTitle = 'Adicionar novo',
   isButton = false,
 }: CardButtonProps) => {
   if (!isButton) {
