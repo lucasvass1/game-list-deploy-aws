@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { User } from '@/domain/entities/user';
 import {
   PartialUser,
@@ -19,7 +20,7 @@ export class PrismaUsersRepository implements UsersRepository {
   async create(user: User): Promise<PartialUser | null> {
     const userData = await prisma.user.create({
       data: {
-        id: user.id ?? crypto.randomUUID(),
+        id: user.id ?? randomUUID(),
         password: user.password,
         name: user.name,
         email: user.email,

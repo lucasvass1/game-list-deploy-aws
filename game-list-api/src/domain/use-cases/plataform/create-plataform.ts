@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { Plataform, PlataformProps } from '@/domain/entities/plataform';
 import { PlataformAlreadyExistsError } from '@/domain/errors/plataform-already-exists-error';
 import { PlataformRepository } from '@/domain/repositories/plataform-repository';
@@ -29,7 +30,7 @@ export class CreatePlataformUseCase {
     const data: PlataformProps = {
       userId,
       title,
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       acquisitionYear,
       company,
       imageUrl,

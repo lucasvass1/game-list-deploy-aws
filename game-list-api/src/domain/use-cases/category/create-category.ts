@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { Category, CategoryProps } from '@/domain/entities/category';
 import { CategoryAlreadyExistsError } from '@/domain/errors/category-already-exists-error';
 import { CategoryRepository } from '@/domain/repositories/category-repository';
@@ -24,7 +25,7 @@ export class CreateCategoryUseCase {
       userId,
       title,
       description: description ?? null,
-      id: crypto.randomUUID(),
+      id: randomUUID(),
     };
 
     const categoryExists = await this.categoryRepository.findByName(title);

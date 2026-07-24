@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto';
+
 export interface GameProps {
   id?: string;
   title: string;
@@ -19,7 +21,7 @@ export class Game {
   constructor(props: GameProps) {
     this.props = {
       ...props,
-      id: props.id ?? crypto.randomUUID(),
+      id: props.id ?? randomUUID(),
       createdAt: props.createdAt ?? new Date(),
     };
   }

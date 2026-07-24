@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto';
+
 export interface PlataformProps {
   id?: string;
   title: string;
@@ -15,7 +17,7 @@ export class Plataform {
   constructor(props: PlataformProps) {
     this.props = {
       ...props,
-      id: props.id ?? crypto.randomUUID(),
+      id: props.id ?? randomUUID(),
       createdAt: props.createdAt ?? new Date(),
     };
   }
