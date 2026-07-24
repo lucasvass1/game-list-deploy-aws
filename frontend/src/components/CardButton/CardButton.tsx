@@ -15,9 +15,13 @@ const CardButton = ({
     return;
   }
   return (
-    <a href={linkRedirect} style={{ textDecoration: 'none' }}>
+    <a
+      href={linkRedirect}
+      onClick={(e) => e.stopPropagation()}
+      style={{ textDecoration: 'none' }}
+    >
       <S.CardButton>
-        <img src="add-outline 1.svg" alt="button icon" />
+        <S.PlusIcon>+</S.PlusIcon>
         <p>{buttonTitle}</p>
       </S.CardButton>
     </a>

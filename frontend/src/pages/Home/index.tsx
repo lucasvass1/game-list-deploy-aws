@@ -3,16 +3,27 @@ import ContainerPage from '../../components/ContainerPage';
 import { useGetUserStats } from '../../services/users/stats';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/Card/Card.tsx';
-import { Container, ContentItems, Subtitle, Title } from './styles';
+import { Container, ContentItems, Eyebrow, Hero, Subtitle, Title } from './styles';
+
+function getGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 18) return 'Good afternoon';
+  return 'Good evening';
+}
 
 export function Home() {
   const { user } = useAuth();
   const { data } = useGetUserStats(!!user?.id);
+
   return (
     <ContainerPage>
       <Container>
-        <Title>Hello, {user?.name}!</Title>
-        <Subtitle>Choose one of options below.</Subtitle>
+        <Hero>
+          <Eyebrow>Dashboard</Eyebrow>
+          <Title>{getGreeting()}, {user?.name}</Title>
+          <Subtitle>Here&apos;s a quick overview of your game library.</Subtitle>
+        </Hero>
 
         <ContentItems>
           <Card

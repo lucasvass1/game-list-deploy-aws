@@ -28,21 +28,23 @@ const Card = ({
 
   return (
     <S.CardContainer
-  onClick={handleClick}
-  role={isButton ? 'button' : undefined}
-  tabIndex={isButton ? 0 : -1}
-  onKeyDown={(e) => isButton && e.key === 'Enter' && handleClick()}
-  isClickable={isButton}
- >
-
-      <div>
-        <div>
+      onClick={handleClick}
+      role={isButton ? 'button' : undefined}
+      tabIndex={isButton ? 0 : -1}
+      onKeyDown={(e) => isButton && e.key === 'Enter' && handleClick()}
+      isClickable={isButton}
+    >
+      <S.CardTop>
+        <S.IconBadge>
           <S.CardImage src={iconImage} alt={altImage} />
-          <S.CardTitle>{title}</S.CardTitle>
-        </div>
+        </S.IconBadge>
         <CardButton linkRedirect={buttonRedirect} isButton={isButton} />
-      </div>
-      <S.CardNumber>{dinamicNumber}</S.CardNumber>
+      </S.CardTop>
+
+      <S.CardBody>
+        <S.CardTitle>{title}</S.CardTitle>
+        <S.CardNumber>{dinamicNumber}</S.CardNumber>
+      </S.CardBody>
     </S.CardContainer>
   );
 };
