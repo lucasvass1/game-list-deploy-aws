@@ -4,7 +4,6 @@ import {
   Title,
   Flex,
   Row,
-  Button,
   HeaderButton,
 } from './styles.ts';
 import { IoIosArrowDropleft } from 'react-icons/io';

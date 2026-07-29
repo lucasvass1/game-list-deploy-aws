@@ -3,7 +3,6 @@ import { createContext, useContext, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useAuth } from './AuthContext.tsx';
-import { useDebounce } from '../hooks/useDebounce.ts';
 import {
   fetchCategoryCreate,
   CategoryCreateRequest,
@@ -54,7 +53,6 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<PropsSortBy>();
   const [order, setOrder] = useState<PropsOrder>();
-  const debounceSearchInput = useDebounce(search, 2000);
 
   const handleClearFilters = () => {
     setSearch('');
