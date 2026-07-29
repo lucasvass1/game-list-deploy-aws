@@ -9,7 +9,13 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const corsOrigin = process.env.CORS_ORIGIN;
+
+app.use(
+  cors({
+    origin: corsOrigin ? corsOrigin.split(',') : true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

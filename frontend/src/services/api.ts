@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "/api", // Nginx redireciona isso para o backend
+  baseURL: process.env.REACT_APP_API_URL || "/api",
 });
 
 api.interceptors.request.use((config) => {
