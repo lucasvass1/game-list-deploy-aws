@@ -9,11 +9,25 @@ dotenv.config();
 
 const app = express();
 
-const corsOrigin = process.env.CORS_ORIGIN;
+const stripTrailingSlash = (value: string) => value.replace(/\/+$/, '');
+
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(origin =>
+      stripTrailingSlash(origin.trim()),
+    )
+  : null;
 
 app.use(
   cors({
-    origin: corsOrigin ? corsOrigin.split(',') : true,
+    origin: allowedOrigins
+      ? (origin, callback) => {
+          if (!origin || allowedOrigins.includes(stripTrailingSlash(origin))) {
+            callback(null, true);
+            return;
+          }
+          callback(new Error(`Origin ${origin} not allowed by CORS`));
+        }
+      : true,
   }),
 );
 app.use(express.json());
